@@ -6,6 +6,19 @@ export default {
   theme: {
     extend: {
       colors: {
+        ali: "#f50537",
+        black: "#000000",
+        white: "#ffffff",
+        slate: {
+          50: "#fafaf9",
+          100: "#f5f5f4",
+          200: "#e7e5e4",
+          400: "#a8a29e",
+          600: "#57534e",
+          800: "#292524",
+          900: "#1c1917",
+          950: "#0c0a09",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
