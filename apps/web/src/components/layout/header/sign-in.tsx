@@ -10,7 +10,7 @@ export function LoginButton({ className, ...props }: ButtonProps) {
   const session = useSession();
 
   return (
-    <Button asChild className={cn("rounded-full", className)} {...props}>
+    <Button asChild size={"sm"} {...props}>
       {session.status === "authenticated" ? (
         <Link href="/dashboard">Dashboard</Link>
       ) : (
