@@ -8,6 +8,7 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@designali/db/client";
 import { Account, Session, User } from "@designali/db/schema";
 import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 
 import { env } from "../env";
 
@@ -37,7 +38,7 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [Github],
+  providers: [Github, Google],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))
