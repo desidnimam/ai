@@ -6,6 +6,7 @@ import { ThemeProvider } from "@designali/ui/theme";
 import { Toaster } from "@designali/ui/toast";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { SessionProvider } from "next-auth/react";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -62,7 +63,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TRPCReactProvider>
-            <Header />
+            <SessionProvider>
+              <Header />
+            </SessionProvider>
             {props.children}
             <Footer />
           </TRPCReactProvider>

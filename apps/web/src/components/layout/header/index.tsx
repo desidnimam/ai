@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@designali/ui/theme";
 
 import { Menu } from "./navmenu";
-import { AuthShowcase } from "./sign-in";
+import { LoginButton } from "./sign-in";
+import { UserNav } from "./user-nav";
 
 export function Header() {
   return (
@@ -21,7 +24,8 @@ export function Header() {
             <ThemeToggle />
 
             <div className="mr-12 items-center gap-2 md:mr-0 md:flex">
-              <AuthShowcase />
+              <LoginButton />
+              <UserNav />
             </div>
           </div>
         </div>

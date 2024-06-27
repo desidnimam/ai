@@ -37,7 +37,7 @@ export function Menu() {
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="hover:bg-ali flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
                       href="/products/graaadients"
                     >
                       <Icons.gradient strokeWidth={1} className="h-8 w-8" />
@@ -54,7 +54,7 @@ export function Menu() {
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="hover:bg-ali flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
                       href="/products/3dicons"
                     >
                       <Icons.box strokeWidth={1} className="h-8 w-8" />
@@ -71,7 +71,7 @@ export function Menu() {
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="hover:bg-ali flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
                       href="/products"
                     >
                       <Icons.shapes strokeWidth={1} className="h-8 w-8" />
@@ -115,9 +115,9 @@ export function Menu() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Link href="/designs" legacyBehavior passHref>
+            <Link href="/dashboard" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Designs
+                Dashboard
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

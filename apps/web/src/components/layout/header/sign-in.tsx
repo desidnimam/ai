@@ -1,38 +1,21 @@
-import { auth, signIn, signOut } from "@designali/auth";
+"use client";
+
+import type { ButtonProps } from "@designali/ui/button";
+import Link from "next/link";
+import { cn } from "@designali/ui";
 import { Button } from "@designali/ui/button";
+import { useSession } from "next-auth/react";
 
-export async function AuthShowcase() {
-  const session = await auth();
-
-  if (!session) {
-    return (
-      <form>
-        <Button
-          size="sm"
-          formAction={async () => {
-            "use server";
-            await signIn("discord");
-          }}
-        >
-          Sign in
-        </Button>
-      </form>
-    );
-  }
+export function LoginButton({ className, ...props }: ButtonProps) {
+  const session = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <form>
-        <Button
-          size="sm"
-          formAction={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
-          Sign out
-        </Button>
-      </form>
-    </div>
+    <Button asChild className={cn("rounded-full", className)} {...props}>
+      {session.status === "authenticated" ? (
+        <Link href="/dashboard">Dashboard</Link>
+      ) : (
+        <Link href="/login">Sign In</Link>
+      )}
+    </Button>
   );
 }
