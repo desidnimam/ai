@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
 import { Icons } from "@/components/icons";
 import { cn } from "@designali/ui";
 import {
@@ -16,7 +15,6 @@ import {
 } from "@designali/ui/navigation-menu";
 
 export function Menu() {
-  const segment = useSelectedLayoutSegment();
   return (
     <div className="hidden px-4 lg:block">
       <NavigationMenu>
@@ -117,9 +115,9 @@ export function Menu() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <Link href="/dashboard" legacyBehavior passHref>
+            <Link href="/design" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Dashboard
+                Design
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

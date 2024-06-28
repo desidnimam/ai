@@ -20,7 +20,7 @@ export function TabsContainer({
     <TabsContext.Provider value={{ direction, position }}>
       <nav
         className={cn(
-          "flex h-12 items-center px-2",
+          "flex h-12 items-center justify-center px-2",
           {
             "items-center overflow-x-auto": direction === "horizontal",
           },

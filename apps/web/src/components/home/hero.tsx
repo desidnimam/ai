@@ -2,10 +2,11 @@
 
 // this is a client component
 import Link from "next/link";
-import { cn } from "@designali/ui";
-import { buttonVariants } from "@designali/ui/button";
 
 import "@/styles/text.css";
+
+import { cn } from "@designali/ui";
+import { buttonVariants } from "@designali/ui/button";
 
 import { Icons } from "../icons";
 
@@ -19,7 +20,7 @@ const Hero = () => {
             <a
               href="/products/3dicons"
               rel="noreferrer"
-              className="hover:text-ali ml-1 flex items-center font-semibold "
+              className="ml-1 flex items-center font-semibold hover:text-ali "
             >
               <div className="absolute inset-0 flex " aria-hidden="true" />
               Explore{" "}
@@ -32,8 +33,8 @@ const Hero = () => {
 
         <div className=" mb-10 mt-4 md:mt-6">
           <div className="px-2">
-            <div className="relative h-full w-full border border-slate-200 [mask-image:radial-gradient(200rem_24rem_at_center,white,transparent)] dark:border-slate-800">
-              <h1 className="tracking-tightest flex select-none flex-col px-3 py-2 text-center text-7xl font-extrabold leading-none sm:text-8xl md:flex-col lg:flex-row">
+            <div className="relative mx-auto h-full max-w-6xl border border-slate-200 p-6 [mask-image:radial-gradient(200rem_24rem_at_center,white,transparent)] dark:border-slate-800 md:p-12">
+              <h1 className="flex select-none flex-col px-3 py-2 text-center text-5xl font-semibold leading-none tracking-tight md:flex-col md:text-8xl lg:flex-row lg:text-8xl ">
                 <Icons.plus
                   strokeWidth={0.5}
                   className="text-aired absolute -left-4 -top-4 h-8 w-8"
@@ -50,51 +51,43 @@ const Hero = () => {
                   strokeWidth={0.5}
                   className="text-aired absolute -bottom-4 -right-4 h-8 w-8"
                 />
-
-                <span
-                  data-content="Coffee."
-                  className="before:animate-gradient-background-1 relative before:absolute before:bottom-4 before:left-0 before:top-0 before:z-0  before:w-full before:px-2 before:content-[attr(data-content)]  sm:before:top-0"
-                >
-                  <span className="from-gradient-1-start to-gradient-1-end animate-gradient-foreground-1 bg-gradient-to-r bg-clip-text px-2 text-transparent sm:px-5">
-                    Coffee.
-                  </span>
-                </span>
-                <span
-                  data-content="Think."
-                  className="before:animate-gradient-background-2 relative before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:w-full before:px-2 before:content-[attr(data-content)] sm:before:top-0"
-                >
-                  <span className="from-gradient-2-start to-gradient-2-end animate-gradient-foreground-2 bg-gradient-to-r bg-clip-text px-2 text-transparent sm:px-5">
-                    Think.
-                  </span>
-                </span>
-                <span
-                  data-content="Create."
-                  className="before:animate-gradient-background-3 relative before:absolute before:bottom-1 before:left-0 before:top-0 before:z-0 before:w-full before:px-2 before:content-[attr(data-content)] sm:before:top-0"
-                >
-                  <span className="from-gradient-3-start to-gradient-3-end animate-gradient-foreground-3 bg-gradient-to-r bg-clip-text px-2 text-transparent sm:px-5">
-                    Create.
-                  </span>
-                </span>
+                A design agency with a touch of magic.
               </h1>
             </div>
           </div>
 
-          <h1 className="mt-4 text-2xl font-semibold md:text-2xl">
+          <h1 className="mt-8 text-2xl md:text-2xl">
             Welcome to my creative playground! I&#39;m{" "}
-            <span className="text-ali font-bold">Ali </span>
+            <span className="font-bold text-ali">Ali </span>
           </h1>
 
           <p className="md:text-md mx-auto mb-16 mt-2 max-w-2xl px-6 text-sm text-slate-600 dark:text-slate-400 sm:px-6 md:max-w-4xl md:px-20 lg:text-lg">
             I craft enchanting visuals for brands, and conjure design resources
             to empower others. I have a knowledge of tools like .
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/pricing" className="">
-              See Pricing
+          <div className="grid flex-wrap items-center justify-center gap-3 md:flex">
+            <Link
+              href="/products"
+              className={cn(
+                buttonVariants({
+                  variant: "default",
+                  size: "lg",
+                }),
+              )}
+            >
+              Start Designing
               <span className="sr-only">Buy now</span>
             </Link>
-            <Link href="/designs" className="">
-              Start Learning
+            <Link
+              href="/designs"
+              className={cn(
+                buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                }),
+              )}
+            >
+              Get a Demo
               <span className="sr-only">Buy now</span>
             </Link>
           </div>

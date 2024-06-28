@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import Analytics from "@/components/analytics";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { cn } from "@designali/ui";
 import { ThemeProvider } from "@designali/ui/theme";
 import { Toaster } from "@designali/ui/toast";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { SessionProvider } from "next-auth/react";
@@ -30,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+    site: "@aliimam_in",
+    creator: "@aliimam_in",
   },
 };
 
@@ -56,7 +58,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body
         className={cn(
-          "bg-background font-sans text-foreground antialiased",
+          "bg-background font-sans text-foreground ",
           GeistSans.variable,
           GeistMono.variable,
         )}
@@ -70,6 +72,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <Footer />
           </TRPCReactProvider>
           <Toaster />
+          <Analytics />
+          <GoogleAnalytics gaId="G-7DJXCEPQ1E" />
         </ThemeProvider>
       </body>
     </html>
