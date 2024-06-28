@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@designali/ui/dropdown-menu";
-import { Skeleton } from "@designali/ui/skeleton";
 import { signOut, useSession } from "next-auth/react";
 
 export function UserNav() {
@@ -35,17 +34,21 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="truncate text-xs leading-none text-muted-foreground">
-              {session.data.user?.email}
+              {session.data.user.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={`/app/${workspaceSlug}/settings/billing`}>Billing</Link>
+            <Link href={`/dashboard/${workspaceSlug}/settings/billing`}>
+              Billing
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/app/${workspaceSlug}/settings/user`}>Profile</Link>
+            <Link href={`/dashboard/${workspaceSlug}/settings/profile`}>
+              Profile
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
