@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@designali/ui/avatar";
+import { Avatar, AvatarFallback } from "@designali/ui/avatar";
 import { Button } from "@designali/ui/button";
 import {
   DropdownMenu,
@@ -15,7 +14,6 @@ import { signOut, useSession } from "next-auth/react";
 
 export function UserNav() {
   const session = useSession();
-  const { workspaceSlug } = useParams<{ workspaceSlug: string }>();
 
   if (session.status !== "authenticated") {
     return;
@@ -23,14 +21,17 @@ export function UserNav() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+      <DropdownMenuTrigger>
+        <Button
+          variant="ghost"
+          className="relative flex h-8 w-8 items-center justify-center rounded-full"
+        >
           <Avatar className="h-8 w-8">
             <AvatarFallback className="bg-gradient-to-br from-foreground via-muted-foreground to-muted opacity-70" />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-52" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="truncate text-xs leading-none text-muted-foreground">
@@ -41,13 +42,13 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={`/dashboard/${workspaceSlug}/settings/billing`}>
-              Billing
+            <Link href={`/dashboard/billing`}>
+              <h1>Billing</h1>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/dashboard/${workspaceSlug}/settings/profile`}>
-              Profile
+            <Link href={`/dashboard/settings`}>
+              <p>Settings</p>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

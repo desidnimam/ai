@@ -78,10 +78,10 @@ const Underline = `hover:-translate-y-1 border border-slate-100 dark:border-slat
 
 export function Footer() {
   return (
-    <footer className="border-ali/50 mx-auto mt-20 w-full border-t px-2 sm:px-4">
+    <footer className="mx-auto mt-20 w-full border-t border-ali/50 px-2 sm:px-4">
       <div className="-mt-10 flex flex-wrap justify-center gap-8 ">
         <Link href="/">
-          <p className="flex h-20 w-20 items-center justify-center rounded-full bg-white dark:bg-black">
+          <p className="flex h-20 w-20 items-center justify-center rounded-full bg-background">
             <Icons.Logo className="mb-2 w-10" />
           </p>
         </Link>
@@ -114,7 +114,7 @@ export function Footer() {
       <div className="flex flex-wrap justify-center gap-y-6">
         <div className="flex flex-wrap items-center justify-center gap-6 gap-y-4 px-6">
           <Link
-            href="tel:+919650133705"
+            href="tel:+917678432186"
             rel="noreferrer"
             target="_blank"
             className={Underline}
@@ -186,9 +186,9 @@ export function Footer() {
           <span> © </span>
           <span>{new Date().getFullYear()}</span>
           <span>Made with</span>
-          <Icons.heart className="text-ali mx-1 h-4  w-4 animate-pulse" />
+          <Icons.heart className="mx-1 h-4 w-4  animate-pulse text-ali" />
           <span> by </span>
-          <span className="hover:text-ali dark:hover:text-ali cursor-pointer font-bold text-black dark:text-white">
+          <span className="cursor-pointer font-bold text-black hover:text-ali dark:text-white dark:hover:text-ali">
             <a href="/">Ali Imam</a>
           </span>
         </div>
