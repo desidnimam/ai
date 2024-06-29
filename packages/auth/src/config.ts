@@ -71,7 +71,7 @@ export const authConfig = {
 
       await sendEmail({
         from: "Ali Imam - Designali <contact@aliimam.in>",
-        subject: "Welcome to OpenStatus.",
+        subject: "Welcome to Designali.",
         to: [params.user.email],
         react: WelcomeEmail(),
       });
