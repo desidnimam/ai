@@ -75,6 +75,9 @@ importers:
       '@designali/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@designali/emails':
+        specifier: workspace:*
+        version: link:../../packages/emails
       '@designali/mdx':
         specifier: workspace:*
         version: link:../../packages/mdx
