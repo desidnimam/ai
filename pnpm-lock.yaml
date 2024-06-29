@@ -413,7 +413,7 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       react:
-        specifier: ^18.2.0
+        specifier: 18.3.1
         version: 18.3.1
       remark:
         specifier: ^15.0.1
@@ -450,13 +450,13 @@ importers:
         specifier: ^3.0.4
         version: 3.0.4
       '@types/node':
-        specifier: ^20.11.20
+        specifier: ^20.12.9
         version: 20.14.9
       '@types/pluralize':
         specifier: ^0.0.33
         version: 0.0.33
       '@types/react':
-        specifier: ^18.2.60
+        specifier: ^18.3.3
         version: 18.3.3
 
   packages/ui:
