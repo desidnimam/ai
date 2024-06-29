@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import type {
   DefaultSession,
   NextAuthConfig,
@@ -7,8 +8,10 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@designali/db/client";
 import { Account, Session, User } from "@designali/db/schema";
+import { WelcomeEmail } from "@designali/emails";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
 
@@ -38,7 +41,14 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [Github, Google],
+  providers: [
+    Github,
+    Google,
+    Resend({
+      apiKey: env.RESEND_API_KEY,
+      from: "contact@aliimam.in",
+    }),
+  ],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))
@@ -51,6 +61,17 @@ export const authConfig = {
           id: opts.user.id,
         },
       };
+    },
+  },
+  events: {
+    async createUser(message) {
+      const params = {
+        user: {
+          name: message.user.name,
+          email: message.user.email,
+        },
+      };
+      await WelcomeEmail(params); // <-- send welcome email
     },
   },
 } satisfies NextAuthConfig;

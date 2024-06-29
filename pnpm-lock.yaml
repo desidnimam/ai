@@ -293,6 +293,9 @@ importers:
       '@designali/db':
         specifier: workspace:*
         version: link:../db
+      '@designali/emails':
+        specifier: workspace:*
+        version: link:../emails
       '@t3-oss/env-nextjs':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.5.2)(zod@3.23.8)

@@ -4,12 +4,15 @@
   "description": "",
   "main": "./index.ts",
   "scripts": {
+    "email": "email dev --dir ./emails --port 3002",
     "dev:email": "email dev",
     "with-env": "dotenv -e ../../.env --"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "email"
+  ],
+  "author": "@designali",
+  "license": "MIT",
   "dependencies": {
     "@react-email/button": "0.0.10",
     "@react-email/components": "0.0.7",
