@@ -1,0 +1,5 @@
+{
+  "extends": "@designali/tsconfig/da-library.json",
+  "include": [".", "env.ts"],
+  "exclude": ["dist", "build", "node_modules"]
+}
