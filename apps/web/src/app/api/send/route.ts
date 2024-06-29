@@ -9,9 +9,9 @@ const resend = new Resend(env.RESEND_API_KEY);
 export async function POST() {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+      from: "Designali - Ali Imam <contact@aliimam.in>",
       to: ["contact@aliimam.in"],
-      subject: "Hello world",
+      subject: "Welcome to Designali.",
       react: WelcomeEmail(),
     });
 

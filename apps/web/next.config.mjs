@@ -13,6 +13,7 @@ const nextConfig = {
   transpilePackages: [
     "@designali/api",
     "@designali/auth",
+    "@designali/emails",
     "@designali/db",
     "@designali/ui",
     "@designali/validators",
@@ -29,6 +30,16 @@ const nextConfig = {
       },
     ],
     domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
+  },
+
+  experimental: {
+    serverComponentsExternalPackages: [
+      "@react-email/components",
+      "@react-email/render",
+    ],
+    optimizePackageImports: ["@tremor/react"],
+    // FIXME: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    missingSuspenseWithCSRBailout: false,
   },
 
   /** We already do linting and typechecking as separate tasks in CI */
