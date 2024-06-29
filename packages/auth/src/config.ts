@@ -8,7 +8,7 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@designali/db/client";
 import { Account, Session, User } from "@designali/db/schema";
-import { WelcomeEmail } from "@designali/emails";
+import { sendEmail, WelcomeEmail } from "@designali/emails";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
@@ -64,14 +64,17 @@ export const authConfig = {
     },
   },
   events: {
-    async createUser(message) {
-      const params = {
-        user: {
-          name: message.user.name,
-          email: message.user.email,
-        },
-      };
-      await WelcomeEmail(params); // <-- send welcome email
+    async createUser(params) {
+      if (!params.user.id || !params.user.email) {
+        throw new Error("User id & email is required");
+      }
+
+      await sendEmail({
+        from: "Ali Imam - Designali <contact@aliimam.in>",
+        subject: "Welcome to OpenStatus.",
+        to: [params.user.email],
+        react: WelcomeEmail(),
+      });
     },
   },
 } satisfies NextAuthConfig;
