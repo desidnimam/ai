@@ -1,11 +1,12 @@
 import { fileURLToPath } from "url";
 import createJiti from "jiti";
+import { withContentlayer } from "next-contentlayer";
 
 // Import env files to validate at build time. Use jiti so we can load .ts files in here.
 createJiti(fileURLToPath(import.meta.url))("./src/env");
 
 /** @type {import("next").NextConfig} */
-const config = {
+const nextConfig = {
   reactStrictMode: true,
 
   /** Enables hot reloading for local packages without a build step */
@@ -17,6 +18,16 @@ const config = {
     "@designali/validators",
   ],
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "khhamnquzieyqedqyvfw.supabase.co",
+      },
+    ],
     domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
   },
 
@@ -25,4 +36,4 @@ const config = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default config;
+export default withContentlayer(nextConfig);

@@ -10,5 +10,6 @@ export const config: MiddlewareConfig = {
     "/editor/:path*",
     "/login",
     "/register",
+    "/terms",
   ],
 };
