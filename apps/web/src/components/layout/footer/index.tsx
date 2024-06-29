@@ -18,28 +18,8 @@ export const items: Menus[] = [
     target: "",
   },
   {
-    text: "Gallery",
-    href: "/gallery",
-    target: "",
-  },
-  {
-    text: "Portfolio",
-    href: "/portfolio",
-    target: "",
-  },
-  {
     text: "Products",
     href: "/products",
-    target: "",
-  },
-  {
-    text: "Graaadients",
-    href: "/products/graaadients",
-    target: "",
-  },
-  {
-    text: "3D Icons",
-    href: "/products/3dicons",
     target: "",
   },
   {
@@ -48,7 +28,7 @@ export const items: Menus[] = [
     target: "",
   },
   {
-    text: "Coding",
+    text: "Guides",
     href: "/guides",
     target: "",
   },
@@ -100,14 +80,6 @@ export function Footer() {
               </div>
             </figure>
           ))}
-          <Link
-            href="/Ali-CV.pdf"
-            target="_blank"
-            className="text-slate-600 hover:text-black dark:text-slate-400 hover:dark:text-white"
-            download={true}
-          >
-            <p className="text-sm md:text-xs">Download CV</p>
-          </Link>
         </div>
       </div>
 

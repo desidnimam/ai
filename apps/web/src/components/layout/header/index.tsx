@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 
+import SiteHeader from "./mobile";
 import { Menu } from "./navmenu";
 import CommandMenu from "./search";
 import { LoginButton } from "./sign-in";
@@ -22,7 +23,7 @@ export function Header() {
           </Link>
           <Menu />
           <div className="mx-auto flex h-12 flex-1 items-center justify-end gap-2">
-            <div className="flex items-center justify-center gap-2 px-3">
+            <div className="flex items-center justify-center gap-2 px-14 md:px-2 lg:px-0">
               <ThemeToggle />
               <CommandMenu />
               <LoginButton />
@@ -31,7 +32,9 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className="relative mx-auto flex flex-1 items-center"></div>
+      <div className="relative mx-auto flex flex-1 items-center">
+        <SiteHeader />
+      </div>
     </nav>
   );
 }
