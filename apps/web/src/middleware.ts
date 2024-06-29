@@ -7,9 +7,6 @@ export const config: MiddlewareConfig = {
   matcher: [
     "/((?!api|_next/static|_next/image|.*\\.png$).*)",
     "/dashboard/:path*",
-    "/editor/:path*",
     "/login",
-    "/register",
-    "/terms",
   ],
 };
