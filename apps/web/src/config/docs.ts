@@ -1,4 +1,4 @@
-import { DocsConfig, GuidesConfig } from "@/components/mdx/doc/types"
+import type { DocsConfig, GuidesConfig } from "@/components/mdx/doc/types";
 
 export const docsConfig: DocsConfig = {
   mainNav: [
@@ -25,38 +25,13 @@ export const docsConfig: DocsConfig = {
       title: "Documentation",
       items: [
         {
-          title: "Portfolio",
-          href: "/designs/openfile/portfolio",
+          title: "Logo",
+          href: "/designs/openfile/logo",
         },
-        {
-          title: "Graaadients",
-          href: "/designs/openfile/graaadients",
-        },
-        {
-          title: "Grad Reel",
-          href: "/designs/openfile/grad-reel",
-        },
-        {
-          title: "Grad Carousel",
-          href: "/designs/openfile/grad-carousel",
-        },
-        {
-          title: "SM Cheat Sheet",
-          href: "/designs/openfile/sm-cheat-sheet",
-        },
-        {
-          title: "3D Icons",
-          href: "/designs/openfile/3dicons",
-        },
-        {
-          title: "Pure White",
-          href: "/designs/openfile/pure-white",
-        }
       ],
     },
   ],
-}
-
+};
 
 export const guidesConfig: GuidesConfig = {
   mainNav: [
@@ -83,11 +58,10 @@ export const guidesConfig: GuidesConfig = {
       title: "Documentation",
       items: [
         {
-          title: "Social Media",
-          href: "/guides/socialmedia",
+          title: "Logo",
+          href: "/guides/logo",
         },
       ],
     },
   ],
-}
-
+};

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 
 import { Menu } from "./navmenu";
+import CommandMenu from "./search";
 import { LoginButton } from "./sign-in";
 import { ThemeToggle } from "./themetoggle";
 import { UserNav } from "./user-nav";
@@ -23,6 +24,7 @@ export function Header() {
           <div className="mx-auto flex h-12 flex-1 items-center justify-end gap-2">
             <div className="flex items-center justify-center gap-2 px-3">
               <ThemeToggle />
+              <CommandMenu />
               <LoginButton />
               <UserNav />
             </div>
