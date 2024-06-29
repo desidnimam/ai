@@ -2,6 +2,16 @@ import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { signIn } from "@designali/auth";
 import { Button } from "@designali/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@designali/ui/card";
+import { Input } from "@designali/ui/input";
+import { Label } from "@designali/ui/label";
+import { Separator } from "@designali/ui/separator";
 import { z } from "zod";
 
 /**
@@ -21,36 +31,68 @@ export default function Page({
 
   return (
     <div className="my-4 grid w-full max-w-xl gap-6 md:p-10">
-      <div className="flex flex-col gap-2 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">Sign In</h1>
-        <p className="text-sm text-muted-foreground">
-          Get started now. No credit card required.
-        </p>
-      </div>
-      <div className="grid justify-center gap-3">
-        <form
-          action={async () => {
-            "use server";
-            await signIn("github", { redirectTo });
-          }}
-          className="w-full"
-        >
-          <Button type="submit" size={"lg"}>
-            Signin with GitHub <Icons.menu className="ml-2 h-4 w-4" />
-          </Button>
-        </form>
-        <form
-          action={async () => {
-            "use server";
-            await signIn("google", { redirectTo });
-          }}
-          className="w-full"
-        >
-          <Button type="submit" variant="outline" size={"lg"}>
-            Signin with Google <Icons.menu className="ml-2 h-4 w-4" />
-          </Button>
-        </form>
-      </div>
+      <Card className="mx-auto max-w-md">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl">Sign In</CardTitle>
+          <CardDescription>
+            Get started now. No credit card required.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <form
+              action={async (formData) => {
+                "use server";
+                await signIn("resend", formData);
+              }}
+              className="w-full"
+            >
+              <div className="grid gap-2">
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="contact@aliimam.in"
+                  required
+                />
+                <Button variant="default" type="submit" size={"lg"}>
+                  Signin with Email <Icons.mail className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </form>
+            <Separator />
+            <div className="grid justify-center gap-2">
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("github", { redirectTo });
+                }}
+                className="w-full"
+              >
+                <Button variant="outline" type="submit" size={"lg"}>
+                  Signin with GitHub <Icons.github className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google", { redirectTo });
+                }}
+                className="w-full"
+              >
+                <Button type="submit" variant="outline" size={"lg"}>
+                  Signin with Google <Icons.menu className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+          </div>
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link href="#" className="underline">
+              Sign up
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
       <p className="px-8 text-center text-sm text-muted-foreground">
         By clicking continue, you agree to our{" "}
         <Link

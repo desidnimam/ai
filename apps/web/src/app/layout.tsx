@@ -67,9 +67,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           <TRPCReactProvider>
             <SessionProvider>
               <Header />
+              {props.children}
+              <Footer />
             </SessionProvider>
-            {props.children}
-            <Footer />
           </TRPCReactProvider>
           <Toaster />
           <Analytics />
