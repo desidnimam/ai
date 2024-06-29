@@ -7,8 +7,7 @@ import type {
 } from "next-auth";
 import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db } from "@designali/db/client";
-import { Account, Session, User } from "@designali/db/schema";
+import { Account, db, Session, User } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
