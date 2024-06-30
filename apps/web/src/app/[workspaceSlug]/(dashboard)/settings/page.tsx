@@ -1,3 +1,18 @@
-export default function HomePage() {
-  return <main className="container mt-40 h-screen">Settings</main>;
+import { Separator } from "@designali/ui/separator";
+
+import { ProfileForm } from "./profile-form";
+
+export default function SettingsProfile() {
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-medium">Profile</h3>
+        <p className="text-sm text-muted-foreground">
+          This is how others will see you on the site.
+        </p>
+      </div>
+      <Separator />
+      <ProfileForm />
+    </div>
+  );
 }

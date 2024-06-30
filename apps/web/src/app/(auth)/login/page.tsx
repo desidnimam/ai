@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Icons } from "@/components/icons";
-import DevModeContainer from "@/components/layout/dashboard/dev-mode-container";
 import { signIn } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
@@ -13,8 +12,6 @@ import {
 import { Input } from "@designali/ui/input";
 import { Separator } from "@designali/ui/separator";
 import { z } from "zod";
-
-import MagicLinkForm from "./_components/magic-link-form";
 
 /**
  * allowed URL search params
@@ -32,7 +29,7 @@ export default function Page({
   const redirectTo = search.success ? search.data.redirectTo : "/dashboard";
 
   return (
-    <div className="my-4 grid w-full max-w-xl gap-6 md:p-10">
+    <div className="my-4 grid w-full max-w-2xl gap-6 md:p-10">
       <Card className="mx-auto max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl">Sign In</CardTitle>
@@ -43,10 +40,36 @@ export default function Page({
         <CardContent>
           <div className="grid gap-4">
             <Separator />
+            <div className="grid justify-center gap-2">
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google", { redirectTo: "/dashboard" });
+                }}
+                className="w-full"
+              >
+                <Button type="submit" variant="outline" size={"lg"}>
+                  Signin with Google <Icons.menu className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("github", { redirectTo: "/dashboard" });
+                }}
+                className="w-full"
+              >
+                <Button variant="outline" type="submit" size={"lg"}>
+                  <p>Signin with GitHub </p>
+                  <Icons.github className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+            <Separator />
             <form
               action={async () => {
                 "use server";
-                await signIn("resend", { redirectTo: "/dashboard" });
+                await signIn("resend", { redirectTo });
               }}
               className="w-full"
             >
@@ -62,43 +85,16 @@ export default function Page({
                 </Button>
               </div>
             </form>
-            <Separator />
-            <div className="grid justify-center gap-2">
-              <form
-                action={async () => {
-                  "use server";
-                  await signIn("github", { redirectTo: "/dashboard" });
-                }}
-                className="w-full"
-              >
-                <Button variant="outline" type="submit" size={"lg"}>
-                  Signin with GitHub <Icons.github className="ml-2 h-4 w-4" />
-                </Button>
-              </form>
-              <form
-                action={async () => {
-                  "use server";
-                  await signIn("google", { redirectTo: "/dashboard" });
-                }}
-                className="w-full"
-              >
-                <Button type="submit" variant="outline" size={"lg"}>
-                  Signin with Google <Icons.menu className="ml-2 h-4 w-4" />
-                </Button>
-              </form>
-            </div>
           </div>
-
-          <MagicLinkForm />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/login" className="underline">
               Sign up
             </Link>
           </div>
         </CardContent>
       </Card>
-      <p className="px-8 text-center text-sm text-muted-foreground">
+      <p className="px-8 text-center text-sm text-slate-600 dark:text-slate-400">
         By clicking continue, you agree to our{" "}
         <Link
           href="/terms"
