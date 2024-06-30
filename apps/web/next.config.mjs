@@ -24,12 +24,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
-      {
-        protocol: "https",
-        hostname: "khhamnquzieyqedqyvfw.supabase.co",
-      },
     ],
-    domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
+    domains: [
+      "images.unsplash.com",
+      "avatars.githubusercontent.com",
+      "lh3.googleusercontent.com",
+    ],
   },
 
   experimental: {

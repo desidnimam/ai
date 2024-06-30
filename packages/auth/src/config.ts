@@ -41,14 +41,7 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [
-    Github,
-    Google,
-    Resend({
-      apiKey: env.RESEND_API_KEY,
-      from: "contact@aliimam.in",
-    }),
-  ],
+  providers: [Github, Google, Resend],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))

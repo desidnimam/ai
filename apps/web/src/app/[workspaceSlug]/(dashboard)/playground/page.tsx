@@ -1,9 +1,9 @@
-import { Products } from "@/components/dashboard/products/products";
+import { Playground } from "@/components/dashboard/playground/playground";
 
 export default function HomePage() {
   return (
     <main className="mt-40">
-      <Products />
+      <Playground />
     </main>
   );
 }

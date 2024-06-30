@@ -1,8 +1,8 @@
 "use client";
 
+import type { Likes } from "@/types";
 import React from "react";
 import fetcher from "@/lib/fetcher";
-import { type Likes } from "@/types";
 import { cn } from "@designali/ui";
 import { toast } from "@designali/ui/toast";
 import useSWR from "swr";
@@ -10,9 +10,9 @@ import { useDebouncedCallback } from "use-debounce";
 
 import { Icons } from "../icons";
 
-export type LikeButtonProps = {
+export interface LikeButtonProps {
   slug: string;
-};
+}
 
 const LikeButton = (props: LikeButtonProps) => {
   const { slug } = props;
@@ -44,11 +44,11 @@ const LikeButton = (props: LikeButtonProps) => {
 
   const handleConfetti = async () => {
     const { clientWidth, clientHeight } = document.documentElement;
-    const boundingBox = buttonRef.current?.getBoundingClientRect?.();
+    const boundingBox = buttonRef.current.getBoundingClientRect();
 
-    const targetY = boundingBox?.y ?? 0;
-    const targetX = boundingBox?.x ?? 0;
-    const targetWidth = boundingBox?.width ?? 0;
+    const targetY = boundingBox.y ?? 0;
+    const targetX = boundingBox.x ?? 0;
+    const targetWidth = boundingBox.width ?? 0;
 
     const targetCenterX = targetX + targetWidth / 2;
     const confetti = (await import("canvas-confetti")).default;

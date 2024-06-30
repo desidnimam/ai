@@ -1,3 +1,9 @@
-export default function HomePage() {
-  return <main className="container h-screen py-16">Dashboard</main>;
+import { redirect } from "next/navigation";
+
+export default function DashboardRedirect({
+  params,
+}: {
+  params: { workspaceSlug: string };
+}) {
+  return redirect(`/dashboard/overview`);
 }

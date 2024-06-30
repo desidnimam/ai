@@ -41,9 +41,9 @@ export default function Page({
         <CardContent>
           <div className="grid gap-4">
             <form
-              action={async (formData) => {
+              action={async () => {
                 "use server";
-                await signIn("resend", formData);
+                await signIn("resend", { redirectTo: "/dashboard" });
               }}
               className="w-full"
             >
@@ -64,7 +64,7 @@ export default function Page({
               <form
                 action={async () => {
                   "use server";
-                  await signIn("github", { redirectTo });
+                  await signIn("github", { redirectTo: "/dashboard" });
                 }}
                 className="w-full"
               >
@@ -75,7 +75,7 @@ export default function Page({
               <form
                 action={async () => {
                   "use server";
-                  await signIn("google", { redirectTo });
+                  await signIn("google", { redirectTo: "/dashboard" });
                 }}
                 className="w-full"
               >

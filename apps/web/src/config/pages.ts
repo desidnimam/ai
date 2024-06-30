@@ -159,6 +159,14 @@ export const pagesConfig = [
     children: monitorPagesConfig,
   },
   {
+    title: "Playground",
+    description: "All your incidents.",
+    href: "/playground",
+    icon: "siren",
+    segment: "playground",
+    children: incidentPagesConfig,
+  },
+  {
     title: "Products",
     description: "All your incidents.",
     href: "/products",
@@ -175,11 +183,11 @@ export const pagesConfig = [
     children: statusPagesPagesConfig,
   },
   {
-    title: "Notifications",
+    title: "Mails",
     description: "Where you can see all the notifications.",
-    href: "/notifications",
+    href: "/mails",
     icon: "bell",
-    segment: "notifications",
+    segment: "mails",
     children: notificationsPagesConfig,
   },
   {
@@ -248,7 +256,7 @@ export function getPageBySegment(
   if (Array.isArray(segment) && segment.length > 0) {
     const [firstSegment, ...restSegments] = segment;
     const childPage = currentPage.find((page) => page.segment === firstSegment);
-    if (childPage?.children) {
+    if (childPage.children) {
       return getPageBySegment(restSegments, childPage.children);
     }
     return childPage;
