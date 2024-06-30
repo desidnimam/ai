@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icons } from "@/components/icons";
+import DevModeContainer from "@/components/layout/dashboard/dev-mode-container";
 import { signIn } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
@@ -10,9 +11,10 @@ import {
   CardTitle,
 } from "@designali/ui/card";
 import { Input } from "@designali/ui/input";
-import { Label } from "@designali/ui/label";
 import { Separator } from "@designali/ui/separator";
 import { z } from "zod";
+
+import MagicLinkForm from "./_components/magic-link-form";
 
 /**
  * allowed URL search params
@@ -40,6 +42,7 @@ export default function Page({
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
+            <Separator />
             <form
               action={async () => {
                 "use server";
@@ -85,6 +88,8 @@ export default function Page({
               </form>
             </div>
           </div>
+
+          <MagicLinkForm />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="#" className="underline">

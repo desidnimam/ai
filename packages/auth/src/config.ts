@@ -9,9 +9,6 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { Account, db, Session, User } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
-import Github from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
 import { GitHubProvider, GoogleProvider, ResendProvider } from "./providers";
