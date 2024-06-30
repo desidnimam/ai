@@ -14,6 +14,7 @@ import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
+import { GitHubProvider, GoogleProvider, ResendProvider } from "./providers";
 
 declare module "next-auth" {
   interface Session {
@@ -41,7 +42,10 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers: [Github, Google, Resend],
+  providers:
+    process.env.NODE_ENV === "development"
+      ? [GitHubProvider, GoogleProvider, ResendProvider]
+      : [GitHubProvider, GoogleProvider],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))
