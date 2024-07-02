@@ -99,6 +99,14 @@ export function Menu() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
+            <Link href="/portfolio" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Portfolio
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
             <Link href="/pricing" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Pricing

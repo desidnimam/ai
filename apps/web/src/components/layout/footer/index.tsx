@@ -23,6 +23,16 @@ export const items: Menus[] = [
     target: "",
   },
   {
+    text: "Portfolio",
+    href: "/portfolio",
+    target: "",
+  },
+  {
+    text: "Pricing",
+    href: "/pricing",
+    target: "",
+  },
+  {
     text: "Designs",
     href: "/designs",
     target: "",

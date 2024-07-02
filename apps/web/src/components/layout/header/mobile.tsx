@@ -15,6 +15,7 @@ import { Icons } from "../../icons";
 const navigation = [
   { name: "About AI", href: "/about", current: true },
   { name: "Products", href: "/products", current: true },
+  { name: "Portfolio", href: "/portfolio", current: true },
   { name: "Pricing", href: "/pricing", current: true },
   { name: "Blogs", href: "/blogs", current: true },
   { name: "Designs", href: "/designs", current: true },
