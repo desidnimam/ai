@@ -1,3 +1,9 @@
+import Billing from "@/components/dashboard/billing";
+
 export default function HomePage() {
-  return <main className="container h-screen py-16">Pricing</main>;
+  return (
+    <main className="mt-40">
+      <Billing />
+    </main>
+  );
 }

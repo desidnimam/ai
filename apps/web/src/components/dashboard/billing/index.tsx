@@ -49,7 +49,7 @@ export default function Billing() {
             </ul>
           </div>
           <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-            <div className="rounded-2xl bg-ali py-10 text-center  lg:flex lg:flex-col lg:justify-center lg:py-16">
+            <div className="rounded-2xl bg-ali py-10 text-center text-white  lg:flex lg:flex-col lg:justify-center lg:py-16">
               <div className="mx-auto max-w-xs px-8">
                 <p className="text-base font-semibold ">
                   Pay once, own it forever
