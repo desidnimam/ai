@@ -9,9 +9,11 @@ import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { Account, db, Session, User } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
-import { GitHubProvider, GoogleProvider, ResendProvider } from "./providers";
 
 declare module "next-auth" {
   interface Session {
@@ -39,10 +41,14 @@ export const authConfig = {
       }
     : {}),
   secret: env.AUTH_SECRET,
-  providers:
-    process.env.NODE_ENV === "development"
-      ? [GitHubProvider, GoogleProvider, ResendProvider]
-      : [GitHubProvider, GoogleProvider],
+  providers: [
+    Github,
+    Google,
+    Resend({
+      apiKey: env.RESEND_API_KEY,
+      from: "contact@aliimam.in",
+    }),
+  ],
   callbacks: {
     session: (opts) => {
       if (!("user" in opts))
