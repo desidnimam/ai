@@ -24,7 +24,7 @@ import { SENDER_EMAIL } from "./constants";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: string;
+      role: string;
     } & DefaultSession["user"];
   }
 }
@@ -184,22 +184,3 @@ export const authConfig = {
     },
   },
 } satisfies NextAuthConfig;
-
-export const validateToken = async (
-  token: string,
-): Promise<NextAuthSession | null> => {
-  const sessionToken = token.slice("Bearer ".length);
-  const session = await adapter.getSessionAndUser?.(sessionToken);
-  return session
-    ? {
-        user: {
-          ...session.user,
-        },
-        expires: session.session.expires.toISOString(),
-      }
-    : null;
-};
-
-export const invalidateSessionToken = async (token: string) => {
-  await adapter.deleteSession?.(token);
-};
