@@ -8,6 +8,13 @@
       "when": 1719682526313,
       "tag": "0000_lazy_wendigo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1720011897149,
+      "tag": "0001_cooing_rick_jones",
+      "breakpoints": true
     }
   ]
 }

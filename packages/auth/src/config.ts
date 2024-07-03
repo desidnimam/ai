@@ -7,13 +7,14 @@ import type {
 } from "next-auth";
 import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { Account, db, Session, User } from "@designali/db";
+import { accounts, db, sessions, users } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
+import { SENDER_EMAIL } from "./constants";
 
 declare module "next-auth" {
   interface Session {
@@ -24,9 +25,9 @@ declare module "next-auth" {
 }
 
 const adapter = DrizzleAdapter(db, {
-  usersTable: User,
-  accountsTable: Account,
-  sessionsTable: Session,
+  usersTable: users,
+  accountsTable: accounts,
+  sessionsTable: sessions,
 });
 
 export const isSecureContext = env.NODE_ENV !== "development";
@@ -45,8 +46,9 @@ export const authConfig = {
     Github,
     Google,
     Resend({
-      apiKey: env.RESEND_API_KEY,
-      from: "contact@aliimam.in",
+      name: "Email",
+      from: `<${SENDER_EMAIL}>`,
+      id: "email",
     }),
   ],
   callbacks: {
