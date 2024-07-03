@@ -1,7 +1,6 @@
 "use client";
 
-import { cn } from "@designali/ui";
-import { Button, buttonVariants } from "@designali/ui/button";
+import { Button } from "@designali/ui/button";
 import {
   Form,
   FormControl,
@@ -14,7 +13,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@designali/ui/radio-group";
 import { toast } from "@designali/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -40,6 +39,7 @@ export function AppearanceForm() {
     resolver: zodResolver(appearanceFormSchema),
     defaultValues,
   });
+  const { setTheme, theme } = useTheme();
 
   function onSubmit(data: AppearanceFormValues) {
     toast({
@@ -57,35 +57,6 @@ export function AppearanceForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="font"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Font</FormLabel>
-              <div className="relative w-max">
-                <FormControl>
-                  <select
-                    className={cn(
-                      buttonVariants({ variant: "outline" }),
-                      "w-[200px] appearance-none font-normal",
-                    )}
-                    {...field}
-                  >
-                    <option value="inter">Inter</option>
-                    <option value="manrope">Manrope</option>
-                    <option value="system">System</option>
-                  </select>
-                </FormControl>
-                <ChevronDownIcon className="absolute right-3 top-2.5 h-4 w-4 opacity-50" />
-              </div>
-              <FormDescription>
-                Set the font you want to use in the dashboard.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="theme"
           render={({ field }) => (
             <FormItem className="space-y-1">
@@ -94,16 +65,13 @@ export function AppearanceForm() {
                 Select the theme for the dashboard.
               </FormDescription>
               <FormMessage />
-              <RadioGroup
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                className="grid max-w-md grid-cols-2 gap-8 pt-2"
+              <Button
+                className="grid h-full grid-cols-2 gap-3 pt-2"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                variant="ghost"
               >
                 <FormItem>
                   <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
-                    <FormControl>
-                      <RadioGroupItem value="light" className="sr-only" />
-                    </FormControl>
                     <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
                       <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
                         <div className="space-y-2 rounded-md bg-white p-2 shadow-sm">
@@ -127,9 +95,6 @@ export function AppearanceForm() {
                 </FormItem>
                 <FormItem>
                   <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
-                    <FormControl>
-                      <RadioGroupItem value="dark" className="sr-only" />
-                    </FormControl>
                     <div className="items-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground">
                       <div className="space-y-2 rounded-sm bg-slate-950 p-2">
                         <div className="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm">
@@ -151,12 +116,10 @@ export function AppearanceForm() {
                     </span>
                   </FormLabel>
                 </FormItem>
-              </RadioGroup>
+              </Button>
             </FormItem>
           )}
         />
-
-        <Button type="submit">Update preferences</Button>
       </form>
     </Form>
   );

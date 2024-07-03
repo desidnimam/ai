@@ -1,6 +1,6 @@
 import { Separator } from "@designali/ui/separator";
 
-import { ProfileForm } from "./profile-form";
+import ProfileForm from "./profile-form";
 
 export default function SettingsProfile() {
   return (
