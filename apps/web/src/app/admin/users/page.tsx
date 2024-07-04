@@ -1,5 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
+import DeleteDialog from "@/components/admin/delete-dialog";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatId } from "@/lib/dutils";
@@ -44,7 +45,7 @@ export default async function AdminUser({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.data.map((user) => (
+            {users.data.map((user) => (
               <TableRow key={user.id}>
                 <TableCell>{formatId(user.id)}</TableCell>
                 <TableCell>{user.name}</TableCell>
@@ -54,6 +55,7 @@ export default async function AdminUser({
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/admin/users/${user.id}`}>Edit</Link>
                   </Button>
+                  <DeleteDialog id={user.id} action={deleteUser} />
                 </TableCell>
               </TableRow>
             ))}
