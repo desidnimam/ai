@@ -5,6 +5,7 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     RESEND_API_KEY: z.string().min(1),
+    ADMIN_EMAIL: z.string().optional(),
     SENDER_EMAIL: z.string().min(1),
     AUTH_GITHUB_ID: z.string().min(1),
     AUTH_GITHUB_SECRET: z.string().min(1),

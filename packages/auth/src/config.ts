@@ -1,18 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type {
-  DefaultSession,
-  NextAuthConfig,
-  Session as NextAuthSession,
-} from "next-auth";
+import type { DefaultSession, NextAuthConfig, User } from "next-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { skipCSRFCheck } from "@auth/core";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { accounts, carts, db, sessions, users } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
 import { compareSync } from "bcrypt-ts-edge";
 import { eq } from "drizzle-orm";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -38,14 +34,11 @@ const adapter = DrizzleAdapter(db, {
 export const isSecureContext = env.NODE_ENV !== "development";
 
 export const authConfig = {
+  pages: {
+    signIn: "/login",
+    error: "/sign-in",
+  },
   adapter,
-  // In development, we need to skip checks to allow Expo to work
-  ...(!isSecureContext
-    ? {
-        skipCSRFCheck: skipCSRFCheck,
-        trustHost: true,
-      }
-    : {}),
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
@@ -53,9 +46,7 @@ export const authConfig = {
   secret: env.AUTH_SECRET,
   providers: [
     Github,
-    Google({
-      allowDangerousEmailAccountLinking: true,
-    }),
+    Google,
     Resend({
       name: "Email",
       from: `<${SENDER_EMAIL}>`,
@@ -74,7 +65,7 @@ export const authConfig = {
         const user = await db.query.users.findFirst({
           where: eq(users.email, credentials.email as string),
         });
-        if (user && user.password) {
+        if (user?.password) {
           const isMatch = compareSync(
             credentials.password as string,
             user.password,
@@ -150,7 +141,7 @@ export const authConfig = {
         /\/profile/,
         /\/user\/(.*)/,
         /\/order\/(.*)/,
-        /\/admin/,
+        /\/admin\/(.*)/,
       ];
       const { pathname } = request.nextUrl;
       if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;

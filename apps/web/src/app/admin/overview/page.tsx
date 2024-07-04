@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const session = await auth();
+  if (session.user.role === "admin")
+    throw new Error("admin permission required");
 
   const summary = await getOrderSummary();
 
@@ -108,7 +110,7 @@ export default async function DashboardPage() {
                 {summary.latestOrders.map((order) => (
                   <TableRow key={order.id}>
                     <TableCell>
-                      {order.user?.name ? order.user.name : "Deleted user"}
+                      {order.user.name ? order.user.name : "Deleted user"}
                     </TableCell>
 
                     <TableCell>
