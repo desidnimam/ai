@@ -99,6 +99,12 @@ importers:
       '@next/third-parties':
         specifier: ^14.2.3
         version: 14.2.4(next@14.2.4(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+      '@stripe/react-stripe-js':
+        specifier: ^2.7.1
+        version: 2.7.3(@stripe/stripe-js@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stripe/stripe-js':
+        specifier: ^4.0.0
+        version: 4.1.0
       '@t3-oss/env-nextjs':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.5.2)(zod@3.23.8)
@@ -213,6 +219,9 @@ importers:
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
+      stripe:
+        specifier: ^16.0.0
+        version: 16.1.0
       superjson:
         specifier: 2.2.1
         version: 2.2.1
@@ -766,7 +775,7 @@ importers:
         version: 7.34.3(eslint@9.5.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-100dfd7dab-20240701(eslint@9.5.0)
+        version: 5.1.0-rc-3da26163a3-20240704(eslint@9.5.0)
       eslint-plugin-turbo:
         specifier: ^2.0.3
         version: 2.0.5(eslint@9.5.0)
@@ -3471,6 +3480,17 @@ packages:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
 
+  '@stripe/react-stripe-js@2.7.3':
+    resolution: {integrity: sha512-05t6oY7cmAJt7asknmeoI4z4GnutgKRZ7dcdTWCkeYclONzIRMuMTiyjBMQ/q3I2sdNizSl25YZ8G6Lg4nN1aw==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0 || ^4.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  '@stripe/stripe-js@4.1.0':
+    resolution: {integrity: sha512-HhstGRUz/4JdbZpb26OcOf8Qb/cFR02arvHvgz4sPFLSnI6ZNHC53Jc6JP/FGNwxtrF719YyUnK0gGy4oyhucQ==}
+    engines: {node: '>=12.16'}
+
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
@@ -4987,8 +5007,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-100dfd7dab-20240701:
-    resolution: {integrity: sha512-9/u+PSTsBhWDaDE17Liz2F6Os6Dd9Rgk+8Iv6E9EPxmrYPSXEwUAo0EMHtO+VQQ2+tmghyL6soWp0XiR+Q9Ywg==}
+  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704:
+    resolution: {integrity: sha512-ZWS9+jlDAb7fKq4ZMd2Vai/X1ffh+B4BBhZ0FbM6r0rdqm80IHkq6VoxhsPaK9QvlP/SL/xdmIf/dkSvL7ihRg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -7276,6 +7296,10 @@ packages:
 
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
+  qs@6.12.2:
+    resolution: {integrity: sha512-x+NLUpx9SYrcwXtX7ob1gnkSems4i/mGZX5SlYxwIau6RrUSODO89TR/XDGGpn5RPWSYIB+aSfuSlV5+CmbTBg==}
+    engines: {node: '>=0.6'}
+
   query-string@9.0.0:
     resolution: {integrity: sha512-4EWwcRGsO2H+yzq6ddHcVqkCQ2EFUSfDMEjF8ryp8ReymyZhIuaFRGLomeOQLkrzacMHoyky2HW0Qe30UbzkKw==}
     engines: {node: '>=18'}
@@ -7949,6 +7973,10 @@ packages:
 
   strip-literal@2.1.0:
     resolution: {integrity: sha512-Op+UycaUt/8FbN/Z2TWPBLge3jWrP3xj10f3fnYxf052bKuS3EKs1ZQcVGjnEMdsNVAM+plXRdmjrZ/KgG3Skw==}
+
+  stripe@16.1.0:
+    resolution: {integrity: sha512-syeEEd112om/waJ5gOQ+SaYi+setuidQ4ZIPiQREF4yJeegXhn2HKy6C0JYm7uhVQKfMAvuZ22dIRsnoDv7AMw==}
+    engines: {node: '>=12.*'}
 
   style-to-js@1.1.3:
     resolution: {integrity: sha512-zKI5gN/zb7LS/Vm0eUwjmjrXWw8IMtyA8aPBJZdYiQTXj4+wQ3IucOLIOnF7zCHxvW8UhIGh/uZh/t9zEHXNTQ==}
@@ -11274,6 +11302,15 @@ snapshots:
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
+  '@stripe/react-stripe-js@2.7.3(@stripe/stripe-js@4.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@stripe/stripe-js': 4.1.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@stripe/stripe-js@4.1.0': {}
+
   '@swc/counter@0.1.3': {}
 
   '@swc/helpers@0.5.5':
@@ -12937,7 +12974,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-100dfd7dab-20240701(eslint@9.5.0):
+  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704(eslint@9.5.0):
     dependencies:
       eslint: 9.5.0
 
@@ -15981,6 +16018,10 @@ snapshots:
 
   q@1.5.1: {}
 
+  qs@6.12.2:
+    dependencies:
+      side-channel: 1.0.6
+
   query-string@9.0.0:
     dependencies:
       decode-uri-component: 0.4.1
@@ -16816,6 +16857,11 @@ snapshots:
   strip-literal@2.1.0:
     dependencies:
       js-tokens: 9.0.0
+
+  stripe@16.1.0:
+    dependencies:
+      '@types/node': 20.14.9
+      qs: 6.12.2
 
   style-to-js@1.1.3:
     dependencies:

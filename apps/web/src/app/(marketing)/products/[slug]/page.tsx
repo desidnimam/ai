@@ -37,11 +37,11 @@ const ProductDetails = async ({
   const cart = await getMyCart();
   const session = await auth();
   return (
-    <>
+    <div className="mx-auto mt-40 max-w-7xl">
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5">
           <div className="col-span-2">
-            <ProductImages images={product.images!} />
+            <ProductImages images={product.images} />
           </div>
 
           <div className="col-span-2 flex w-full flex-col  gap-8 p-5">
@@ -97,7 +97,7 @@ const ProductDetails = async ({
                         slug: product.slug,
                         price: round2(product.price),
                         qty: 1,
-                        image: product.images![0],
+                        image: product.images[0],
                       }}
                     />
                   </div>
@@ -110,7 +110,7 @@ const ProductDetails = async ({
       <section className="mt-10">
         <h2 className="h2-bold  mb-5">Customer Reviews</h2>
       </section>
-    </>
+    </div>
   );
 };
 

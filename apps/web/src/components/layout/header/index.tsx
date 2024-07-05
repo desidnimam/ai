@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 
+import CartButton from "./cart";
 import SiteHeader from "./mobile";
 import { Menu } from "./navmenu";
 import CommandMenu from "./search";
@@ -28,6 +27,7 @@ export function Header() {
               <CommandMenu />
               <LoginButton />
               <UserNav />
+              <CartButton />
             </div>
           </div>
         </div>

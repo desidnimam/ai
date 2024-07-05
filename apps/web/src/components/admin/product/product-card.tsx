@@ -1,6 +1,6 @@
+import type { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/types";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent, CardHeader } from "@designali/ui/card";
 
@@ -11,12 +11,12 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="items-center p-0">
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/products/${product.slug}`}>
           <Image
             alt={product.name}
             className="aspect-square rounded object-cover"
             height={300}
-            src={product.images![0]}
+            src={product.images[0]}
             width={300}
           />
         </Link>

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@designali/ui/avatar";
 import { Button } from "@designali/ui/button";
