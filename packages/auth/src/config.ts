@@ -17,11 +17,21 @@ import Resend from "next-auth/providers/resend";
 import { env } from "../env";
 import { SENDER_EMAIL } from "./constants";
 
+type UserId = string;
+type IsAdmin = boolean;
+
 declare module "next-auth" {
   interface Session {
-    user: {
-      role: string;
-    } & DefaultSession["user"];
+    user: User & {
+      id: UserId;
+      isAdmin: IsAdmin;
+    };
+  }
+}
+
+declare module "next-auth" {
+  interface JWT {
+    isAdmin: IsAdmin;
   }
 }
 
@@ -85,6 +95,7 @@ export const authConfig = {
   ],
   callbacks: {
     jwt: async ({ token, user, trigger, session }: any) => {
+      const email = token?.email ?? "";
       if (user) {
         if (user.name === "NO_NAME") {
           token.name = user.email!.split("@")[0];
@@ -119,6 +130,14 @@ export const authConfig = {
         }
       }
 
+      let isAdmin = false;
+      if (env.ADMIN_EMAIL) {
+        const adminEmails = env.ADMIN_EMAIL.split(",");
+        if (email) {
+          isAdmin = adminEmails.includes(email);
+        }
+      }
+
       if (session?.user.name && trigger === "update") {
         token.name = session.user.name;
       }
@@ -128,6 +147,7 @@ export const authConfig = {
     session: async ({ session, user, trigger, token }: any) => {
       session.user.id = token.sub;
       session.user.role = token.role;
+      session.user.isAdmin = token.isAdmin as boolean;
       if (trigger === "update") {
         session.user.name = user.name;
       }
