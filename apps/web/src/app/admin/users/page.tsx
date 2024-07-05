@@ -24,8 +24,6 @@ export default async function AdminUser({
 }: {
   searchParams: { page: string };
 }) {
-  const session = await auth();
-
   const page = Number(searchParams.page) || 1;
   const users = await getAllUsers({
     page,

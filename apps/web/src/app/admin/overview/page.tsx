@@ -22,10 +22,6 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-  const session = await auth();
-  if (session.user.role === "admin")
-    throw new Error("admin permission required");
-
   const summary = await getOrderSummary();
 
   return (
