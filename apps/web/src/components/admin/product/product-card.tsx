@@ -9,15 +9,15 @@ import Rating from "./rating";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader className="items-center p-0">
+    <Card className="h-auto w-full">
+      <CardHeader className="h-auto items-center p-2">
         <Link href={`/products/${product.slug}`}>
           <Image
             alt={product.name}
-            className="aspect-square rounded object-cover"
-            height={300}
+            className="rounded-lg object-cover object-center"
+            height={500}
             src={product.images[0]}
-            width={300}
+            width={500}
           />
         </Link>
       </CardHeader>
@@ -26,8 +26,8 @@ const ProductCard = ({ product }: { product: Product }) => {
           <p className="text-xs">{product.brand}</p>
         </div>
         <div>
-          <Link href={`/product/${product.slug}`}>
-            <h2 className="text-sm font-medium">{product.name}</h2>
+          <Link href={`/products/${product.slug}`}>
+            <h2 className="text-2xl font-medium">{product.name}</h2>
           </Link>
         </div>
         <div className="flex-between gap-4">
@@ -40,11 +40,14 @@ const ProductCard = ({ product }: { product: Product }) => {
         </div>
         <div>
           <Link
-            href={`/quickview/product/${[product.slug]}`}
-            className="w-full"
+            href={`/products/${[product.slug]}`}
+            className="flex w-full gap-2"
           >
-            <Button variant="outline" size="sm" className="flex w-full gap-2">
-              <span>Quick View</span>
+            <Button variant="outline" size="lg" className="flex w-full gap-2">
+              <span>Add to cart</span>
+            </Button>
+            <Button variant="outline" size="lg" className="flex w-full gap-2">
+              <span>Buy Now</span>
             </Button>
           </Link>
         </div>

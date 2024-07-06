@@ -12,8 +12,8 @@ const ProductPrice = ({
     ? stringValue.split(".")
     : [stringValue, ""];
   return (
-    <p className={cn("text-2xl", className)}>
-      <span className="align-super text-xs">$</span>
+    <p className={cn("py-4 text-2xl", className)}>
+      <span className="align-super text-xs">₹</span>
       {intValue}
       <span className="align-super text-xs">{floatValue}</span>
     </p>

@@ -8,13 +8,13 @@ export default function ProductImages({ images }: { images: string[] }) {
   const [current, setCurrent] = React.useState(0);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-3">
       <Image
         src={images[current]}
         alt="product image"
         width={1000}
         height={1000}
-        className="min-h-[300px] object-cover object-center"
+        className="w-full rounded-xl object-cover object-center"
       />
       <div className="flex">
         {images.map((image, index) => (
