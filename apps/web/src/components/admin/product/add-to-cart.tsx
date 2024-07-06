@@ -1,13 +1,14 @@
 "use client";
 
+import type { Cart, CartItem } from "@/types";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
-import { Cart, CartItem } from "@/types";
 import { Button } from "@designali/ui/button";
 import { ToastAction } from "@designali/ui/tosst";
 import { useToast } from "@designali/ui/use-toast";
-import { Loader, Minus, Plus } from "lucide-react";
+
+import { Icons } from "../../icons";
 
 export default function AddToCart({
   cart,
@@ -25,6 +26,8 @@ export default function AddToCart({
     <div>
       <Button
         type="button"
+        className="h-12 w-12 rounded-full"
+        size="icon"
         variant="outline"
         disabled={isPending}
         onClick={() => {
@@ -39,15 +42,17 @@ export default function AddToCart({
         }}
       >
         {isPending ? (
-          <Loader className="h-4 w-4  animate-spin" />
+          <Icons.loader strokeWidth={1} className="h-4 w-4 animate-spin" />
         ) : (
-          <Minus className="h-4 w-4" />
+          <Icons.minus strokeWidth={1} className="h-4 w-4" />
         )}
       </Button>
-      <span className="px-2">{existItem.qty}</span>
+      <span className="px-6">{existItem.qty}</span>
       <Button
         type="button"
+        className="h-12 w-12 rounded-full"
         variant="outline"
+        size="icon"
         disabled={isPending}
         onClick={() => {
           startTransition(async () => {
@@ -61,9 +66,9 @@ export default function AddToCart({
         }}
       >
         {isPending ? (
-          <Loader className="h-4 w-4 animate-spin" />
+          <Icons.loader strokeWidth={1} className="h-4 w-4 animate-spin" />
         ) : (
-          <Plus className="h-4 w-4" />
+          <Icons.plus strokeWidth={1} className="h-4 w-4 " />
         )}
       </Button>
     </div>
@@ -71,6 +76,8 @@ export default function AddToCart({
     <Button
       className="w-full"
       type="button"
+      variant="outline"
+      size="lg"
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {
@@ -97,7 +104,11 @@ export default function AddToCart({
         });
       }}
     >
-      {isPending ? <Loader className="animate-spin" /> : <Plus />}
+      {isPending ? (
+        <Icons.loader strokeWidth={1} className="animate-spin" />
+      ) : (
+        <Icons.plus strokeWidth={1} className="mr-2 h-5 w-5" />
+      )}
       Add to cart
     </Button>
   );

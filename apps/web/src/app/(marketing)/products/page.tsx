@@ -8,7 +8,7 @@ export default async function Home() {
   const latestProducts = await getLatestProducts();
   return (
     <div>
-      <div className="mx-auto mt-40 max-w-3xl px-4 sm:px-6 md:max-w-7xl ">
+      <div className="mx-auto mt-40 max-w-3xl px-4  md:max-w-7xl ">
         <p className="lg:text-md my-2 text-center text-xs font-light uppercase tracking-widest text-slate-600 dark:text-slate-400">
           TAKE A LOOK AT WHAT’S NEW RIGHT NOW.
         </p>

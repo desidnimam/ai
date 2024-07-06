@@ -247,13 +247,16 @@ export default function ReviewList({
         {reviews.map((review) => (
           <Card key={review.id}>
             <CardHeader>
-              <div className="flex-between">
+              <div className="flex justify-between">
                 <CardTitle>{review.title}</CardTitle>
-                <div className="flex text-sm italic">
-                  <Check className=" h-4 w-4" /> Verified Purchase
+                <div className="flex items-center gap-1 text-sm italic text-ali">
+                  <Check className=" h-4 w-4" />
+                  {""} Verified Purchase
                 </div>
               </div>
-              <CardDescription>{review.description}</CardDescription>
+              <CardDescription>
+                <p className="text-xl">{review.description}</p>
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex space-x-4 text-sm text-muted-foreground">

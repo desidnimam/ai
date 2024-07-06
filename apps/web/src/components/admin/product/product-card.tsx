@@ -1,13 +1,17 @@
 import type { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { getMyCart } from "@/lib/actions/cart.actions";
+import { round2 } from "@/src/lib/dutils";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent, CardHeader } from "@designali/ui/card";
 
+import AddToCart from "./add-to-cart";
 import ProductPrice from "./product-price";
 import Rating from "./rating";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = async ({ product }: { product: Product }) => {
+  const cart = await getMyCart();
   return (
     <Card className="h-auto w-full">
       <CardHeader className="h-auto items-center p-2">
@@ -38,14 +42,26 @@ const ProductCard = ({ product }: { product: Product }) => {
             <p className="text-destructive">Out of Stock</p>
           )}
         </div>
-        <div>
+        <div className="flex justify-center gap-2">
+          <div className="w-full">
+            {product.stock !== 0 && (
+              <AddToCart
+                cart={cart}
+                item={{
+                  productId: product.id,
+                  name: product.name,
+                  slug: product.slug,
+                  price: round2(product.price),
+                  qty: 1,
+                  image: product.images[0],
+                }}
+              />
+            )}
+          </div>
           <Link
             href={`/products/${[product.slug]}`}
             className="flex w-full gap-2"
           >
-            <Button variant="outline" size="lg" className="flex w-full gap-2">
-              <span>Add to cart</span>
-            </Button>
             <Button variant="outline" size="lg" className="flex w-full gap-2">
               <span>Buy Now</span>
             </Button>
