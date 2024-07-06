@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { DefaultSession, NextAuthConfig, User } from "next-auth";
+import type { NextAuthConfig, User } from "next-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
@@ -8,7 +8,6 @@ import { accounts, carts, db, sessions, users } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
 import { compareSync } from "bcrypt-ts-edge";
 import { eq } from "drizzle-orm";
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -56,10 +55,12 @@ export const authConfig = {
   secret: env.AUTH_SECRET,
   providers: [
     Github,
-    Google,
+    Google({
+      allowDangerousEmailAccountLinking: true,
+    }),
     Resend({
       name: "Email",
-      from: `<${SENDER_EMAIL}>`,
+      from: `Designali <${SENDER_EMAIL}>`,
       id: "email",
     }),
     CredentialsProvider({
@@ -181,15 +182,15 @@ export const authConfig = {
     },
   },
   events: {
-    async createUser(params) {
-      if (!params.user.id || !params.user.email) {
+    async createUser(session) {
+      if (!session.user.id || !session.user.email) {
         throw new Error("User id & email is required");
       }
 
       await sendEmail({
         from: "Ali Imam - Designali <contact@aliimam.in>",
         subject: "Welcome to Designali.",
-        to: [params.user.email],
+        to: [session.user.email],
         react: WelcomeEmail(),
       });
     },

@@ -387,6 +387,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@auth/drizzle-adapter':
+        specifier: ^1.2.0
+        version: 1.4.1
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
@@ -422,7 +425,7 @@ importers:
         specifier: ^7.4.2
         version: 7.4.2
       drizzle-kit:
-        specifier: ^0.22.6
+        specifier: ^0.22.7
         version: 0.22.7
       eslint:
         specifier: ^9.4.0
@@ -775,7 +778,7 @@ importers:
         version: 7.34.3(eslint@9.5.0)
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-3da26163a3-20240704(eslint@9.5.0)
+        version: 5.1.0-rc-f38c22b244-20240704(eslint@9.5.0)
       eslint-plugin-turbo:
         specifier: ^2.0.3
         version: 2.0.5(eslint@9.5.0)
@@ -5007,8 +5010,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704:
-    resolution: {integrity: sha512-ZWS9+jlDAb7fKq4ZMd2Vai/X1ffh+B4BBhZ0FbM6r0rdqm80IHkq6VoxhsPaK9QvlP/SL/xdmIf/dkSvL7ihRg==}
+  eslint-plugin-react-hooks@5.1.0-rc-f38c22b244-20240704:
+    resolution: {integrity: sha512-2AFn/7KOJFx6RGA+7d8VluRqhB31bay0binwDJZeYJCdvrNeDQS3SmKv1/7SExyexEHBZZE/0hy6P6IQIaIZkg==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -12974,7 +12977,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-3da26163a3-20240704(eslint@9.5.0):
+  eslint-plugin-react-hooks@5.1.0-rc-f38c22b244-20240704(eslint@9.5.0):
     dependencies:
       eslint: 9.5.0
 
