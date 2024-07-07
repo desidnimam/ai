@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getOrderSummary } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/dutils";
-import { auth } from "@designali/auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@designali/ui/card";
 import {
   Table,
@@ -18,7 +17,7 @@ import { BadgeDollarSign, Barcode, CreditCard, Users } from "lucide-react";
 import Charts from "./charts";
 
 export const metadata: Metadata = {
-  title: `Admin Dashboard - ${APP_NAME}`,
+  title: `Admin - ${APP_NAME}`,
 };
 
 export default async function DashboardPage() {

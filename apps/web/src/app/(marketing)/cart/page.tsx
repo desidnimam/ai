@@ -4,7 +4,7 @@ import { APP_NAME } from "@/lib/constants";
 import CartForm from "./cart-form";
 
 export const metadata = {
-  title: `Shopping Cart - ${APP_NAME}`,
+  title: `Cart - ${APP_NAME}`,
 };
 
 export default async function CartPage() {

@@ -1,124 +1,119 @@
 "use client";
 
-import type { Order } from "@/types";
+import type { z } from "zod";
 import { useTransition } from "react";
-import {
-  approvePayPalOrder,
-  createPayPalOrder,
-  deliverOrder,
-  updateOrderToPaidByCOD,
-} from "@/lib/actions/order.actions";
-import { formatId } from "@/lib/dutils";
+import { useRouter } from "next/navigation";
+import { updateUserPaymentMethod } from "@/lib/actions/user.actions";
+import { DEFAULT_PAYMENT_METHOD, PAYMENT_METHODS } from "@/lib/constants";
+import { paymentMethodSchema } from "@/lib/validator";
 import { Button } from "@designali/ui/button";
-import { Card, CardContent } from "@designali/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@designali/ui/form";
+import { RadioGroup, RadioGroupItem } from "@designali/ui/radio-group";
 import { useToast } from "@designali/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, Loader } from "lucide-react";
+import { useForm } from "react-hook-form";
 
-import StripePayment from "./stripe";
-
-export default function OrderDetailsForm({
-  order,
-  isAdmin,
-  stripeClientSecret,
+export default function PaymentMethodForm({
+  preferredPaymentMethod,
 }: {
-  order: Order;
-  paypalClientId: string;
-  isAdmin: boolean;
-  stripeClientSecret: string | null;
+  preferredPaymentMethod: string | null;
 }) {
-  const { paymentMethod, isPaid, isDelivered } = order;
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof paymentMethodSchema>>({
+    resolver: zodResolver(paymentMethodSchema),
+    defaultValues: {
+      type: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
+    },
+  });
+
+  const [isPending, startTransition] = useTransition();
+
   const { toast } = useToast();
 
-  function PrintLoadingState() {
-    const [{ isPending, isRejected }] = usePayPalScriptReducer();
-    let status = "";
-    if (isPending) {
-      status = "Loading PayPal...";
-    } else if (isRejected) {
-      status = "Error in loading PayPal.";
-    }
-    return status;
-  }
-  const handleCreatePayPalOrder = async () => {
-    const res = await createPayPalOrder(order.id);
-    if (!res.success)
-      return toast({
-        description: res.message,
-        variant: "destructive",
-      });
-    return res.data;
-  };
-  const handleApprovePayPalOrder = async (data: { orderID: string }) => {
-    const res = await approvePayPalOrder(order.id, data);
-    toast({
-      description: res.message,
-      variant: res.success ? "default" : "destructive",
+  async function onSubmit(values: z.infer<typeof paymentMethodSchema>) {
+    startTransition(async () => {
+      const res = await updateUserPaymentMethod(values);
+      if (!res.success) {
+        toast({
+          variant: "destructive",
+          description: res.message,
+        });
+        return;
+      }
+      router.push("/place-order");
     });
-  };
-
-  const MarkAsPaidButton = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
-    return (
-      <Button
-        type="button"
-        disabled={isPending}
-        onClick={() =>
-          startTransition(async () => {
-            const res = await updateOrderToPaidByCOD(order.id);
-            toast({
-              variant: res.success ? "default" : "destructive",
-              description: res.message,
-            });
-          })
-        }
-      >
-        {isPending ? "processing..." : "Mark As Paid"}
-      </Button>
-    );
-  };
-
-  const MarkAsDeliveredButton = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
-    return (
-      <Button
-        type="button"
-        disabled={isPending}
-        onClick={() =>
-          startTransition(async () => {
-            const res = await deliverOrder(order.id);
-            toast({
-              variant: res.success ? "default" : "destructive",
-              description: res.message,
-            });
-          })
-        }
-      >
-        {isPending ? "processing..." : "Mark As Delivered"}
-      </Button>
-    );
-  };
+  }
 
   return (
     <>
-      <div className="grid md:grid-cols-3 md:gap-5">
-        <div>
-          <Card>
-            <CardContent className="gap-4 space-y-4 p-4">
-              {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-                <StripePayment
-                  priceInCents={Number(order.totalPrice) * 100}
-                  orderId={order.id}
-                  clientSecret={stripeClientSecret}
-                />
-              )}
-              {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
-                <MarkAsPaidButton />
-              )}
-              {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
-            </CardContent>
-          </Card>
-        </div>
+      <div className="mx-auto mt-40 h-screen max-w-md">
+        <Form {...form}>
+          <form
+            method="post"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4"
+          >
+            <h1 className="h2-bold mt-4">Payment Method</h1>
+            <p className="text-sm text-muted-foreground">
+              Please select your preferred payment method
+            </p>
+
+            <div className="flex flex-col gap-5 md:flex-row">
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        className="flex flex-col space-y-2"
+                      >
+                        {PAYMENT_METHODS.map((paymentMethod) => (
+                          <FormItem
+                            key={paymentMethod}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem
+                                value={paymentMethod}
+                                checked={field.value === paymentMethod}
+                              />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {paymentMethod}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="flex gap-2">
+              <Button type="submit" disabled={isPending}>
+                {isPending ? (
+                  <Loader className="h-4 w-4 animate-spin" />
+                ) : (
+                  <ArrowRight className="h-4 w-4" />
+                )}
+                Continue
+              </Button>
+            </div>
+          </form>
+        </Form>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ export default function AppLayout({
   return (
     <div>
       <AppHeader />
-      <main>{children}</main>
+      <main className="px-4">{children}</main>
     </div>
   );
 }

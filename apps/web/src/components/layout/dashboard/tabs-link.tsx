@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import React from "react";
 import Link from "next/link";
 import { cn } from "@designali/ui";
+import { ScrollArea, ScrollBar } from "@designali/ui/scroll-area";
 
 export interface TabsContainerProps
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -18,24 +19,27 @@ export function TabsContainer({
 }: TabsContainerProps) {
   return (
     <TabsContext.Provider value={{ direction, position }}>
-      <nav
-        className={cn(
-          "flex h-12 items-center justify-center px-2",
-          {
-            "items-center overflow-x-auto": direction === "horizontal",
-          },
-          className,
-        )}
-      >
-        <ul
-          className={cn("flex", {
-            "flex-row": direction === "horizontal",
-            "flex-col": direction === "vertical",
-          })}
+      <ScrollArea className="whitespace-nowrap">
+        <nav
+          className={cn(
+            "flex h-12 items-center justify-center px-2",
+            {
+              "items-center overflow-x-auto": direction === "horizontal",
+            },
+            className,
+          )}
         >
-          {children}
-        </ul>
-      </nav>
+          <ul
+            className={cn("flex", {
+              "flex-row": direction === "horizontal",
+              "flex-col": direction === "vertical",
+            })}
+          >
+            {children}
+          </ul>
+        </nav>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
     </TabsContext.Provider>
   );
 }

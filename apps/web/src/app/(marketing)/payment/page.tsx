@@ -3,6 +3,7 @@ import { getUserById } from "@/lib/actions/user.actions";
 import { APP_NAME } from "@/lib/constants";
 import { auth } from "@designali/auth";
 
+import PaymentMethodForm from "./payment";
 import SuccessPage from "./stripe";
 
 export const metadata: Metadata = {
@@ -11,15 +12,6 @@ export const metadata: Metadata = {
 
 export default async function PaymentMethodPage() {
   const session = await auth();
-  const user = await getUserById(session?.user.id);
-  return (
-    <SuccessPage
-      params={{
-        id: "",
-      }}
-      searchParams={{
-        payment_intent: "",
-      }}
-    />
-  );
+  const user = await getUserById(session.user.id);
+  return <PaymentMethodForm preferredPaymentMethod={user.paymentMethod} />;
 }

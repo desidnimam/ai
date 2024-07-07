@@ -34,13 +34,13 @@ export default function CartForm({ cart }: { cart?: Cart }) {
           Cart is empty. <Link href="/">Go shopping</Link>
         </div>
       ) : (
-        <div className="grid md:grid-cols-4 md:gap-5">
+        <div className="grid gap-6 md:grid-cols-3 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Item</TableHead>
-                  <TableHead className="text-center">Quantity</TableHead>
+                  <TableHead className="">Quantity</TableHead>
                   <TableHead className="text-right">Price</TableHead>
                 </TableRow>
               </TableHeader>
@@ -53,12 +53,13 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                         className="flex items-center"
                       >
                         <Image
+                          className="rounded-xl "
                           src={item.image}
                           alt={item.name}
-                          width={50}
-                          height={50}
+                          width={250}
+                          height={250}
                         ></Image>
-                        <span className="px-2">{item.name}</span>
+                        <span className="px-2 text-xl">{item.name}</span>
                       </Link>
                     </TableCell>
                     <TableCell className="flex-center gap-2">
@@ -66,6 +67,8 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                         disabled={isPending}
                         variant="outline"
                         type="button"
+                        className="h-12 w-12 rounded-full"
+                        size="icon"
                         onClick={() =>
                           startTransition(async () => {
                             const res = await removeItemFromCart(
@@ -86,10 +89,12 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                           <Minus className="h-4 w-4" />
                         )}
                       </Button>
-                      <span>{item.qty}</span>
+                      <span className="px-6">{item.qty}</span>
                       <Button
                         disabled={isPending}
                         variant="outline"
+                        className="h-12 w-12 rounded-full"
+                        size="icon"
                         type="button"
                         onClick={() =>
                           startTransition(async () => {
@@ -118,30 +123,30 @@ export default function CartForm({ cart }: { cart?: Cart }) {
               </TableBody>
             </Table>
           </div>
-          <div>
-            <Card>
-              <CardContent className="gap-4 p-4">
-                <div className="pb-3 text-xl">
-                  Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
-                  {formatCurrency(cart.itemsPrice)}
-                </div>
-                <Button
-                  onClick={() => startTransition(() => router.push("/payment"))}
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  {isPending ? (
-                    <Loader className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <ArrowRight className="h-4 w-4" />
-                  )}
-                  Proceed to Checkout
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       )}
+      <div className="mt-10">
+        <Card>
+          <CardContent className="gap-4 p-4">
+            <div className="flex justify-between pb-3 text-xl">
+              Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
+              <p>{formatCurrency(cart.itemsPrice)}</p>
+            </div>
+            <Button
+              onClick={() => startTransition(() => router.push("/payment"))}
+              className="w-full"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <Loader className="h-4 w-4 animate-spin" />
+              ) : (
+                <ArrowRight className="h-4 w-4" />
+              )}
+              Proceed to Checkout
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
