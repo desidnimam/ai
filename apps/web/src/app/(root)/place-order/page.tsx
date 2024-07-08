@@ -26,9 +26,9 @@ export const metadata = {
 export default async function PlaceOrderPage() {
   const cart = await getMyCart();
   const session = await auth();
-  const user = await getUserById(session?.user.id!);
+  const user = await getUserById(session.user.id);
   if (!cart || cart.items.length === 0) redirect("/cart");
-  if (!user.paymentMethod) redirect("/payment-method");
+  if (!user.paymentMethod) redirect("/payment");
 
   return (
     <div className="mx-auto mt-40 max-w-7xl">
@@ -38,19 +38,10 @@ export default async function PlaceOrderPage() {
         <div className="space-y-4 overflow-x-auto md:col-span-2">
           <Card>
             <CardContent className="gap-4 p-4">
-              <div>
-                <Link href="/shipping-address">
-                  <Button variant="outline">Edit</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Payment Method</h2>
               <p>{user.paymentMethod}</p>
               <div>
-                <Link href="/payment-method">
+                <Link href="/payment">
                   <Button variant="outline">Edit</Button>
                 </Link>
               </div>

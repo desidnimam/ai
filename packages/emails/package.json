@@ -5,6 +5,7 @@
   "main": "./index.ts",
   "scripts": {
     "email": "email dev --dir ./emails --port 3002",
+    "dev": "email dev --port 3001 --dir emails",
     "dev:email": "email dev",
     "with-env": "dotenv -e ../../.env --"
   },

@@ -11,6 +11,7 @@ import { count, desc, eq, sql, sum } from "drizzle-orm";
 
 import { PAGE_SIZE } from "../constants";
 import { formatError } from "../dutils";
+import { paypal } from "../paypal";
 import { insertOrderSchema } from "../validator";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.actions";
@@ -37,7 +38,7 @@ export async function getMyOrders({
   if (!session) throw new Error("User is not authenticated");
 
   const data = await db.query.orders.findMany({
-    where: eq(orders.userId, session.user.id!),
+    where: eq(orders.userId, session.user.id),
     orderBy: [desc(products.createdAt)],
     limit,
     offset: (page - 1) * limit,
@@ -45,7 +46,7 @@ export async function getMyOrders({
   const dataCount = await db
     .select({ count: count() })
     .from(orders)
-    .where(eq(orders.userId, session.user.id!));
+    .where(eq(orders.userId, session.user.id));
 
   return {
     data,
@@ -112,10 +113,10 @@ export const createOrder = async () => {
     const session = await auth();
     if (!session) throw new Error("User is not authenticated");
     const cart = await getMyCart();
-    const user = await getUserById(session?.user.id!);
+    const user = await getUserById(session.user.id);
     if (!cart || cart.items.length === 0) redirect("/cart");
-    if (!user.address) redirect("/shipping-address");
-    if (!user.paymentMethod) redirect("/payment-method");
+    if (!user.address) redirect("/shipping");
+    if (!user.paymentMethod) redirect("/payment");
 
     const order = insertOrderSchema.parse({
       userId: user.id,
@@ -216,7 +217,7 @@ export async function approvePayPalOrder(
     const captureData = await paypal.capturePayment(data.orderID);
     if (
       !captureData ||
-      captureData.id !== order.paymentResult?.id ||
+      captureData.id !== order.paymentResult.id ||
       captureData.status !== "COMPLETED"
     )
       throw new Error("Error in paypal payment");

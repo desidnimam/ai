@@ -1,6 +1,7 @@
 import { Connect } from "@/components/common/connect";
 import Projects from "@/components/common/projects";
 import Bento from "@/components/home/bento";
+import Designali from "@/components/home/designali";
 import Hero from "@/components/home/hero";
 
 export default function HomePage() {
@@ -12,6 +13,7 @@ export default function HomePage() {
       <Bento />
       <Projects />
       <Connect />
+      <Designali />
     </main>
   );
 }
