@@ -8,7 +8,7 @@ const resend = new Resend(env.RESEND_API_KEY);
 export async function POST() {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Designali <contact@aliimam.in>",
+      from: "Designali <onboarding@resend.dev>",
       to: "contact@aliimam.in",
       subject: "Welcome to the Designali",
       react: WelcomeEmail() as React.ReactElement,

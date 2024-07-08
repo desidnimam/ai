@@ -24,6 +24,11 @@
     --input: 20 5.9% 90%;
     --ring: 20 14.3% 4.1%;
     --radius: 1rem;
+
+    --navigation-height: 3.5rem;
+    --color-one: #f50537;
+    --color-two: #fbff00;
+    --color-three: #4400ff;
   }
 
   .dark {
