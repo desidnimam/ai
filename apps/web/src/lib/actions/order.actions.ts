@@ -115,6 +115,7 @@ export const createOrder = async () => {
     const cart = await getMyCart();
     const user = await getUserById(session?.user.id!);
     if (!cart || cart.items.length === 0) redirect("/cart");
+    if (!user.address) redirect("/shipping");
     if (!user.paymentMethod) redirect("/payment");
 
     const order = insertOrderSchema.parse({

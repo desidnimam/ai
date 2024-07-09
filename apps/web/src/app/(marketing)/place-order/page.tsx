@@ -38,6 +38,21 @@ export default async function PlaceOrderPage() {
         <div className="space-y-4 overflow-x-auto md:col-span-2">
           <Card>
             <CardContent className="gap-4 p-4">
+              <h2 className="pb-4 text-xl">Shipping Address</h2>
+              <p>{user.address.fullName}</p>
+              <p>
+                {user.address.streetAddress}, {user.address.city},{" "}
+                {user.address.postalCode}, {user.address.country}{" "}
+              </p>
+              <div>
+                <Link href="/shipping-address">
+                  <Button variant="outline">Edit</Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Payment Method</h2>
               <p>{user.paymentMethod}</p>
               <div>

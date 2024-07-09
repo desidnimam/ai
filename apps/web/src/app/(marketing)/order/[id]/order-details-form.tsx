@@ -147,7 +147,24 @@ export default function OrderDetailsForm({
               )}
             </CardContent>
           </Card>
+          <Card>
+            <CardContent className="gap-4 p-4">
+              <h2 className="pb-4 text-xl">Shipping Address</h2>
+              <p>{shippingAddress.fullName}</p>
+              <p>
+                {shippingAddress.streetAddress}, {shippingAddress.city},{" "}
+                {shippingAddress.postalCode}, {shippingAddress.country}{" "}
+              </p>
 
+              {isDelivered ? (
+                <Badge variant="secondary">
+                  Delivered at {formatDateTime(deliveredAt!).dateTime}
+                </Badge>
+              ) : (
+                <Badge variant="destructive">Not delivered</Badge>
+              )}
+            </CardContent>
+          </Card>
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Order Items</h2>
