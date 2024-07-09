@@ -38,11 +38,11 @@ export function Menu() {
                   <NavigationMenuLink asChild>
                     <a
                       className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
-                      href="/products/graaadients"
+                      href="/products/landing-page"
                     >
                       <Icons.gradient strokeWidth={1} className="h-8 w-8" />
                       <div className="mb-2 mt-4 text-lg font-medium">
-                        Graaadients
+                        Landing Page
                       </div>
                       <p className="text-sm leading-tight text-muted-foreground">
                         +1000 abstract gradient elements and backgrounds for
@@ -55,12 +55,10 @@ export function Menu() {
                   <NavigationMenuLink asChild>
                     <a
                       className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
-                      href="/products/3dicons"
+                      href="/products/logo"
                     >
                       <Icons.box strokeWidth={1} className="h-8 w-8" />
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        3D Icons
-                      </div>
+                      <div className="mb-2 mt-4 text-lg font-medium">Logo</div>
                       <p className="text-sm leading-tight text-muted-foreground">
                         +100 3D icons and shapes elements and backgrounds for
                         your amazing design projects.
@@ -68,27 +66,11 @@ export function Menu() {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none hover:bg-ali focus:shadow-md"
-                      href="/products"
-                    >
-                      <Icons.shapes strokeWidth={1} className="h-8 w-8" />
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        Shapes
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        +1000 abstract shapes elements and backgrounds for your
-                        amazing design projects.
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/docs" title="Introduction">
+
+                <ListItem href="/designs" title="Introduction">
                   All gradients are 100% free.
                 </ListItem>
-                <ListItem href="/" title="Installation">
+                <ListItem href="/guides" title="Installation">
                   Download. Edit. Upload.
                 </ListItem>
                 <ListItem href="/" title="Styles">
