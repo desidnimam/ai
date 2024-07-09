@@ -26,7 +26,7 @@ export default function CartForm({ cart }: { cart?: Cart }) {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   return (
-    <div className="mx-auto mt-40 max-w-7xl">
+    <div className="mx-auto mt-40 max-w-7xl px-6">
       <h1 className="h2-bold py-4">Shopping Cart</h1>
 
       {!cart || cart.items.length === 0 ? (
@@ -50,16 +50,18 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                     <TableCell>
                       <Link
                         href={`/product/${item.slug}`}
-                        className="flex items-center"
+                        className="grid items-center md:flex"
                       >
                         <Image
-                          className="rounded-xl "
+                          className="w-[100px]  rounded-xl md:w-[250px]"
                           src={item.image}
                           alt={item.name}
                           width={250}
                           height={250}
                         ></Image>
-                        <span className="px-2 text-xl">{item.name}</span>
+                        <span className="mt-2 px-2 text-center text-sm md:text-xl">
+                          {item.name}
+                        </span>
                       </Link>
                     </TableCell>
                     <TableCell className="flex-center gap-2">
@@ -67,7 +69,7 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                         disabled={isPending}
                         variant="outline"
                         type="button"
-                        className="h-12 w-12 rounded-full"
+                        className="h-8 w-8 rounded-full md:h-12 md:w-12"
                         size="icon"
                         onClick={() =>
                           startTransition(async () => {
@@ -93,7 +95,7 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                       <Button
                         disabled={isPending}
                         variant="outline"
-                        className="h-12 w-12 rounded-full"
+                        className="h-8 w-8 rounded-full md:h-12 md:w-12"
                         size="icon"
                         type="button"
                         onClick={() =>
@@ -115,7 +117,7 @@ export default function CartForm({ cart }: { cart?: Cart }) {
                         )}
                       </Button>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right md:text-2xl">
                       {formatCurrency(item.price)}
                     </TableCell>
                   </TableRow>
@@ -129,8 +131,13 @@ export default function CartForm({ cart }: { cart?: Cart }) {
         <Card>
           <CardContent className="gap-4 p-4">
             <div className="flex justify-between pb-3 text-xl">
-              Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
-              <p>{formatCurrency(cart.itemsPrice)}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Subtotal{" "}
+                </p>
+                <p>({cart.items.reduce((a, c) => a + c.qty, 0)}):</p>
+              </div>
+              <p className="text-semibold">{formatCurrency(cart.itemsPrice)}</p>
             </div>
             <Button
               onClick={() => startTransition(() => router.push("/payment"))}

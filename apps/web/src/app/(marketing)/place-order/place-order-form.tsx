@@ -18,7 +18,7 @@ export default function PlaceOrderForm() {
         {pending ? (
           <Loader className="h-4 w-4 animate-spin" />
         ) : (
-          <Check className="h-4 w-4" />
+          <Check className="mx-2 h-4 w-4" />
         )}{" "}
         Place Order
       </Button>

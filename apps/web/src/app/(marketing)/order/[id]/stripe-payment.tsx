@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import { formatCurrency } from "@/lib/dutils";
 import { Button } from "@designali/ui/button";
 import {
@@ -21,7 +22,7 @@ export default function StripePayment({
   clientSecret: string;
 }) {
   const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
   );
   const { theme, systemTheme } = useTheme();
   const StripeForm = () => {
@@ -39,7 +40,7 @@ export default function StripePayment({
         .confirmPayment({
           elements,
           confirmParams: {
-            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/order/${orderId}/stripe-payment-success`,
+            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/order/${orderId}/success`,
           },
         })
         .then(({ error }) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Order } from "@/types";
 import { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +11,6 @@ import {
   updateOrderToPaidByCOD,
 } from "@/lib/actions/order.actions";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
-import { Order } from "@/types";
 import { Badge } from "@designali/ui/badge";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
@@ -130,9 +130,9 @@ export default function OrderDetailsForm({
   };
 
   return (
-    <div className="mx-auto mt-20 max-w-7xl">
+    <div className="mx-auto mt-20 max-w-7xl px-6">
       <h1 className="py-4 text-2xl"> Order {formatId(order.id)}</h1>
-      <div className="grid md:grid-cols-3 md:gap-5">
+      <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">
           <Card>
             <CardContent className="gap-4 p-4">
@@ -140,7 +140,7 @@ export default function OrderDetailsForm({
               <p>{paymentMethod}</p>
               {isPaid ? (
                 <Badge variant="secondary">
-                  Paid at {formatDateTime(paidAt!).dateTime}
+                  Paid at {formatDateTime(paidAt).dateTime}
                 </Badge>
               ) : (
                 <Badge variant="destructive">Not paid</Badge>
@@ -158,7 +158,7 @@ export default function OrderDetailsForm({
 
               {isDelivered ? (
                 <Badge variant="secondary">
-                  Delivered at {formatDateTime(deliveredAt!).dateTime}
+                  Delivered at {formatDateTime(deliveredAt).dateTime}
                 </Badge>
               ) : (
                 <Badge variant="destructive">Not delivered</Badge>

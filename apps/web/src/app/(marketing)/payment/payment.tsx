@@ -55,7 +55,7 @@ export default function PaymentMethodForm({
 
   return (
     <>
-      <div className="mx-auto mt-40 h-screen max-w-md">
+      <div className="mx-auto mt-40 h-screen max-w-md px-6">
         <Form {...form}>
           <form
             method="post"

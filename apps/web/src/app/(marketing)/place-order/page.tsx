@@ -31,10 +31,10 @@ export default async function PlaceOrderPage() {
   if (!user.paymentMethod) redirect("/payment");
 
   return (
-    <div className="mx-auto mt-40 max-w-7xl">
+    <div className="mx-auto mt-40 max-w-7xl px-6">
       <h1 className="py-4 text-2xl">Place Order</h1>
 
-      <div className="grid md:grid-cols-3 md:gap-5">
+      <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">
           <Card>
             <CardContent className="gap-4 p-4">
@@ -45,7 +45,7 @@ export default async function PlaceOrderPage() {
                 {user.address.postalCode}, {user.address.country}{" "}
               </p>
               <div>
-                <Link href="/shipping-address">
+                <Link href="/shipping">
                   <Button variant="outline">Edit</Button>
                 </Link>
               </div>

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getOrderById } from "@/lib/actions/order.actions";
@@ -6,10 +6,10 @@ import { APP_NAME } from "@/lib/constants";
 import { Button } from "@designali/ui/button";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const metadata: Metadata = {
-  title: `Stripe Payment Success - ${APP_NAME}`,
+  title: `Payment Success - ${APP_NAME}`,
 };
 
 export default async function SuccessPage({
