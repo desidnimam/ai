@@ -11,6 +11,7 @@ import {
 import { Disclosure, Transition } from "@headlessui/react";
 
 import { Icons } from "../../icons";
+import { PhoneLoginButton } from "./sign-in";
 
 const navigation = [
   { name: "About AI", href: "/about", current: true },
@@ -65,6 +66,9 @@ export default function Navbar() {
               >
                 <Disclosure.Panel className="mx-auto px-6 md:max-w-3xl lg:hidden">
                   <div className="flex flex-col py-3 ">
+                    <div className="mt-6 pb-3">
+                      <PhoneLoginButton />
+                    </div>
                     {navigation.map((item) => (
                       <Disclosure.Button
                         key={item.name}
@@ -96,7 +100,6 @@ export default function Navbar() {
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
-                    <div className="mt-6"></div>
                   </div>
                 </Disclosure.Panel>
               </Transition>

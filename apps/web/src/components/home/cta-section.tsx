@@ -8,9 +8,6 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import {
   BarChart,
   ChevronRight,
-  File,
-  Globe,
-  HeartHandshake,
   Navigation,
   PieChart,
   Plug,
@@ -129,8 +126,37 @@ export default function CallToActionSection() {
   }, []);
 
   return (
-    <section id="cta">
-      <div className="py-14">
+    <section id="cta" className="mb-20 md:-mt-20">
+      <div className="relative mt-20 flex justify-center px-6">
+        <div className="absolute z-10 mt-32 rounded-[2rem] border bg-white/10 p-14 shadow-2xl backdrop-blur-md dark:bg-black/10 md:mt-10">
+          <div className="mx-auto flex justify-center">
+            <Logo className="h-20 w-20 " />
+          </div>
+          <div className="z-10 mt-4 flex flex-col items-center text-center text-primary">
+            <h1 className="text-xl font-semibold lg:text-4xl">
+              Design anything you need
+            </h1>
+            <p className="mt-2 text-slate-600 dark:text-slate-400">
+              No credit card required.
+            </p>
+            <Link
+              href="/dashboard"
+              className={cn(
+                buttonVariants({
+                  size: "lg",
+                  variant: "outline",
+                }),
+                "group mt-4 rounded-[2rem] px-6",
+              )}
+            >
+              Get Started
+              <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
+            </Link>
+          </div>
+          <div className="absolute inset-0 -z-10 rounded-full bg-background opacity-40 blur-xl" />
+        </div>
+      </div>
+      <div className="md:-mt-20 ">
         <div className="flex w-full flex-col items-center justify-center">
           <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
             <Marquee
@@ -175,33 +201,7 @@ export default function CallToActionSection() {
                 <Card key={idx} {...review} />
               ))}
             </Marquee>
-            <div className="absolute z-10 rounded-[2rem] border bg-white/10 px-10 py-16 shadow-2xl backdrop-blur-md dark:bg-black/10">
-              <div className="mx-auto flex justify-center">
-                <Logo className="h-20 w-20 " />
-              </div>
-              <div className="z-10 mt-4 flex flex-col items-center text-center text-primary">
-                <h1 className="text-3xl font-bold lg:text-4xl">
-                  Design anything you need
-                </h1>
-                <p className="mt-2 text-slate-600 dark:text-slate-400">
-                  No credit card required.
-                </p>
-                <Link
-                  href="/dashboard"
-                  className={cn(
-                    buttonVariants({
-                      size: "lg",
-                      variant: "outline",
-                    }),
-                    "group mt-4 rounded-[2rem] px-6",
-                  )}
-                >
-                  Get Started for free
-                  <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
-                </Link>
-              </div>
-              <div className="absolute inset-0 -z-10 rounded-full bg-background opacity-40 blur-xl" />
-            </div>
+
             <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-b from-transparent to-background to-70%" />
           </div>
         </div>

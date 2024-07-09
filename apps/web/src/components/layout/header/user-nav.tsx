@@ -56,6 +56,11 @@ export function UserNav() {
               </DropdownMenuItem>
             )}
             <DropdownMenuItem asChild>
+              <Link href={`/dashboard`}>
+                <h1>Dashboard</h1>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href={`/dashboard/billing`}>
                 <h1>Billing</h1>
               </Link>
