@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getOrderSummary } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
 import { Card, CardContent, CardHeader, CardTitle } from "@designali/ui/card";
 import {
   Table,
@@ -24,14 +25,16 @@ export default async function DashboardPage() {
   const summary = await getOrderSummary();
 
   return (
-    <div className="space-y-4">
-      <h1 className="h2-bold">Dashboard</h1>
-
+    <div className="space-y-4 px-6">
+      <PageTitle
+        title="Dashboard Overview"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <BadgeDollarSign />
+            <BadgeDollarSign strokeWidth={1} />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -42,7 +45,7 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Sales</CardTitle>
-            <CreditCard />
+            <CreditCard strokeWidth={1} />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -53,7 +56,7 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Customers</CardTitle>
-            <Users />
+            <Users strokeWidth={1} />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -65,7 +68,7 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Products</CardTitle>
-            <Barcode />
+            <Barcode strokeWidth={1} />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">

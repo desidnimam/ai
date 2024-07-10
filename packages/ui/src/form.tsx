@@ -9,6 +9,7 @@ import type {
 } from "react-hook-form";
 import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
+import { cn } from "@designali/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Slot } from "@radix-ui/react-slot";
 import {
@@ -17,8 +18,6 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
-
-import { cn } from "@designali/ui";
 
 import { Label } from "./label";
 
@@ -114,7 +113,10 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(
+        error && "text-xs font-light text-slate-600 dark:text-slate-400",
+        className,
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -155,7 +157,10 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-[0.8rem] text-muted-foreground", className)}
+      className={cn(
+        "text-[0.8rem] text-muted-foreground text-slate-600 dark:text-slate-400",
+        className,
+      )}
       {...props}
     />
   );
@@ -177,7 +182,10 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
+      className={cn(
+        "text-[0.8rem] text-destructive text-slate-600 dark:text-slate-400",
+        className,
+      )}
       {...props}
     >
       {body}

@@ -1,8 +1,10 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getMyOrders } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
+import { Button } from "@designali/ui/button";
 import {
   Table,
   TableBody,
@@ -23,12 +25,15 @@ export default async function OrdersPage({
   const page = Number(searchParams.page) || 1;
   const orders = await getMyOrders({
     page,
-    limit: 6,
+    limit: 10,
   });
   return (
     <div className="mx-auto mt-40 max-w-7xl space-y-2">
-      <h2 className="h2-bold">Orders</h2>
-      <div className="overflow-x-auto">
+      <PageTitle
+        title="Orders"
+        description={`Manage your orders and view your order details`}
+      />
+      <div className="overflow-x-auto rounded-3xl border p-6">
         <Table>
           <TableHeader>
             <TableRow>
@@ -59,9 +64,11 @@ export default async function OrdersPage({
                     : "not delivered"}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/order/${order.id}`}>
-                    <span className="px-2">Details</span>
-                  </Link>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/order/${order.id}`}>
+                      <span className="px-2">Details</span>
+                    </Link>
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

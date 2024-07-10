@@ -207,6 +207,49 @@ export const pagesConfig = [
   },
 ] as const satisfies readonly Page[];
 
+export const adminConfig = [
+  {
+    title: "Overview",
+    description: "Check all the responses in one place.",
+    href: "/overview",
+    icon: "activity",
+    segment: "overview",
+    children: monitorPagesConfig,
+  },
+  {
+    title: "Products",
+    description: "All your incidents.",
+    href: "/products",
+    icon: "siren",
+    segment: "products",
+    children: incidentPagesConfig,
+  },
+  {
+    title: "Orders",
+    description: "Where you can see all the pages.",
+    href: "/orders",
+    icon: "panel-top",
+    segment: "orders",
+    children: statusPagesPagesConfig,
+  },
+  {
+    title: "Users",
+    description: "Where you can see all the notifications.",
+    href: "/users",
+    icon: "bell",
+    segment: "users",
+    children: notificationsPagesConfig,
+  },
+  {
+    title: "Settings",
+    description: "Your workspace settings",
+    href: "/settings",
+    icon: "cog",
+    segment: "settings",
+    children: settingsPagesConfig,
+  },
+] as const satisfies readonly Page[];
+
 export const marketingPagesConfig = [
   {
     href: "/blog",

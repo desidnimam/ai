@@ -1,5 +1,6 @@
 "use client";
 
+import type { z } from "zod";
 import { useRouter } from "next/navigation";
 import { updateUser } from "@/lib/actions/user.actions";
 import { USER_ROLES } from "@/lib/constants";
@@ -24,7 +25,6 @@ import {
 import { useToast } from "@designali/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 export default function UpdateUserForm({
   user,
@@ -138,6 +138,8 @@ export default function UpdateUserForm({
         <div className="flex-between">
           <Button
             type="submit"
+            size="lg"
+            variant="default"
             className="w-full"
             disabled={form.formState.isSubmitting}
           >

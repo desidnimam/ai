@@ -4,6 +4,7 @@ import DeleteDialog from "@/components/admin/delete-dialog";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatId } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
 import { auth } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
@@ -29,9 +30,12 @@ export default async function AdminUser({
     page,
   });
   return (
-    <div className="space-y-2">
-      <h1 className="h2-bold">Users</h1>
-      <div>
+    <div className="space-y-2 px-6">
+      <PageTitle
+        title="Users"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
+      <div className="mt-20 rounded-3xl border p-6">
         <Table>
           <TableHeader>
             <TableRow>

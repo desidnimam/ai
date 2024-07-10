@@ -1,8 +1,9 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
 import { auth } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
@@ -30,9 +31,12 @@ export default async function OrdersPage({
   });
 
   return (
-    <div className="space-y-2">
-      <h1 className="h2-bold">Orders</h1>
-      <div className="overflow-x-auto">
+    <div className="space-y-2 px-6">
+      <PageTitle
+        title="Orders"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
+      <div className="mt-20 rounded-3xl border p-6">
         <Table>
           <TableHeader>
             <TableRow>

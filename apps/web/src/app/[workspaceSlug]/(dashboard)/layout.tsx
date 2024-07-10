@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { AppHeader } from "@/components/layout/dashboard/app-header";
+import { AppTabs } from "@/components/layout/dashboard/app-tabs";
 
 // TODO: make the container min-h-screen and the footer below!
 export default function AppLayout({
@@ -10,7 +10,7 @@ export default function AppLayout({
 }) {
   return (
     <div>
-      <AppHeader />
+      <AppTabs />
       <main className="px-4">{children}</main>
     </div>
   );

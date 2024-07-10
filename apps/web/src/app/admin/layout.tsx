@@ -1,7 +1,6 @@
 import React from "react";
+import { AdminTabs } from "@/components/layout/dashboard/app-tabs";
 import { auth } from "@designali/auth";
-
-import MainNav from "./main-nav";
 
 export default async function AdminLayout({
   children,
@@ -13,15 +12,8 @@ export default async function AdminLayout({
     throw new Error("admin permission required");
   return (
     <>
-      <div className="mx-auto mt-20 flex max-w-7xl flex-col">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <MainNav className="mx-6" />
-            <div className="ml-auto flex items-center space-x-4"></div>
-          </div>
-        </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">{children}</div>
-      </div>
+      <AdminTabs />
+      <div className="mx-auto mt-40  max-w-7xl">{children}</div>
     </>
   );
 }

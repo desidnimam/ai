@@ -10,7 +10,7 @@ import { Avegra } from "../../fonts";
 
 export default function HomePage() {
   return (
-    <main className=" py-16">
+    <main className="py-16">
       <div className="mx-auto mt-40 max-w-3xl px-6 md:max-w-5xl">
         <div className="relative mx-auto mt-10 flex h-[28rem] max-w-sm flex-col items-start border border-slate-100 p-4 dark:border-slate-900">
           <Icons.plus
@@ -49,7 +49,7 @@ export default function HomePage() {
             </div>
           </ImageZoom>
         </div>
-        <div className="mx-auto mt-20 max-w-3xl px-6 md:max-w-5xl ">
+        <div className="mx-auto mt-20 max-w-3xl md:max-w-5xl ">
           <About />
 
           <h1 className="my-6 mt-12 text-center text-xs font-semibold uppercase tracking-[.3em] text-slate-400 ">
@@ -57,8 +57,8 @@ export default function HomePage() {
           </h1>
           <Logos />
         </div>
-        <Connect />
       </div>
+      <Connect />
     </main>
   );
 }

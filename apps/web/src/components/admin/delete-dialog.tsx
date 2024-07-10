@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { cn } from "@designali/ui";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -11,7 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@designali/ui/alert-dialog";
-import { Button } from "@designali/ui/button";
+import { Button, buttonVariants } from "@designali/ui/button";
 import { useToast } from "@designali/ui/use-toast";
 
 export default function DeleteDialog({
@@ -19,7 +20,7 @@ export default function DeleteDialog({
   action,
 }: {
   id: string;
-  // eslint-disable-next-line no-unused-vars
+
   action: (id: string) => Promise<{ success: boolean; message: string }>;
 }) {
   const [open, setOpen] = useState(false);
@@ -40,11 +41,20 @@ export default function DeleteDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel
+            className={cn(
+              buttonVariants({
+                variant: "outline",
+                size: "lg",
+              }),
+            )}
+          >
+            Cancel
+          </AlertDialogCancel>
 
           <Button
             variant="destructive"
-            size="sm"
+            size="lg"
             disabled={isPending}
             onClick={() =>
               startTransition(async () => {

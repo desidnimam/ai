@@ -1,13 +1,15 @@
 "use client";
 
+import type { Product } from "@/types";
+import type { z } from "zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createProduct, updateProduct } from "@/lib/actions/product.actions";
 import { productDefaultValues } from "@/lib/constants";
 import { UploadButton } from "@/lib/uploadthing";
 import { insertProductSchema, updateProductSchema } from "@/lib/validator";
-import { Product } from "@/types";
-import { Button } from "@designali/ui/button";
+import { cn } from "@designali/ui";
+import { Button, buttonVariants } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import { Checkbox } from "@designali/ui/checkbox";
 import {
@@ -24,7 +26,6 @@ import { useToast } from "@designali/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import slugify from "slugify";
-import { z } from "zod";
 
 export default function ProductForm({
   type,
@@ -89,13 +90,15 @@ export default function ProductForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
       >
-        <div className="flex flex-col gap-5 md:flex-row">
+        <div className="flex flex-col gap-4 md:flex-row">
           <FormField
             control={form.control}
             name="name"
             render={({ field }: { field: any }) => (
               <FormItem className="w-full">
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Name
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter product name" {...field} />
                 </FormControl>
@@ -110,7 +113,9 @@ export default function ProductForm({
             name="slug"
             render={({ field }: { field: any }) => (
               <FormItem className="w-full">
-                <FormLabel>Slug</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Slug
+                </FormLabel>
 
                 <FormControl>
                   <div className="relative">
@@ -119,8 +124,10 @@ export default function ProductForm({
                       className="pl-8"
                       {...field}
                     />
-                    <button
+                    <Button
+                      className="absolute right-1 top-1"
                       type="button"
+                      size="sm"
                       onClick={() => {
                         form.setValue(
                           "slug",
@@ -129,7 +136,7 @@ export default function ProductForm({
                       }}
                     >
                       Generate
-                    </button>
+                    </Button>
                   </div>
                 </FormControl>
 
@@ -144,7 +151,9 @@ export default function ProductForm({
             name="category"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Category</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Category
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter category" {...field} />
                 </FormControl>
@@ -158,7 +167,9 @@ export default function ProductForm({
             name="brand"
             render={({ field }: { field: any }) => (
               <FormItem className="w-full">
-                <FormLabel>Brand</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Brand
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter product brand" {...field} />
                 </FormControl>
@@ -174,7 +185,9 @@ export default function ProductForm({
             name="price"
             render={({ field }: { field: any }) => (
               <FormItem className="w-full">
-                <FormLabel>Price</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Price
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter product price" {...field} />
                 </FormControl>
@@ -187,7 +200,9 @@ export default function ProductForm({
             name="stock"
             render={({ field }: { field: any }) => (
               <FormItem className="w-full">
-                <FormLabel>Stock</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Stock
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -207,33 +222,47 @@ export default function ProductForm({
             name="images"
             render={() => (
               <FormItem className="w-full">
-                <FormLabel>Images</FormLabel>
+                <FormLabel className="flex justify-center py-1 text-center text-xs text-slate-600 dark:text-slate-400">
+                  Images
+                </FormLabel>
                 <Card>
-                  <CardContent className="mt-2 min-h-48 space-y-2">
-                    <div className="flex-start space-x-2">
-                      {images.map((image: string) => (
-                        <Image
-                          key={image}
-                          src={image}
-                          alt="product image"
-                          className="h-20 w-20 rounded-sm object-cover object-center"
-                          width={100}
-                          height={100}
-                        />
-                      ))}
+                  <CardContent className="min-h-auto mt-6">
+                    <div className="flex-start p-3">
+                      <div className="grid gap-3 md:flex">
+                        {images.map((image: string) => (
+                          <Image
+                            key={image}
+                            src={image}
+                            alt="product image"
+                            className="h-full w-auto rounded-sm border border-ali object-cover object-center"
+                            width={200}
+                            height={200}
+                          />
+                        ))}
+                      </div>
                       <FormControl>
-                        <UploadButton
-                          endpoint="imageUploader"
-                          onClientUploadComplete={(res: any) => {
-                            form.setValue("images", [...images, res[0].url]);
-                          }}
-                          onUploadError={(error: Error) => {
-                            toast({
-                              variant: "destructive",
-                              description: `ERROR! ${error.message}`,
-                            });
-                          }}
-                        />
+                        <div className="flex justify-center">
+                          <UploadButton
+                            appearance={{
+                              button:
+                                "ut-ready:bg-green-500 px-6 ut-uploading:cursor-not-allowed rounded-full bg-ali bg-none after:bg-blue",
+                              container:
+                                "w-max justify-center flex-row mt-6 rounded-full border-ali bg-slate-200 dark:bg-slate-800",
+                              allowedContent:
+                                "flex h-10 flex-col items-center justify-center px-4",
+                            }}
+                            endpoint="imageUploader"
+                            onClientUploadComplete={(res: any) => {
+                              form.setValue("images", [...images, res[0].url]);
+                            }}
+                            onUploadError={(error: Error) => {
+                              toast({
+                                variant: "destructive",
+                                description: `ERROR! ${error.message}`,
+                              });
+                            }}
+                          />
+                        </div>
                       </FormControl>
                     </div>
                   </CardContent>
@@ -245,15 +274,22 @@ export default function ProductForm({
           />
         </div>
         <div>
-          Featured Product
+          <p className="py-3 text-center text-xs text-slate-600 dark:text-slate-400">
+            Featured Product
+          </p>
           <Card>
-            <CardContent className="mt-2 space-y-2  ">
+            <CardContent className="space-y-2">
               <FormField
                 control={form.control}
                 name="isFeatured"
                 render={({ field }) => (
-                  <FormItem className="items-center space-x-2">
-                    <FormControl></FormControl>
+                  <FormItem className="mt-6 flex items-center justify-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
                     <FormLabel>Is Featured?</FormLabel>
                   </FormItem>
                 )}
@@ -262,24 +298,34 @@ export default function ProductForm({
                 <Image
                   src={banner}
                   alt="banner image"
-                  className=" w-full rounded-sm object-cover object-center"
+                  className="w-full rounded-sm object-cover object-center"
                   width={1920}
                   height={680}
                 />
               )}
               {isFeatured && !banner && (
-                <UploadButton
-                  endpoint="imageUploader"
-                  onClientUploadComplete={(res) => {
-                    form.setValue("banner", res[0].url);
-                  }}
-                  onUploadError={(error: Error) => {
-                    toast({
-                      variant: "destructive",
-                      description: `ERROR! ${error.message}`,
-                    });
-                  }}
-                />
+                <div className="flex justify-center">
+                  <UploadButton
+                    appearance={{
+                      button:
+                        "ut-ready:bg-green-500 px-6 ut-uploading:cursor-not-allowed rounded-full bg-ali bg-none after:bg-blue",
+                      container:
+                        "w-max justify-center flex-row mt-6 rounded-full border-ali bg-slate-200 dark:bg-slate-800",
+                      allowedContent:
+                        "flex h-10 flex-col items-center justify-center px-4",
+                    }}
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res: any) => {
+                      form.setValue("images", [...images, res[0].url]);
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast({
+                        variant: "destructive",
+                        description: `ERROR! ${error.message}`,
+                      });
+                    }}
+                  />
+                </div>
               )}
             </CardContent>
           </Card>
@@ -290,11 +336,13 @@ export default function ProductForm({
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Description</FormLabel>
+                <FormLabel className="text-xs text-slate-600 dark:text-slate-400">
+                  Description
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Enter product description"
-                    className="resize-none"
+                    className="mt-2 h-[200px]"
                     {...field}
                   />
                 </FormControl>

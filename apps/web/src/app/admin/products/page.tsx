@@ -1,9 +1,10 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import DeleteDialog from "@/components/admin/delete-dialog";
 import { deleteProduct, getAllProducts } from "@/lib/actions/product.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatId } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
 import {
   Table,
@@ -36,20 +37,23 @@ export default async function AdminProductsPage({
     page,
   });
   return (
-    <div className="space-y-2">
-      <div className="flex-between">
-        <h1 className="h2-bold">Products</h1>
+    <div className="px-6">
+      <PageTitle
+        title="Products"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
+      <div className="flex justify-center">
         <Button asChild variant="default">
           <Link href="/admin/products/create">Create Product</Link>
         </Button>
       </div>
-      <div>
+      <div className="mt-10 rounded-3xl border p-6">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
               <TableHead>NAME</TableHead>
-              <TableHead className="text-right">PRICE</TableHead>
+              <TableHead>PRICE</TableHead>
               <TableHead>CATEGORY</TableHead>
               <TableHead>STOCK</TableHead>
               <TableHead>RATING</TableHead>
@@ -57,13 +61,11 @@ export default async function AdminProductsPage({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products?.data.map((product) => (
+            {products.data.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>{formatId(product.id)}</TableCell>
                 <TableCell>{product.name}</TableCell>
-                <TableCell className="text-right">
-                  {formatCurrency(product.price)}
-                </TableCell>
+                <TableCell>{formatCurrency(product.price)}</TableCell>
                 <TableCell>{product.category}</TableCell>
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>{product.rating}</TableCell>

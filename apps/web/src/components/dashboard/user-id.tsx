@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
+import PageTitle from "../mdx/page-title";
+
 export default function UserId() {
   const session = useSession();
 
@@ -13,21 +15,19 @@ export default function UserId() {
   return (
     <>
       <div className="grid items-center justify-center gap-3">
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex justify-center">
           <Image
             src={session.data.user.image}
-            width={40}
-            height={40}
+            width={60}
+            height={60}
             alt={""}
             className="rounded-full border"
           />
-          <h1 className="truncate text-5xl font-semibold leading-none">
-            {session.data.user.name}
-          </h1>
         </div>
-        <p className="text-md truncate leading-none text-muted-foreground">
-          {session.data.user.email}
-        </p>
+        <PageTitle
+          title={session.data.user.name}
+          description={session.data.user.email}
+        />
       </div>
     </>
   );
