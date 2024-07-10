@@ -127,7 +127,7 @@ export default function CallToActionSection() {
 
   return (
     <section id="cta" className="mb-20 md:-mt-20">
-      <div className="relative mt-20 flex justify-center px-6">
+      <div className="relative flex justify-center px-6 md:mt-20">
         <div className="absolute z-10 mt-32 rounded-[2rem] border bg-white/10 p-14 shadow-2xl backdrop-blur-md dark:bg-black/10 md:mt-10">
           <div className="mx-auto flex justify-center">
             <Logo className="h-20 w-20 " />

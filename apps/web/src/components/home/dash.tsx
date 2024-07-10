@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import ImageZoom from "@/components/common/image-zoom";
 import { useInView } from "framer-motion";
 
 import { BorderBeam } from "../ui/border-beam";
@@ -31,24 +30,34 @@ const Hero = () => {
             colorFrom="#ffffff"
             colorTo="#f50537"
           />
-          <ImageZoom>
-            <Image
-              src="/images/dash-dark.jpg"
-              alt="Hero Image"
-              width={900}
-              height={900}
-              className="relative hidden h-full w-full rounded-[inherit] border object-contain dark:block"
-            />
-          </ImageZoom>
-          <ImageZoom>
-            <Image
-              src="/images/dash-light.jpg"
-              alt="Hero Image"
-              width={900}
-              height={900}
-              className="relative block h-full w-full rounded-[inherit] border object-contain dark:hidden"
-            />
-          </ImageZoom>
+          <Image
+            src="/images/dash-dark.jpg"
+            alt="Hero Image"
+            width={900}
+            height={900}
+            className="relative hidden h-full w-full rounded-[inherit] border object-contain md:dark:block"
+          />
+          <Image
+            src="/images/dash-light.jpg"
+            alt="Hero Image"
+            width={900}
+            height={900}
+            className="relative hidden h-full w-full rounded-[inherit] border object-contain dark:hidden md:block"
+          />
+          <Image
+            src="/images/dash-p-dark.jpg"
+            alt="Hero Image"
+            width={900}
+            height={900}
+            className="relative hidden h-full w-full rounded-[inherit] border object-contain dark:block md:hidden md:dark:hidden lg:hidden"
+          />
+          <Image
+            src="/images/dash-p-light.jpg"
+            alt="Hero Image"
+            width={900}
+            height={900}
+            className="relative block h-full w-full rounded-[inherit] border object-contain dark:hidden md:hidden lg:hidden"
+          />
         </div>
       </div>
     </section>
