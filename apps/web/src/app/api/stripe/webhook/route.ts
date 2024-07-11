@@ -1,9 +1,9 @@
 import type Stripe from "stripe";
+import { stripe } from "@/lib/stripe/stripe";
 import {
   createSubscription,
   deleteSubscription,
-} from "@/app/actions/userSubscriptions";
-import { stripe } from "@/lib/stripe/stripe";
+} from "@/lib/stripe/userSubscriptions";
 
 const relevantEvents = new Set([
   "checkout.session.completed",

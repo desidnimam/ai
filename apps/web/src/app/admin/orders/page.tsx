@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function OrdersPage({
-  searchParams: { page = "1" },
+  searchParams: { page = "3" },
 }: {
   searchParams: { page: string };
 }) {
