@@ -29,6 +29,8 @@ export const users = pgTable(
     address: json("address").$type<ShippingAddress>(),
     paymentMethod: text("paymentMethod"),
     createdAt: timestamp("createdAt").defaultNow(),
+    stripeCustomerId: text("stripe_customer_id"),
+    subscribed: boolean("subscribed"),
   },
   (table) => {
     return {
@@ -62,7 +64,7 @@ export const accounts = pgTable(
 );
 
 export const sessions = pgTable("session", {
-  sessionToken: text("sessionToken").primaryKey(),
+  sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
