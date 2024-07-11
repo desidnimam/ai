@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@designali/ui/avatar";
-import { Badge } from "@designali/ui/badge";
+import { getMyOrders } from "@/lib/actions/order.actions";
+import { formatCurrency, formatDateTime } from "@/src/lib/dutils";
 import { Button } from "@designali/ui/button";
 import {
   Card,
@@ -10,17 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@designali/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@designali/ui/dropdown-menu";
-import { Input } from "@designali/ui/input";
 import { Separator } from "@designali/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@designali/ui/sheet";
 import {
   Table,
   TableBody,
@@ -32,17 +22,26 @@ import {
 import {
   Activity,
   ArrowUpRight,
-  CircleUser,
   CreditCard,
   DollarSign,
-  Menu,
-  Package2,
-  Search,
   Upload,
   Users,
 } from "lucide-react";
 
-export function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  const page = Number(searchParams.page) || 1;
+  const summary = await getMyOrders({
+    page,
+    limit: 10,
+  });
+  const orders = await getMyOrders({
+    page,
+    limit: 10,
+  });
   return (
     <div className="mx-auto mt-10 flex min-h-screen max-w-7xl flex-col">
       <Separator />
@@ -51,12 +50,12 @@ export function Dashboard() {
           <Card x-chunk="dashboard-01-chunk-0">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Revenue
+                Total Designs
               </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">12</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -121,120 +120,36 @@ export function Dashboard() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Customer</TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Type
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Status
-                    </TableHead>
-                    <TableHead className="hidden xl:table-column">
-                      Date
-                    </TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
+                    <TableHead>ID</TableHead>
+                    <TableHead>DATE</TableHead>
+                    <TableHead>TOTAL</TableHead>
+                    <TableHead>PAID</TableHead>
+                    <TableHead>ACTIONS</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-23
-                    </TableCell>
-                    <TableCell className="text-right">$250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Olivia Smith</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        olivia@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Refund
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Declined
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-24
-                    </TableCell>
-                    <TableCell className="text-right">$150.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Noah Williams</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        noah@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Subscription
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-25
-                    </TableCell>
-                    <TableCell className="text-right">$350.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Emma Brown</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        emma@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-26
-                    </TableCell>
-                    <TableCell className="text-right">$450.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                      <div className="hidden text-sm text-muted-foreground md:inline">
-                        liam@example.com
-                      </div>
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      Sale
-                    </TableCell>
-                    <TableCell className="hidden xl:table-column">
-                      <Badge className="text-xs" variant="outline">
-                        Approved
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                      2023-06-27
-                    </TableCell>
-                    <TableCell className="text-right">$550.00</TableCell>
-                  </TableRow>
+                  {orders.data.map((order) => (
+                    <TableRow key={order.id}>
+                      <TableCell>{order.id.substring(20, 24)}</TableCell>
+                      <TableCell>
+                        {formatDateTime(order.createdAt).dateTime}
+                      </TableCell>
+                      <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
+                      <TableCell>
+                        {order.isPaid && order.paidAt
+                          ? formatDateTime(order.paidAt).dateTime
+                          : "not paid"}
+                      </TableCell>
+
+                      <TableCell className="flex gap-2">
+                        <Button asChild variant="outline" size="sm">
+                          <Link href={`/order/${order.id}`}>
+                            <span className="px-2">Details</span>
+                          </Link>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>
@@ -256,7 +171,7 @@ export function Dashboard() {
                   width="300"
                 />
                 <div className="grid grid-cols-3 gap-2">
-                  <button>
+                  <>
                     <Image
                       alt="Product image"
                       className="aspect-square w-full rounded-md object-cover"
@@ -264,8 +179,6 @@ export function Dashboard() {
                       src="/placeholder.svg"
                       width="84"
                     />
-                  </button>
-                  <button>
                     <Image
                       alt="Product image"
                       className="aspect-square w-full rounded-md object-cover"
@@ -273,11 +186,10 @@ export function Dashboard() {
                       src="/placeholder.svg"
                       width="84"
                     />
-                  </button>
-                  <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                    <Upload className="h-4 w-4 text-muted-foreground" />
-                    <span className="sr-only">Upload</span>
-                  </button>
+                    <Button variant="outline" className="h-84">
+                      More
+                    </Button>
+                  </>
                 </div>
               </div>
             </CardContent>

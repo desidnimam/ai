@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import DeleteDialog from "@/components/admin/delete-dialog";
+import Paginations from "@/components/ui/pagination";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatId } from "@/lib/dutils";
 import PageTitle from "@/src/components/mdx/page-title";
-import { auth } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
   Table,
@@ -63,6 +63,9 @@ export default async function AdminUser({
             ))}
           </TableBody>
         </Table>
+        {users.totalPages > 1 && (
+          <Paginations page={page} totalPages={users.totalPages} />
+        )}
       </div>
     </div>
   );

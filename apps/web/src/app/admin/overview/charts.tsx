@@ -1,6 +1,30 @@
 "use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import type { ChartConfig } from "@/components/ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig;
 
 export default function Charts({
   data: { salesData },
@@ -9,28 +33,35 @@ export default function Charts({
 }) {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={salesData}>
-        <XAxis
-          dataKey="months"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `$${value}`}
-        />
-        <Bar
-          dataKey="totalSales"
-          fill="currentColor"
-          radius={[4, 4, 0, 0]}
-          className="fill-primary"
-        />
-      </BarChart>
+      <ChartContainer config={chartConfig}>
+        <BarChart data={salesData}>
+          <CartesianGrid vertical={true} />
+          <XAxis
+            dataKey="months"
+            stroke="#888888"
+            fontSize={12}
+            tickLine={true}
+            axisLine={true}
+          />
+          <YAxis
+            stroke="#888888"
+            fontSize={12}
+            tickLine={true}
+            axisLine={true}
+            tickFormatter={(value) => `$${value}`}
+          />
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent indicator="dashed" />}
+          />
+          <Bar
+            dataKey="totalSales"
+            fill="currentColor"
+            radius={[20, 20, 0, 0]}
+            className="fill-ali"
+          />
+        </BarChart>
+      </ChartContainer>
     </ResponsiveContainer>
   );
 }

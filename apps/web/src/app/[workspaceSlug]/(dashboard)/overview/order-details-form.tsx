@@ -29,21 +29,8 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 
-import StripePayment from "./stripe-payment";
-
-export default function OrderDetailsForm({
-  order,
-  paypalClientId,
-  isAdmin,
-  stripeClientSecret,
-}: {
-  order: Order;
-  paypalClientId: string;
-  isAdmin: boolean;
-  stripeClientSecret: string | null;
-}) {
+export default function OrderDetailsForm({ order }: { order: Order }) {
   const {
-    shippingAddress,
     orderItems,
     itemsPrice,
     taxPrice,
@@ -147,24 +134,7 @@ export default function OrderDetailsForm({
               )}
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Shipping Address</h2>
-              <p>{shippingAddress.fullName}</p>
-              <p>
-                {shippingAddress.streetAddress}, {shippingAddress.city},{" "}
-                {shippingAddress.postalCode}, {shippingAddress.country}{" "}
-              </p>
 
-              {isDelivered ? (
-                <Badge variant="secondary">
-                  Delivered at {formatDateTime(deliveredAt).dateTime}
-                </Badge>
-              ) : (
-                <Badge variant="destructive">Not delivered</Badge>
-              )}
-            </CardContent>
-          </Card>
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Order Items</h2>
@@ -227,28 +197,6 @@ export default function OrderDetailsForm({
                 <div>Total</div>
                 <div>{formatCurrency(totalPrice)}</div>
               </div>
-              {!isPaid && paymentMethod === "PayPal" && (
-                <div>
-                  <PayPalScriptProvider options={{ clientId: paypalClientId }}>
-                    <PrintLoadingState />
-                    <PayPalButtons
-                      createOrder={handleCreatePayPalOrder}
-                      onApprove={handleApprovePayPalOrder}
-                    />
-                  </PayPalScriptProvider>
-                </div>
-              )}
-              {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-                <StripePayment
-                  priceInCents={Number(order.totalPrice) * 100}
-                  orderId={order.id}
-                  clientSecret={stripeClientSecret}
-                />
-              )}
-              {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
-                <MarkAsPaidButton />
-              )}
-              {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
             </CardContent>
           </Card>
         </div>

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getMyOrders } from "@/lib/actions/order.actions";
+import { getMyOrders, userdeleteOrder } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime } from "@/lib/dutils";
+import DeleteDialog from "@/src/components/admin/delete-dialog";
 import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
 import {
@@ -63,12 +64,13 @@ export default async function OrdersPage({
                     ? formatDateTime(order.deliveredAt).dateTime
                     : "not delivered"}
                 </TableCell>
-                <TableCell>
+                <TableCell className="flex gap-2">
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/order/${order.id}`}>
                       <span className="px-2">Details</span>
                     </Link>
                   </Button>
+                  <DeleteDialog id={order.id} action={userdeleteOrder} />
                 </TableCell>
               </TableRow>
             ))}

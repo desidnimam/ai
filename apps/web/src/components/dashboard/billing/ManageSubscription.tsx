@@ -26,7 +26,7 @@ const ManageSubscription = () => {
   };
 
   return (
-    <div className="mx-auto mb-20 mt-40 max-w-7xl space-y-2">
+    <div className="mx-auto mb-6 mt-40 max-w-7xl space-y-2">
       <PageTitle
         title="Billing"
         description={`Manage your orders and view your order details`}

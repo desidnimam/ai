@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Paginations from "@/components/ui/pagination";
 import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
+import DeleteDialog from "@/src/components/admin/delete-dialog";
 import PageTitle from "@/src/components/mdx/page-title";
-import { auth } from "@designali/auth";
 import { Button } from "@designali/ui/button";
 import {
   Table,
@@ -20,12 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default async function OrdersPage({
-  searchParams: { page = "3" },
+  searchParams: { page = "1" },
 }: {
   searchParams: { page: string };
 }) {
-  const session = await auth();
-
   const orders = await getAllOrders({
     page: Number(page),
   });
@@ -74,11 +73,15 @@ export default async function OrdersPage({
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/order/${order.id}`}>Details</Link>
                   </Button>
+                  <DeleteDialog id={order.id} action={deleteOrder} />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        {orders.totalPages > 1 && (
+          <Paginations page={page} totalPages={orders.totalPages} />
+        )}
       </div>
     </div>
   );

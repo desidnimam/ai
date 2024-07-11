@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import DeleteDialog from "@/components/admin/delete-dialog";
+import Paginations from "@/components/ui/pagination";
 import { deleteProduct, getAllProducts } from "@/lib/actions/product.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatId } from "@/lib/dutils";
@@ -79,6 +80,9 @@ export default async function AdminProductsPage({
             ))}
           </TableBody>
         </Table>
+        {products.totalPages > 1 && (
+          <Paginations page={page} totalPages={products.totalPages} />
+        )}
       </div>
     </div>
   );

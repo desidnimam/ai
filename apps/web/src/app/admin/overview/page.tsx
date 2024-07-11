@@ -4,7 +4,14 @@ import { getOrderSummary } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/dutils";
 import PageTitle from "@/src/components/mdx/page-title";
-import { Card, CardContent, CardHeader, CardTitle } from "@designali/ui/card";
+import { Button } from "@designali/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@designali/ui/card";
 import {
   Table,
   TableBody,
@@ -37,7 +44,7 @@ export default async function DashboardPage() {
             <BadgeDollarSign strokeWidth={1} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-semibold">
               {formatCurrency(summary.ordersPrice[0].sum)}
             </div>
           </CardContent>
@@ -48,7 +55,7 @@ export default async function DashboardPage() {
             <CreditCard strokeWidth={1} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-semibold">
               {formatNumber(summary.ordersCount[0].count)}
             </div>
           </CardContent>
@@ -59,7 +66,7 @@ export default async function DashboardPage() {
             <Users strokeWidth={1} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-semibold">
               {summary.usersCount[0].count}
             </div>
           </CardContent>
@@ -71,7 +78,7 @@ export default async function DashboardPage() {
             <Barcode strokeWidth={1} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-3xl font-semibold">
               {summary.productsCount[0].count}
             </div>
           </CardContent>
@@ -89,6 +96,11 @@ export default async function DashboardPage() {
               }}
             />
           </CardContent>
+          <CardFooter>
+            Showing total sales for the last{" "}
+            {formatNumber(summary.ordersCount[0].count)} and{" "}
+            {formatCurrency(summary.ordersPrice[0].sum)}
+          </CardFooter>
         </Card>
         <Card className="col-span-3">
           <CardHeader>
@@ -117,9 +129,11 @@ export default async function DashboardPage() {
                     <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
 
                     <TableCell>
-                      <Link href={`/order/${order.id}`}>
-                        <span className="px-2">Details</span>
-                      </Link>
+                      <Button asChild variant="outline" size="sm">
+                        <Link href={`/order/${order.id}`}>
+                          <span className="px-2">Details</span>
+                        </Link>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

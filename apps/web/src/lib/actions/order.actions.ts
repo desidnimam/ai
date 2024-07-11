@@ -38,7 +38,7 @@ export async function getMyOrders({
   if (!session) throw new Error("User is not authenticated");
 
   const data = await db.query.orders.findMany({
-    where: eq(orders.userId, session.user.id!),
+    where: eq(orders.userId, session.user.id),
     orderBy: [desc(products.createdAt)],
     limit,
     offset: (page - 1) * limit,
@@ -46,7 +46,7 @@ export async function getMyOrders({
   const dataCount = await db
     .select({ count: count() })
     .from(orders)
-    .where(eq(orders.userId, session.user.id!));
+    .where(eq(orders.userId, session.user.id));
 
   return {
     data,
@@ -64,7 +64,7 @@ export async function getOrderSummary() {
 
   const salesData = await db
     .select({
-      months: sql<string>`to_char(${orders.createdAt},'MM/YY')`,
+      months: sql<string>`to_char(${orders.createdAt},'DD/MM/YY')`,
       totalSales: sql<number>`sum(${orders.totalPrice})`.mapWith(Number),
     })
     .from(orders)
@@ -113,7 +113,7 @@ export const createOrder = async () => {
     const session = await auth();
     if (!session) throw new Error("User is not authenticated");
     const cart = await getMyCart();
-    const user = await getUserById(session?.user.id!);
+    const user = await getUserById(session.user.id);
     if (!cart || cart.items.length === 0) redirect("/cart");
     if (!user.address) redirect("/shipping");
     if (!user.paymentMethod) redirect("/payment");
@@ -172,6 +172,19 @@ export async function deleteOrder(id: string) {
   }
 }
 
+export async function userdeleteOrder(id: string) {
+  try {
+    await db.delete(orders).where(eq(orders.id, id));
+    revalidatePath("/dashboard/orders");
+    return {
+      success: true,
+      message: "Order deleted successfully",
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
 // UPDATE
 export async function createPayPalOrder(orderId: string) {
   try {
@@ -217,7 +230,7 @@ export async function approvePayPalOrder(
     const captureData = await paypal.capturePayment(data.orderID);
     if (
       !captureData ||
-      captureData.id !== order.paymentResult?.id ||
+      captureData.id !== order.paymentResult.id ||
       captureData.status !== "COMPLETED"
     )
       throw new Error("Error in paypal payment");
