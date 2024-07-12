@@ -58,41 +58,6 @@ export const authConfig = {
     Google({
       allowDangerousEmailAccountLinking: true,
     }),
-    Resend({
-      name: "Email",
-      from: `Designali <${SENDER_EMAIL}>`,
-      id: "email",
-    }),
-    CredentialsProvider({
-      credentials: {
-        email: {
-          type: "email",
-        },
-        password: { type: "password" },
-      },
-      async authorize(credentials) {
-        if (credentials == null) return null;
-
-        const user = await db.query.users.findFirst({
-          where: eq(users.email, credentials.email as string),
-        });
-        if (user?.password) {
-          const isMatch = compareSync(
-            credentials.password as string,
-            user.password,
-          );
-          if (isMatch) {
-            return {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              role: user.role,
-            };
-          }
-        }
-        return null;
-      },
-    }),
   ],
   callbacks: {
     jwt: async ({ token, user, trigger, session }: any) => {

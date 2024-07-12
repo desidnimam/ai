@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { signIn } from "@designali/auth";
@@ -9,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@designali/ui/card";
-import { Input } from "@designali/ui/input";
 import { Separator } from "@designali/ui/separator";
 import { z } from "zod";
 
@@ -49,7 +49,14 @@ export default function Page({
                 className="w-full"
               >
                 <Button type="submit" variant="outline" size={"lg"}>
-                  Signin with Google <Icons.menu className="ml-2 h-4 w-4" />
+                  <p className="px-2">Signin with Google </p>
+                  <Image
+                    src="/icons/google.svg"
+                    alt="Your Image"
+                    height={50}
+                    width={50}
+                    className=" h-5 w-5"
+                  />
                 </Button>
               </form>
               <form
@@ -60,31 +67,11 @@ export default function Page({
                 className="w-full"
               >
                 <Button variant="outline" type="submit" size={"lg"}>
-                  <p>Signin with GitHub </p>
+                  <p className="px-2">Signin with GitHub </p>
                   <Icons.github className="ml-2 h-4 w-4" />
                 </Button>
               </form>
             </div>
-            <Separator />
-            <form
-              action={async () => {
-                "use server";
-                await signIn("resend", { redirectTo });
-              }}
-              className="w-full"
-            >
-              <div className="grid gap-2">
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="contact@aliimam.in"
-                  required
-                />
-                <Button variant="default" type="submit" size={"lg"}>
-                  Signin with Email <Icons.mail className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </form>
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}

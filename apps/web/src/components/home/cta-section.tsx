@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import ShineBorder from "@/components/ui/shine-border";
 import { cn } from "@designali/ui";
 import { buttonVariants } from "@designali/ui/button";
 import { motion, useAnimation, useInView } from "framer-motion";
@@ -128,32 +129,37 @@ export default function CallToActionSection() {
   return (
     <section id="cta" className="mb-20 md:-mt-20">
       <div className="relative flex justify-center px-6 md:mt-20">
-        <div className="absolute z-10 mt-32 rounded-[2rem] border bg-white/10 p-14 shadow-2xl backdrop-blur-md dark:bg-black/10 md:mt-10">
-          <div className="mx-auto flex justify-center">
-            <Logo className="h-20 w-20 " />
-          </div>
-          <div className="z-10 mt-4 flex flex-col items-center text-center text-primary">
-            <h1 className="text-xl font-semibold lg:text-4xl">
-              Design anything you need
-            </h1>
-            <p className="mt-2 text-slate-600 dark:text-slate-400">
-              No credit card required.
-            </p>
-            <Link
-              href="/dashboard"
-              className={cn(
-                buttonVariants({
-                  size: "lg",
-                  variant: "outline",
-                }),
-                "group mt-4 rounded-[2rem] px-6",
-              )}
-            >
-              Get Started
-              <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
-            </Link>
-          </div>
-          <div className="absolute inset-0 -z-10 rounded-full bg-background opacity-40 blur-xl" />
+        <div className="absolute z-10 ">
+          <ShineBorder
+            className="mt-28 border bg-white/5 p-14 px-6 shadow-2xl backdrop-blur-md dark:bg-black/5 md:mt-10"
+            color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+          >
+            <div className="mx-auto flex justify-center">
+              <Logo className="h-20 w-20 " />
+            </div>
+            <div className="z-10 mt-4 flex flex-col items-center text-center text-primary">
+              <h1 className="text-xl font-semibold lg:text-4xl">
+                Design anything you need
+              </h1>
+              <p className="mt-2 text-slate-600 dark:text-slate-400">
+                No credit card required.
+              </p>
+              <Link
+                href="/dashboard"
+                className={cn(
+                  buttonVariants({
+                    size: "lg",
+                    variant: "outline",
+                  }),
+                  "group mt-4 rounded-[2rem] px-6",
+                )}
+              >
+                Get Started
+                <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <div className="absolute inset-0 -z-10 rounded-full bg-background opacity-40 blur-xl" />
+          </ShineBorder>
         </div>
       </div>
       <div className="md:-mt-20 ">
