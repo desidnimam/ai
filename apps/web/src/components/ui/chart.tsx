@@ -133,11 +133,7 @@ const ChartTooltipContent = React.forwardRef<
         return null;
       }
 
-      const [item] = payload;
-      const key = `${labelKey || item.dataKey || item.name || "value"}`;
-      const itemConfig = getPayloadConfigFromPayload(config, item, key);
       const value = !labelKey && typeof label === "string";
-      itemConfig.label;
 
       if (labelFormatter) {
         return (
@@ -195,29 +191,25 @@ const ChartTooltipContent = React.forwardRef<
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
                   <>
-                    {itemConfig.icon ? (
-                      <itemConfig.icon />
-                    ) : (
-                      !hideIndicator && (
-                        <div
-                          className={cn(
-                            "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
-                            {
-                              "h-2.5 w-2.5": indicator === "dot",
-                              "w-1": indicator === "line",
-                              "w-0 border-[1.5px] border-dashed bg-transparent":
-                                indicator === "dashed",
-                              "my-0.5": nestLabel && indicator === "dashed",
-                            },
-                          )}
-                          style={
-                            {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
-                            } as React.CSSProperties
-                          }
-                        />
-                      )
+                    {!hideIndicator && (
+                      <div
+                        className={cn(
+                          "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
+                          {
+                            "h-2.5 w-2.5": indicator === "dot",
+                            "w-1": indicator === "line",
+                            "w-0 border-[1.5px] border-dashed bg-transparent":
+                              indicator === "dashed",
+                            "my-0.5": nestLabel && indicator === "dashed",
+                          },
+                        )}
+                        style={
+                          {
+                            "--color-bg": indicatorColor,
+                            "--color-border": indicatorColor,
+                          } as React.CSSProperties
+                        }
+                      />
                     )}
                     <div
                       className={cn(
@@ -228,7 +220,7 @@ const ChartTooltipContent = React.forwardRef<
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
-                          {itemConfig.label || item.name}
+                          {item.name}
                         </span>
                       </div>
                       {item.value && (
