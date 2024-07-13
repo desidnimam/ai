@@ -151,19 +151,35 @@ export default function CallToActionSection() {
               <p className="mt-2 text-slate-600 dark:text-slate-400">
                 No credit card required.
               </p>
-              <Link
-                href="/dashboard"
-                className={cn(
-                  buttonVariants({
-                    size: "lg",
-                    variant: "outline",
-                  }),
-                  "group mt-4 rounded-[2rem] px-6",
-                )}
-              >
-                Get Started
-                <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
-              </Link>
+              <div className="mb-8 flex  gap-2">
+                <Link
+                  href="/dashboard"
+                  className={cn(
+                    buttonVariants({
+                      size: "lg",
+                      variant: "default",
+                    }),
+                    "group mt-4 rounded-[2rem] px-6",
+                  )}
+                >
+                  Get Started
+                  <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://cal.com/designali"
+                  className={cn(
+                    buttonVariants({
+                      size: "lg",
+                      variant: "outline",
+                    }),
+                    "group mt-4 rounded-[2rem] px-6",
+                  )}
+                >
+                  Book a call
+                  <ChevronRight className="ml-1 size-4 transition-all duration-300 ease-out group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
             <div className="absolute inset-0 -z-10 rounded-full bg-background opacity-40 blur-xl" />
           </ShineBorder>

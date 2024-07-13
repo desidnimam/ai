@@ -68,7 +68,7 @@ export default function Page({
               >
                 <Button variant="outline" type="submit" size={"lg"}>
                   <p className="px-2">Signin with GitHub </p>
-                  <Icons.github className="ml-2 h-4 w-4" />
+                  <Icons.github className="h-5 w-5" />
                 </Button>
               </form>
             </div>
