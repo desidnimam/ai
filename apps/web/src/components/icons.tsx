@@ -1,11 +1,14 @@
-import type { LucideProps } from "lucide-react";
+import type { LucideIcon, LucideProps } from "lucide-react";
 import {
   ArrowRight,
   ArrowUp,
   Box,
+  Check,
+  CheckCheck,
   Command,
   Copy,
   CornerDownLeft,
+  Dot,
   Download,
   Equal,
   Github,
@@ -20,7 +23,9 @@ import {
   Moon,
   Phone,
   Plus,
+  Repeat,
   Search,
+  Send,
   Shapes,
   ShoppingBag,
   Sun,
@@ -30,11 +35,20 @@ import {
   ZoomOut,
 } from "lucide-react";
 
+export type Icon = LucideIcon;
+
+export type ValidIcon = keyof typeof Icons;
+
 export const Icons = {
   enter: CornerDownLeft,
   image: Image,
+  repeat: Repeat,
   box: Box,
+  dot: Dot,
+  checkcheck: CheckCheck,
   minus: Minus,
+  check: Check,
+  send: Send,
   loader: Loader,
   github: Github,
   shoppingbag: ShoppingBag,

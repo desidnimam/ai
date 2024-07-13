@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import ShineBorder from "@/components/ui/shine-border";
 import { cn } from "@designali/ui";
@@ -18,6 +19,8 @@ import {
 
 import { Logo } from "../logo";
 import Marquee from "../ui/marquee";
+import { Beam } from "./anibeams";
+import { Timeline } from "./timeline";
 
 const tiles = [
   {
@@ -127,18 +130,22 @@ export default function CallToActionSection() {
   }, []);
 
   return (
-    <section id="cta" className="mb-20 md:-mt-20">
+    <section id="cta" className="mb-40 md:-mt-20 ">
       <div className="relative flex justify-center px-6 md:mt-20">
-        <div className="absolute z-10 ">
+        <div className="absolute z-10 px-6">
           <ShineBorder
-            className="mt-28 border bg-white/5 p-14 px-6 shadow-2xl backdrop-blur-md dark:bg-black/5 md:mt-10"
+            className="mt-28 border bg-white/5 p-6 px-6 shadow-2xl backdrop-blur-md dark:bg-black/5 md:mt-10 md:px-20"
             color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
           >
-            <div className="mx-auto flex justify-center">
-              <Logo className="h-20 w-20 " />
+            <h1 className="my-8 text-2xl md:text-2xl">How it Works?</h1>
+            <div className="grid gap-6 md:flex">
+              <div className="hidden w-[300px] md:block">
+                <Beam />
+              </div>
+              <Timeline />
             </div>
-            <div className="z-10 mt-4 flex flex-col items-center text-center text-primary">
-              <h1 className="text-xl font-semibold lg:text-4xl">
+            <div className="z-10 mt-6 flex flex-col items-center text-center text-primary">
+              <h1 className="text-lg font-semibold md:text-4xl">
                 Design anything you need
               </h1>
               <p className="mt-2 text-slate-600 dark:text-slate-400">
@@ -162,7 +169,7 @@ export default function CallToActionSection() {
           </ShineBorder>
         </div>
       </div>
-      <div className="md:-mt-20 ">
+      <div className="mb-[400px] md:-mt-20">
         <div className="flex w-full flex-col items-center justify-center">
           <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
             <Marquee

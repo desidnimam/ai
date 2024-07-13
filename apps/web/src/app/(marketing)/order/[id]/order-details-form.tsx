@@ -130,7 +130,7 @@ export default function OrderDetailsForm({
   };
 
   return (
-    <div className="mx-auto mt-20 max-w-7xl px-6">
+    <div className="">
       <h1 className="py-4 text-2xl"> Order {formatId(order.id)}</h1>
       <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">

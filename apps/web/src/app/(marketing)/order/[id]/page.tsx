@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getOrderById } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
+import PageTitle from "@/src/components/mdx/page-title";
 import { auth } from "@designali/auth";
 import Stripe from "stripe";
 
@@ -34,12 +35,18 @@ const OrderDetailsPage = async ({
   }
 
   return (
-    <OrderDetailsForm
-      order={order}
-      paypalClientId={process.env.PAYPAL_CLIENT_ID || "sb"}
-      isAdmin={session.user.role === "admin" || false}
-      stripeClientSecret={client_secret}
-    />
+    <div className="mx-auto mt-20 max-w-7xl px-6">
+      <PageTitle
+        title="Orders"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
+      <OrderDetailsForm
+        order={order}
+        paypalClientId={process.env.PAYPAL_CLIENT_ID || "sb"}
+        isAdmin={session.user.role === "admin" || false}
+        stripeClientSecret={client_secret}
+      />
+    </div>
   );
 };
 

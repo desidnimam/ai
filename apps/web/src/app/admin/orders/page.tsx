@@ -5,8 +5,10 @@ import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
 import DeleteDialog from "@/src/components/admin/delete-dialog";
+import { Icons } from "@/src/components/icons";
 import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@designali/ui/popover";
 import {
   Table,
   TableBody,
@@ -51,7 +53,20 @@ export default async function OrdersPage({
           <TableBody>
             {orders.data.map((order) => (
               <TableRow key={order.id}>
-                <TableCell>{formatId(order.id)}</TableCell>
+                <TableCell>
+                  {formatId(order.id)}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <Icons.dot
+                          strokeWidth={5}
+                          className="h-5 w-5 text-ali"
+                        />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">{order.id}</PopoverContent>
+                  </Popover>
+                </TableCell>
                 <TableCell>
                   {formatDateTime(order.createdAt).dateTime}
                 </TableCell>
