@@ -55,7 +55,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
 
   return (
     <div className="">
-      <h1 className="py-4 text-2xl"> Order {formatId(order.id)}</h1>
+      <h1 className="py-4 text-xl"> Order ID - {order.id}</h1>
       <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">
           <Card>
