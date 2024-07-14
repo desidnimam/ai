@@ -8,6 +8,7 @@ import { Separator } from "@designali/ui/separator";
 
 import CountUpNumber from "../common/countnumber";
 import { Icons } from "../icons";
+import Items from "./items";
 
 const skills = [
   { skill: "Graphic Design" },
@@ -194,7 +195,6 @@ const About = () => {
               />
               <Separator />
             </div>
-
             <div className="mt-10">
               <div className="mx-auto max-w-7xl">
                 <dl className="grid grid-cols-1 gap-y-10 text-center lg:grid-cols-3">
@@ -231,6 +231,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Items />
     </section>
   );
 };

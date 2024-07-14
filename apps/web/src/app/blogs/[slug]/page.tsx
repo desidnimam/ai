@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MdxPager } from "@/components/mdx/mdx-pager";
 import site from "@/config/site";
+import { Button } from "@designali/ui/button";
 import { Separator } from "@designali/ui/separator";
 import { allBlogPosts } from "contentlayer/generated";
 import { ChevronLeftIcon } from "lucide-react";
@@ -120,12 +121,16 @@ const BlogPostPage = (props: BlogPostPageProps) => {
       <Header date={date} title={title} slug={slug} />
       <Content slug={slug} post={post} />
       <Separator className="my-8" />
-      <MdxPager currentItem={post} allItems={allBlogPosts} />
-      <Link href="/blogs" className="">
-        <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />
-        See all blog
-        <span className="sr-only">See all blogs</span>
-      </Link>
+      <div className="flex justify-between">
+        <Button variant="outline" size="lg" className="">
+          <Link href="/blogs" className="flex items-center gap-2">
+            <ChevronLeftIcon className="h-4 w-4" aria-hidden="true" />
+            See all blog
+            <span className="sr-only">See all blogs</span>
+          </Link>
+        </Button>
+        <MdxPager currentItem={post} allItems={allBlogPosts} />
+      </div>
     </div>
   );
 };

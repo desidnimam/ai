@@ -4,6 +4,7 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     PAYMENT_METHODS: z.string().min(1),
+    IP_ADDRESS_SALT: z.string().min(1),
   },
   client: {},
   experimental__runtimeEnv: {},

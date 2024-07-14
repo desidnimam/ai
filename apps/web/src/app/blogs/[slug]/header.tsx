@@ -5,6 +5,7 @@ import ImageZoom from "@/components/common/image-zoom";
 import Image from "@/components/mdx/layers/image";
 import LikeButton from "@/components/ui/like-button";
 import fetcher from "@/lib/fetcher";
+import { api } from "@/src/trpc/react";
 import { type Views } from "@/types";
 import { Skeleton } from "@designali/ui/skeleton";
 import dayjs from "dayjs";
@@ -23,6 +24,10 @@ const Header = (props: HeaderProps) => {
     `/api/views?slug=${slug}`,
     fetcher,
   );
+
+  const viewsQuery = api.views.get.useQuery({
+    slug,
+  });
 
   React.useEffect(() => {
     setFormattedDate(dayjs(date).format("MMMM DD, YYYY"));
@@ -83,6 +88,11 @@ const Header = (props: HeaderProps) => {
           <div className="text-xs text-slate-600 dark:border-slate-800 dark:text-slate-400">
             Views
           </div>
+          {viewsQuery.isLoading ? (
+            "---"
+          ) : (
+            <div>{viewsQuery.data?.views} views</div>
+          )}
           {viewsIsLoading ? (
             <Skeleton className="h-6 w-32 rounded-md" />
           ) : (

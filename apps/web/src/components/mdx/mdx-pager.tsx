@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { truncate } from "@/lib/utils";
 import { cn } from "@designali/ui";
+import { Button } from "@designali/ui/button";
+import { ChevronRightIcon } from "lucide-react";
 
 interface MdxPagerItem {
   title: string;
@@ -30,14 +32,28 @@ export function MdxPager({
       {...props}
     >
       {pager?.prev ? (
-        <Link aria-label="Previous post" href={pager.prev.slug} className="">
-          {truncate(pager.prev.title, 20)}
-        </Link>
+        <Button variant="outline" size="lg">
+          <Link
+            aria-label="Previous post"
+            href={pager.prev.slug}
+            className="flex items-center gap-2"
+          >
+            {truncate(pager.prev.title, 20)}
+            <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Button>
       ) : null}
       {pager?.next ? (
-        <Link aria-label="Next post" href={pager.next.slug} className="">
-          {truncate(pager.next.title, 20)}
-        </Link>
+        <Button variant="outline" size="lg">
+          <Link
+            aria-label="Next post"
+            href={pager.next.slug}
+            className="flex items-center gap-2"
+          >
+            {truncate(pager.next.title, 20)}
+            <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Button>
       ) : null}
     </div>
   );

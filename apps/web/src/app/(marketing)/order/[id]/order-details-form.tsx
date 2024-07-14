@@ -23,25 +23,9 @@ import {
   TableRow,
 } from "@designali/ui/table";
 import { useToast } from "@designali/ui/use-toast";
-import {
-  PayPalButtons,
-  PayPalScriptProvider,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
+import { usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
-import StripePayment from "./stripe-payment";
-
-export default function OrderDetailsForm({
-  order,
-  paypalClientId,
-  isAdmin,
-  stripeClientSecret,
-}: {
-  order: Order;
-  paypalClientId: string;
-  isAdmin: boolean;
-  stripeClientSecret: string | null;
-}) {
+export default function OrderDetailsForm({ order }: { order: Order }) {
   const {
     shippingAddress,
     orderItems,
@@ -68,66 +52,6 @@ export default function OrderDetailsForm({
     }
     return status;
   }
-  const handleCreatePayPalOrder = async () => {
-    const res = await createPayPalOrder(order.id);
-    if (!res.success)
-      return toast({
-        description: res.message,
-        variant: "destructive",
-      });
-    return res.data;
-  };
-  const handleApprovePayPalOrder = async (data: { orderID: string }) => {
-    const res = await approvePayPalOrder(order.id, data);
-    toast({
-      description: res.message,
-      variant: res.success ? "default" : "destructive",
-    });
-  };
-
-  const MarkAsPaidButton = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
-    return (
-      <Button
-        type="button"
-        disabled={isPending}
-        onClick={() =>
-          startTransition(async () => {
-            const res = await updateOrderToPaidByCOD(order.id);
-            toast({
-              variant: res.success ? "default" : "destructive",
-              description: res.message,
-            });
-          })
-        }
-      >
-        {isPending ? "processing..." : "Mark As Paid"}
-      </Button>
-    );
-  };
-
-  const MarkAsDeliveredButton = () => {
-    const [isPending, startTransition] = useTransition();
-    const { toast } = useToast();
-    return (
-      <Button
-        type="button"
-        disabled={isPending}
-        onClick={() =>
-          startTransition(async () => {
-            const res = await deliverOrder(order.id);
-            toast({
-              variant: res.success ? "default" : "destructive",
-              description: res.message,
-            });
-          })
-        }
-      >
-        {isPending ? "processing..." : "Mark As Delivered"}
-      </Button>
-    );
-  };
 
   return (
     <div className="">
@@ -227,28 +151,6 @@ export default function OrderDetailsForm({
                 <div>Total</div>
                 <div>{formatCurrency(totalPrice)}</div>
               </div>
-              {!isPaid && paymentMethod === "PayPal" && (
-                <div>
-                  <PayPalScriptProvider options={{ clientId: paypalClientId }}>
-                    <PrintLoadingState />
-                    <PayPalButtons
-                      createOrder={handleCreatePayPalOrder}
-                      onApprove={handleApprovePayPalOrder}
-                    />
-                  </PayPalScriptProvider>
-                </div>
-              )}
-              {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-                <StripePayment
-                  priceInCents={Number(order.totalPrice) * 100}
-                  orderId={order.id}
-                  clientSecret={stripeClientSecret}
-                />
-              )}
-              {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
-                <MarkAsPaidButton />
-              )}
-              {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
             </CardContent>
           </Card>
         </div>
