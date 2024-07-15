@@ -1,3 +1,4 @@
+import { FAQ } from "@/components/home/faq";
 import { getLatestProducts } from "@/lib/actions/product.actions";
 import ProductList from "@/src/components/admin/product/product-list";
 import { cn } from "@designali/ui";
@@ -25,6 +26,7 @@ export default async function Home() {
         </div>
 
         <ProductList title="" data={latestProducts} />
+        <FAQ />
       </div>
     </div>
   );

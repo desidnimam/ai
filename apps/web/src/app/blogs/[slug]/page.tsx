@@ -1,4 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next";
+import type { Article, WithContext } from "schema-dts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MdxPager } from "@/components/mdx/mdx-pager";
@@ -7,21 +8,20 @@ import { Button } from "@designali/ui/button";
 import { Separator } from "@designali/ui/separator";
 import { allBlogPosts } from "contentlayer/generated";
 import { ChevronLeftIcon } from "lucide-react";
-import { type Article, type WithContext } from "schema-dts";
 
 import Content from "./content";
 import Header from "./header";
 
 // export const runtime = 'edge'
 
-type BlogPostPageProps = {
+interface BlogPostPageProps {
   params: {
     slug: string;
   };
   searchParams: Record<string, never>;
-};
+}
 
-export const generateStaticParams = (): Array<BlogPostPageProps["params"]> => {
+export const generateStaticParams = (): BlogPostPageProps["params"][] => {
   return allBlogPosts.map((post) => ({
     slug: post.slug,
   }));
@@ -39,7 +39,7 @@ export const generateMetadata = async (
 
   const ISOPublishedTime = new Date(post.date).toISOString();
   const ISOModifiedTime = new Date(post.modifiedTime).toISOString();
-  const previousTwitter = (await parent)?.twitter ?? {};
+  const previousTwitter = (await parent).twitter ?? {};
 
   return {
     title: post.title,
