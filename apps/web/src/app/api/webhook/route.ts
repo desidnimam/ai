@@ -1,6 +1,7 @@
-import crypto from "node:crypto";
 import { processWebhookEvent, storeWebhookEvent } from "@/lib/actions/lemon";
 import { webhookHasMeta } from "@/lib/typeguards";
+
+export const runtime = "edge";
 
 export async function POST(request: Request) {
   if (!process.env.LEMONSQUEEZY_WEBHOOK_SECRET) {
@@ -13,14 +14,51 @@ export async function POST(request: Request) {
   const rawBody = await request.text();
   const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
 
-  const hmac = crypto.createHmac("sha256", secret);
-  const digest = Buffer.from(hmac.update(rawBody).digest("hex"), "utf8");
-  const signature = Buffer.from(
-    request.headers.get("X-Signature") ?? "",
-    "utf8",
+  /*
+   * const hmac = crypto.createHmac(
+   *   'sha256',
+   *   secret
+   * )
+   * const digest = Buffer.from(
+   *   hmac.update(rawBody).digest('hex'),
+   *   'utf8'
+   * )
+   * const signature = Buffer.from(
+   *   request.headers.get('X-Signature') ?? '',
+   *   'utf8'
+   * )
+   */
+
+  /*
+   * if (!crypto.timingSafeEqual(
+   *   digest,
+   *   signature
+   * )) {
+   *   return new Response(
+   *     'Invalid signature',
+   *     { status: 400 }
+   *   )
+   * }
+   */
+
+  const secretBuffer = new TextEncoder().encode(secret);
+  const key = await crypto.subtle.importKey(
+    "raw",
+    secretBuffer,
+    { name: "HMAC", hash: { name: "SHA-256" } },
+    false,
+    ["sign"],
   );
 
-  if (!crypto.timingSafeEqual(digest, signature)) {
+  const rawBodyBuffer = new TextEncoder().encode(rawBody);
+  const signature = await crypto.subtle.sign("HMAC", key, rawBodyBuffer);
+
+  const hexSignature = Array.from(new Uint8Array(signature))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  const requestSignature = request.headers.get("X-Signature") ?? "";
+
+  if (hexSignature !== requestSignature) {
     return new Response("Invalid signature", { status: 400 });
   }
 

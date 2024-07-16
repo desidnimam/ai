@@ -10,4 +10,6 @@ export default {
   schema: "./src/index.ts",
   dialect: "postgresql",
   dbCredentials: { url: nonPoolingUrl },
+  verbose: true,
+  strict: true,
 } satisfies Config;

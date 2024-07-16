@@ -1,6 +1,5 @@
 "use server";
 
-import crypto from "node:crypto";
 import type { NewPlan, NewSubscription, NewWebhookEvent } from "@designali/db";
 import type { Variant } from "@lemonsqueezy/lemonsqueezy.js";
 import { revalidatePath } from "next/cache";
@@ -62,7 +61,7 @@ export async function getCheckoutURL(variantId: number, embed = false) {
         enabledVariants: [variantId],
         redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/billing/`,
         receiptButtonText: "Go to Dashboard",
-        receiptThankYouNote: "Thank you for signing up to Lemon Stand!",
+        receiptThankYouNote: "Thank you for signing up to Nextflare!",
       },
     },
   );
@@ -185,8 +184,10 @@ export async function syncPlans() {
     for (const v of allVariants) {
       const variant = v.attributes;
 
-      // Skip draft variants or if there's more than one variant, skip the default
-      // variant. See https://docs.lemonsqueezy.com/api/variants
+      /*
+       * Skip draft variants or if there's more than one variant, skip the default
+       * variant. See https://docs.lemonsqueezy.com/api/variants
+       */
       if (
         variant.status === "draft" ||
         (allVariants.length !== 1 && variant.status === "pending")
@@ -259,21 +260,17 @@ export async function storeWebhookEvent(
   eventName: string,
   body: NewWebhookEvent["body"],
 ) {
-  if (!process.env.POSTGRES_URL) {
-    throw new Error("POSTGRES_URL is not set");
-  }
-
-  const id = crypto.randomInt(100000000, 1000000000);
+  // const id = crypto.randomInt(100000000,1000000000)
 
   const returnedValue = await db
     .insert(webhookEvents)
     .values({
-      id,
+      // id,
       eventName,
       processed: false,
       body,
     })
-    .onConflictDoNothing({ target: plans.id })
+    .onConflictDoNothing({ target: webhookEvents.id })
     .returning();
 
   return returnedValue[0];
@@ -288,7 +285,7 @@ export async function processWebhookEvent(webhookEvent: NewWebhookEvent) {
   const dbwebhookEvent = await db
     .select()
     .from(webhookEvents)
-    .where(eq(webhookEvents.id, webhookEvent.id));
+    .where(eq(webhookEvents.id, webhookEvent.id ?? 0));
 
   if (dbwebhookEvent.length < 1) {
     throw new Error(
@@ -309,8 +306,10 @@ export async function processWebhookEvent(webhookEvent: NewWebhookEvent) {
     processingError = "Event body is missing the 'meta' property.";
   } else if (webhookHasData(eventBody)) {
     if (webhookEvent.eventName.startsWith("subscription_payment_")) {
-      // Save subscription invoices; eventBody is a SubscriptionInvoice
-      // Not implemented.
+      /*
+       * Save subscription invoices; eventBody is a SubscriptionInvoice
+       * Not implemented.
+       */
     } else if (webhookEvent.eventName.startsWith("subscription_")) {
       // Save subscription events; obj is a Subscription
       const attributes = eventBody.data.attributes;
@@ -384,7 +383,7 @@ export async function processWebhookEvent(webhookEvent: NewWebhookEvent) {
         processed: true,
         processingError,
       })
-      .where(eq(webhookEvents.id, webhookEvent.id));
+      .where(eq(webhookEvents.id, webhookEvent.id ?? 0));
   }
 }
 

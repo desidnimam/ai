@@ -4,6 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { ChangePlans } from "@/components/dashboard/billing/billing/plans/change-plans";
 import { getUserSubscriptions } from "@/lib/actions/lemon";
 import { isValidSubscription } from "@/lib/utils";
+import { DashboardContent } from "@/src/components/dashboard/billing/content";
+import { PageTitleAction } from "@/src/components/dashboard/billing/page-title-action";
 import { db, plans } from "@designali/db";
 import { Button } from "@lemonsqueezy/wedges";
 import { eq } from "drizzle-orm";
@@ -51,12 +53,19 @@ export default async function ChangePlansPage({
   }
 
   return (
-    <div className="flex items-center gap-4">
-      <Button asChild variant="tertiary">
-        <Link href="/dashboard/billing">Back to Billing</Link>
-      </Button>
-
+    <DashboardContent
+      title="Change Plans"
+      subtitle="Choose a plan that works for you."
+      action={
+        <div className="flex items-center gap-4">
+          <Button asChild variant="tertiary">
+            <Link href="/dashboard/billing">Back to Billing</Link>
+          </Button>
+          <PageTitleAction />
+        </div>
+      }
+    >
       <ChangePlans currentPlan={currentPlan.at(0)} />
-    </div>
+    </DashboardContent>
   );
 }
