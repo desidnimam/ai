@@ -1,53 +1,29 @@
-import { Suspense } from "react";
-import { Plans } from "@/components/dashboard/billing/billing/plans/plans";
-import { Subscriptions } from "@/components/dashboard/billing/billing/subscription/subscriptions";
-import { DashboardContent } from "@/src/components/dashboard/billing/content";
-import { PageTitleAction } from "@/src/components/dashboard/billing/page-title-action";
-import { SetupWebhookButton } from "@/src/components/dashboard/billing/setup-webhook-button";
-import { hasWebhook } from "@/src/lib/actions/lemon";
+import React from "react";
+import ManageSubscription from "@/components/dashboard/billing/ManageSubscription";
+import { auth, signIn } from "@designali/auth";
+import { db, users } from "@designali/db";
+import { eq } from "drizzle-orm";
 
-export const dynamic = "force-dynamic";
+const billing = async () => {
+  const session = await auth();
 
-export default async function Page() {
-  const hasWh = Boolean(await hasWebhook());
+  if (!session || !session.user || !session.user.id) {
+    signIn();
+    return null;
+  }
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, session.user.id),
+  });
+
+  const plan = user.subscribed ? "premium" : "free";
 
   return (
-    <DashboardContent
-      className="mt-40"
-      title="Dashboard"
-      action={<PageTitleAction />}
-    >
-      <p>
-        This page is protected by the <code>auth</code> middleware. Navigate to
-        the Billing page to get started.
-      </p>
-
-      {!hasWh && (
-        <>
-          <h2>Webhook Setup</h2>
-
-          <p>
-            This app relies on webhooks to listen for changes made on Lemon
-            Squeezy. Make sure that you have entered all the required
-            environment variables (.env). This section is an example of how
-            you'd use the Lemon Squeezy API to interact with webhooks.
-          </p>
-
-          <p className="mb-6">
-            Configure the webhook on{" "}
-            <a
-              href="https://app.lemonsqueezy.com/settings/webhooks"
-              target="_blank"
-            >
-              Lemon Squeezy
-            </a>
-            , or simply click the button below to do that automatically with the
-            Lemon Squeezy SDK.
-          </p>
-
-          <SetupWebhookButton disabled={hasWh} />
-        </>
-      )}
-    </DashboardContent>
+    <main className="mt-40 h-screen">
+      <ManageSubscription />
+      <p className="text-center">You currently are on a {plan} plan</p>
+    </main>
   );
-}
+};
+
+export default billing;

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"userId" text NOT NULL,
+	"userId" uuid NOT NULL,
 	"type" text NOT NULL,
 	"provider" text NOT NULL,
 	"providerAccountId" text NOT NULL,
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS "account" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "cart" (
-	"id" text PRIMARY KEY NOT NULL,
-	"userId" text,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"userId" uuid,
 	"sessionCartId" text NOT NULL,
 	"items" json DEFAULT '[]'::json NOT NULL,
 	"itemsPrice" numeric(12, 2) NOT NULL,
@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS "cart" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "orderItems" (
-	"orderId" text NOT NULL,
-	"productId" text NOT NULL,
+	"orderId" uuid NOT NULL,
+	"productId" uuid NOT NULL,
 	"qty" integer NOT NULL,
 	"price" numeric(12, 2) NOT NULL,
 	"name" text NOT NULL,
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS "orderItems" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "order" (
-	"id" text PRIMARY KEY NOT NULL,
-	"userId" text NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"userId" uuid NOT NULL,
 	"shippingAddress" json NOT NULL,
 	"paymentMethod" text NOT NULL,
 	"paymentResult" json,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS "order" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "product" (
-	"id" text PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"category" text NOT NULL,
@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS "product" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "reviews" (
-	"id" text PRIMARY KEY NOT NULL,
-	"userId" text NOT NULL,
-	"productId" text NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"userId" uuid NOT NULL,
+	"productId" uuid NOT NULL,
 	"rating" integer NOT NULL,
 	"title" text NOT NULL,
 	"slug" text NOT NULL,
@@ -83,12 +83,12 @@ CREATE TABLE IF NOT EXISTS "reviews" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"sessionToken" text PRIMARY KEY NOT NULL,
-	"userId" text NOT NULL,
+	"userId" uuid NOT NULL,
 	"expires" timestamp NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text DEFAULT 'NO_NAME' NOT NULL,
 	"email" text NOT NULL,
 	"role" text DEFAULT 'user' NOT NULL,
@@ -97,9 +97,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"image" text,
 	"address" json,
 	"paymentMethod" text,
-	"createdAt" timestamp DEFAULT now(),
-	"stripe_customer_id" text,
-	"subscribed" boolean
+	"createdAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -107,19 +105,6 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	"token" text NOT NULL,
 	"expires" timestamp NOT NULL,
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "post" (
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"slug" text PRIMARY KEY NOT NULL,
-	"likes" integer DEFAULT 0 NOT NULL,
-	"views" integer DEFAULT 0 NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "likes_session" (
-	"id" text PRIMARY KEY NOT NULL,
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"likes" integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN

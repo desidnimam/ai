@@ -82,7 +82,7 @@ export function Footer() {
         </Link>
       </div>
 
-      <div className="mx-auto max-w-5xl ">
+      <div className="mx-auto max-w-4xl ">
         <div className="mt-4 flex flex-wrap justify-center gap-x-10 gap-y-6 p-8">
           {items.map((Menus) => (
             <figure key={Menus.text}>

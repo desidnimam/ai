@@ -4,13 +4,12 @@ import {
   boolean,
   integer,
   json,
-  jsonb,
   numeric,
   pgTable,
-  serial,
   text,
   timestamp,
   uniqueIndex,
+  uuid,
 } from "drizzle-orm/pg-core";
 import { primaryKey } from "drizzle-orm/pg-core/primary-keys";
 
@@ -20,7 +19,7 @@ import type { CartItem, PaymentResult, ShippingAddress } from "../types";
 export const users = pgTable(
   "user",
   {
-    id: text("id").primaryKey().notNull(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
     name: text("name").notNull().default("NO_NAME"),
     email: text("email").notNull(),
     role: text("role").notNull().default("user"),
@@ -43,7 +42,7 @@ export const users = pgTable(
 export const accounts = pgTable(
   "account",
   {
-    userId: text("userId")
+    userId: uuid("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccountType>().notNull(),
@@ -66,7 +65,7 @@ export const accounts = pgTable(
 
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
+  userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
@@ -88,7 +87,7 @@ export const verificationTokens = pgTable(
 export const products = pgTable(
   "product",
   {
-    id: text("id").primaryKey().notNull(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
     name: text("name").notNull(),
     slug: text("slug").notNull(),
     category: text("category").notNull(),
@@ -113,11 +112,11 @@ export const products = pgTable(
 );
 
 export const reviews = pgTable("reviews", {
-  id: text("id").primaryKey().notNull(),
-  userId: text("userId")
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  productId: text("productId")
+  productId: uuid("productId")
     .notNull()
     .references(() => products.id, { onDelete: "cascade" }),
   rating: integer("rating").notNull(),
@@ -139,8 +138,8 @@ export const reviewsRelations = relations(reviews, ({ one }) => ({
 
 // CARTS
 export const carts = pgTable("cart", {
-  id: text("id").notNull().primaryKey(),
-  userId: text("userId").references(() => users.id, {
+  id: uuid("id").notNull().defaultRandom().primaryKey(),
+  userId: uuid("userId").references(() => users.id, {
     onDelete: "cascade",
   }),
   sessionCartId: text("sessionCartId").notNull(),
@@ -157,8 +156,8 @@ export const carts = pgTable("cart", {
 
 // ORDERS
 export const orders = pgTable("order", {
-  id: text("id").primaryKey(),
-  userId: text("userId")
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   shippingAddress: json("shippingAddress").$type<ShippingAddress>().notNull(),
@@ -185,10 +184,10 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
 export const orderItems = pgTable(
   "orderItems",
   {
-    orderId: text("orderId")
+    orderId: uuid("orderId")
       .notNull()
       .references(() => orders.id, { onDelete: "cascade" }),
-    productId: text("productId")
+    productId: uuid("productId")
       .notNull()
       .references(() => products.id, { onDelete: "cascade" }),
     qty: integer("qty").notNull(),
@@ -210,56 +209,3 @@ export const orderItemsRelations = relations(orderItems, ({ one }) => ({
     references: [orders.id],
   }),
 }));
-
-export const webhookEvents = pgTable("webhookEvent", {
-  id: integer("id").primaryKey(),
-  createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
-  eventName: text("eventName").notNull(),
-  processed: boolean("processed").default(false),
-  body: jsonb("body").notNull(),
-  processingError: text("processingError"),
-});
-
-export const plans = pgTable("plan", {
-  id: serial("id").primaryKey(),
-  productId: integer("productId").notNull(),
-  productName: text("productName"),
-  variantId: integer("variantId").notNull().unique(),
-  name: text("name").notNull(),
-  description: text("description"),
-  price: text("price").notNull(),
-  isUsageBased: boolean("isUsageBased").default(false),
-  interval: text("interval"),
-  intervalCount: integer("intervalCount"),
-  trialInterval: text("trialInterval"),
-  trialIntervalCount: integer("trialIntervalCount"),
-  sort: integer("sort"),
-});
-
-export const subscriptions = pgTable("subscription", {
-  id: serial("id").primaryKey(),
-  lemonSqueezyId: text("lemonSqueezyId").unique().notNull(),
-  orderId: integer("orderId").notNull(),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  status: text("status").notNull(),
-  statusFormatted: text("statusFormatted").notNull(),
-  renewsAt: text("renewsAt"),
-  endsAt: text("endsAt"),
-  trialEndsAt: text("trialEndsAt"),
-  price: text("price").notNull(),
-  isUsageBased: boolean("isUsageBased").default(false),
-  isPaused: boolean("isPaused").default(false),
-  subscriptionItemId: serial("subscriptionItemId"),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id),
-  planId: integer("planId")
-    .notNull()
-    .references(() => plans.id),
-});
-
-// Export types for the tables.
-export type NewPlan = typeof plans.$inferInsert;
-export type NewWebhookEvent = typeof webhookEvents.$inferInsert;
-export type NewSubscription = typeof subscriptions.$inferInsert;
