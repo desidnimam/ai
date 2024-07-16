@@ -10,6 +10,7 @@
     "dev": "tsc --watch",
     "generate": "pnpm with-env drizzle-kit generate",
     "migrate": "pnpm with-env drizzle-kit migrate",
+    "introspect": "pnpm with-env drizzle-kit introspect",
     "push": "pnpm with-env drizzle-kit push",
     "seed": "pnpm with-env src/seed.ts",
     "studio": "pnpm with-env drizzle-kit studio",

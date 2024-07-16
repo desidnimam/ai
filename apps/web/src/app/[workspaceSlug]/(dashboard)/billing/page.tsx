@@ -1,29 +1,14 @@
-import React from "react";
-import ManageSubscription from "@/components/dashboard/billing/ManageSubscription";
-import { auth, signIn } from "@designali/auth";
-import { db, users } from "@designali/db";
-import { eq } from "drizzle-orm";
+import { Suspense } from "react";
+import { Plans } from "@/components/dashboard/billing/billing/plans/plans";
+import { Subscriptions } from "@/components/dashboard/billing/billing/subscription/subscriptions";
 
-const billing = async () => {
-  const session = await auth();
+export const dynamic = "force-dynamic";
 
-  if (!session || !session.user || !session.user.id) {
-    signIn();
-    return null;
-  }
-
-  const user = await db.query.users.findFirst({
-    where: eq(users.id, session.user.id),
-  });
-
-  const plan = user.subscribed ? "premium" : "free";
-
+export default function BillingPage() {
   return (
-    <main className="mt-40 h-screen">
-      <ManageSubscription />
-      <p className="text-center">You currently are on a {plan} plan</p>
-    </main>
+    <div>
+      <Subscriptions />
+      <Plans />
+    </div>
   );
-};
-
-export default billing;
+}

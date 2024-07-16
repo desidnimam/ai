@@ -1,54 +1,59 @@
-export type Views = {
-  views: number
+import type { Subscription } from "@lemonsqueezy/lemonsqueezy.js";
+
+export interface Views {
+  views: number;
 }
 
-export type Likes = {
-  likes: number
-  currentUserLikes: number
+export interface Likes {
+  likes: number;
+  currentUserLikes: number;
 }
 
-export type Message = {
-  id: number
-  body: string
-  image: string
-  created_by: string
-  updated_at: Date
+export interface Message {
+  id: number;
+  body: string;
+  image: string;
+  created_by: string;
+  updated_at: Date;
 }
 
-export type Artist = {
+export interface Artist {
   id: string;
   name: string;
   type: string;
   href: string;
-};
+}
 
 export type Song =
   | {
-      isPlaying: true
-      name: string
-      artist: string
-      album: string
-      albumImage: string
-      songUrl: string
+      isPlaying: true;
+      name: string;
+      artist: string;
+      album: string;
+      albumImage: string;
+      songUrl: string;
     }
   | {
-      isPlaying: false
-    }
+      isPlaying: false;
+    };
 
-export type YouTube = {
-  subscribers: number
-  views: number
+export interface YouTube {
+  subscribers: number;
+  views: number;
 }
 
-export type Github = {
-  stars: number
-  followers: number
+export interface Github {
+  stars: number;
+  followers: number;
 }
 
-export type Wakatime = {
-  seconds: number
+export interface Wakatime {
+  seconds: number;
 }
 
-export type Analytics = {
-  visitors: number
+export interface Analytics {
+  visitors: number;
 }
+
+export type SubscriptionStatusType =
+  Subscription["data"]["attributes"]["status"];
