@@ -1,4 +1,5 @@
 import { FAQ } from "@/components/home/faq";
+import { Graaadients } from "@/components/products/cards";
 import { getLatestProducts } from "@/lib/actions/product.actions";
 import ProductList from "@/src/components/admin/product/product-list";
 import { cn } from "@designali/ui";
@@ -26,6 +27,7 @@ export default async function Home() {
         </div>
 
         <ProductList title="" data={latestProducts} />
+        <Graaadients />
         <FAQ />
       </div>
     </div>

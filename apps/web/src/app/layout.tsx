@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { SessionProvider } from "next-auth/react";
+import useSWR, { SWRConfig } from "swr";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
