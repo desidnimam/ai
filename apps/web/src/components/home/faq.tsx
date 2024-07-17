@@ -13,47 +13,44 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free NextJS Shadcn template.",
+    question: "Why wouldn't I just hire a full-time designer?",
+    answer:
+      "Good question! For starters, the annual cost of a full-time senior-level designer now exceeds $100,000, plus benefits (and good luck finding one available). Aside from that, you may not always have enough work to keep them busy at all times, so you're stuck paying for time you aren't able to utilize. With the monthly plan, you can pause and resume your subscription as often as you need to ensure you're only paying your designer when you have work available for them.",
     value: "item-1",
   },
   {
-    question: "Duis aute irure dolor in reprehenderit in voluptate velit?",
+    question: "Is there a limit to how many requests I can have?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam consectetur sapiente, iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "Once subscribed, you're able to add as many design requests to your queue as you'd like, and they will be delivered one by one.",
     value: "item-2",
   },
   {
-    question:
-      "Lorem ipsum dolor sit amet Consectetur natus dolor minus quibusdam?",
+    question: "How fast will I receive my designs?",
     answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis.",
+      "On average, most requests are completed in just two days or less. However, more complex requests can take longer.",
     value: "item-3",
   },
   {
-    question: "Excepteur sint occaecat cupidata non proident sunt?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "Who are the designers?",
+    answer:
+      "You might be surprised to hear this, but Designali is actually an agency of one. This means you'll work directly with me, founder of Designali. However, power-ups requests such as animations or custom illustrations are provided by my team.",
     value: "item-4",
   },
   {
-    question:
-      "Enim ad minim veniam, quis nostrud exercitation ullamco laboris?",
-    answer: "consectetur adipisicing elit. Sint labore.",
+    question: "How do I request designs?",
+    answer:
+      "Designali offers a ton of flexibility in how you request designs using the Dashboard. Some common ways clients request designs is directly via Dashboard, sharing Google docs or wireframes (for those who prefer not to write their briefs out). Basically, if it can be linked to or shared in Your Dashboard, it's fair game.",
     value: "item-5",
   },
 ];
 
 export const FAQ = () => {
   return (
-    <section id="faq" className="mx-auto max-w-2xl py-24 ">
+    <section id="faq" className="mx-auto max-w-4xl py-24">
       <div className="mb-8 text-center">
-        <h2 className="mb-2 text-center text-lg tracking-wider text-primary">
-          FAQS
-        </h2>
-
-        <h2 className="text-center text-3xl font-bold md:text-4xl">
-          Common Questions
-        </h2>
+        <h1 className="text-center text-3xl font-semibold md:text-5xl">
+          Commonly Asked Questions
+        </h1>
       </div>
 
       <Accordion type="single" collapsible className="AccordionRoot">

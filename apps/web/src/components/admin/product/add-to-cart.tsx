@@ -23,11 +23,10 @@ export default function AddToCart({
   const existItem =
     cart && cart.items.find((x) => x.productId === item.productId);
   return existItem ? (
-    <div>
+    <div className="flex w-full items-center">
       <Button
         type="button"
-        className="h-12 w-12 rounded-full"
-        size="icon"
+        size="lgicon"
         variant="outline"
         disabled={isPending}
         onClick={() => {
@@ -47,12 +46,11 @@ export default function AddToCart({
           <Icons.minus strokeWidth={1} className="h-4 w-4" />
         )}
       </Button>
-      <span className="px-6">{existItem.qty}</span>
+      <span className="px-4">{existItem.qty}</span>
       <Button
         type="button"
-        className="h-12 w-12 rounded-full"
         variant="outline"
-        size="icon"
+        size="lgicon"
         disabled={isPending}
         onClick={() => {
           startTransition(async () => {
@@ -74,10 +72,10 @@ export default function AddToCart({
     </div>
   ) : (
     <Button
-      className="w-full"
+      className=""
       type="button"
       variant="outline"
-      size="lg"
+      size="lgicon"
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {
@@ -107,9 +105,8 @@ export default function AddToCart({
       {isPending ? (
         <Icons.loader strokeWidth={1} className="animate-spin" />
       ) : (
-        <Icons.plus strokeWidth={1} className="mr-2 h-5 w-5" />
+        <Icons.plus strokeWidth={1} className=" h-5 w-5" />
       )}
-      Add to cart
     </Button>
   );
 }
