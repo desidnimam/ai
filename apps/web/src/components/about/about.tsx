@@ -90,6 +90,39 @@ const About = () => {
               <Separator />
             </div>
 
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Link
+                href="/Ali-CV.pdf"
+                download={true}
+                target="_blank"
+                className={cn(
+                  buttonVariants({
+                    variant: "default",
+                    size: "lg",
+                  }),
+                )}
+              >
+                <span className="flex gap-2 px-1">
+                  <Icons.download size={14} />
+                  Download CV
+                </span>
+              </Link>
+              <Link
+                href="https://chat.whatsapp.com/LWsNPcz5BlWDVOha41vzuh"
+                target="_blank"
+                className={cn(
+                  buttonVariants({
+                    variant: "default",
+                    size: "lg",
+                  }),
+                )}
+              >
+                <span className="flex gap-2 px-1">
+                  <Icons.whatsapp className="w-3 " />
+                  Join Whatsapp
+                </span>
+              </Link>
+            </div>
             <h1 className="mb-4 mt-10 text-center text-sm font-semibold uppercase tracking-[.3em] text-slate-400 ">
               Tools
             </h1>

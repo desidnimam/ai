@@ -151,7 +151,7 @@ export function CarouselSpacing() {
             ))}
           </PhotoProvider>
         </CarouselContent>
-        <div className="mt-10 justify-center gap-3 md:flex">
+        <div className="mt-10 flex justify-center gap-3">
           <CarouselPrevious />
           <CarouselNext />
         </div>

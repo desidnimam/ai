@@ -75,41 +75,54 @@ const ProductDetails = async ({
                 caption={`${product.numReviews} reviews`}
               />
             </div>
-
-            <div className=" flex justify-center  gap-2">
-              <div className="w-full ">
-                {product.stock !== 0 && (
-                  <AddToCart
-                    cart={cart}
-                    item={{
-                      productId: product.id,
-                      name: product.name,
-                      slug: product.slug,
-                      price: round2(product.price),
-                      qty: 1,
-                      image: product.images[0],
-                    }}
-                  />
-                )}
-              </div>
-              <Link
-                href={`/products/${[product.slug]}`}
-                className="flex w-full gap-2 "
+          </div>
+          <div className="grid w-full justify-center gap-2 px-4 md:flex">
+            <Link
+              href={`/products/${[product.slug]}`}
+              className="grid w-full gap-2 md:flex "
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="grid w-full gap-2 md:flex "
               >
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="flex w-full gap-2"
-                >
-                  <span>Buy Now</span>
-                </Button>
-              </Link>
+                <span>Buy Now</span>
+              </Button>
+            </Link>
+            <div className="w-sm flex justify-center">
+              {product.stock !== 0 && (
+                <AddToCart
+                  cart={cart}
+                  item={{
+                    productId: product.id,
+                    name: product.name,
+                    slug: product.slug,
+                    price: round2(product.price),
+                    qty: 1,
+                    image: product.images[0],
+                  }}
+                />
+              )}
             </div>
+            <Link
+              href={`/products/${[product.slug]}`}
+              className="grid w-full gap-2 md:flex "
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="grid w-full gap-2 md:flex "
+              >
+                <span>Get full access</span>
+              </Button>
+            </Link>
+          </div>
 
-            <div>
-              <p className="text-slate-600 dark:text-slate-400">Description:</p>
-              <p>{product.description}</p>
-            </div>
+          <div className="mt-8 p-4">
+            <p className="py-4 text-slate-600 dark:text-slate-400">
+              Description:
+            </p>
+            <p>{product.description}</p>
           </div>
         </div>
       </section>

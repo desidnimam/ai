@@ -11,14 +11,16 @@ const ProductCard = async ({ product }: { product: Product }) => {
   const cart = await getMyCart();
   return (
     <div className="h-auto w-full rounded-3xl border p-2">
-      <Image
-        alt={product.name}
-        className="h-[350px] rounded-t-2xl object-cover object-center md:h-[450px]"
-        height={500}
-        src={product.images[0]}
-        width={500}
-      />
-      <div className="relative -mt-20 bg-gradient-to-b from-white/0 to-white pb-4 pt-8 text-white dark:bg-gradient-to-b dark:from-black/0 dark:to-black">
+      <Link href={`/products/${[product.slug]}`}>
+        <Image
+          alt={product.name}
+          className="h-[350px] rounded-t-2xl object-cover object-center md:h-[450px]"
+          height={500}
+          src={product.images[0]}
+          width={500}
+        />
+      </Link>
+      <div className="relative -mt-28 bg-gradient-to-b from-white/0 via-white/20 to-white pb-4 pt-16 text-white dark:bg-gradient-to-b dark:from-black/0 dark:to-black">
         <div className="px-4">
           <h2 className="text-2xl font-medium text-black dark:text-white">
             {product.name}
@@ -26,6 +28,14 @@ const ProductCard = async ({ product }: { product: Product }) => {
         </div>
       </div>
       <div className="flex justify-center gap-2">
+        <Link
+          href={`/products/${[product.slug]}`}
+          className="flex w-full gap-2"
+        >
+          <Button variant="outline" size="lg" className="flex w-full gap-2">
+            <span>View</span>
+          </Button>
+        </Link>
         <div className="w-sm">
           {product.stock !== 0 && (
             <AddToCart
@@ -41,14 +51,6 @@ const ProductCard = async ({ product }: { product: Product }) => {
             />
           )}
         </div>
-        <Link
-          href={`/products/${[product.slug]}`}
-          className="flex w-full gap-2"
-        >
-          <Button variant="outline" size="lg" className="flex w-full gap-2">
-            <span>View</span>
-          </Button>
-        </Link>
       </div>
     </div>
   );

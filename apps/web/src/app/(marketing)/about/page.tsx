@@ -1,5 +1,6 @@
 import Image from "next/image";
 import About from "@/components/about/about";
+import { Experience } from "@/components/about/experience";
 import { Connect } from "@/components/common/connect";
 import ImageZoom from "@/components/common/image-zoom";
 import Logos from "@/components/common/logos";
@@ -51,7 +52,7 @@ export default function HomePage() {
         </div>
         <div className="mx-auto mt-20 max-w-3xl md:max-w-5xl ">
           <About />
-
+          <Experience />
           <h1 className="my-6 mt-12 text-center text-xs font-semibold uppercase tracking-[.3em] text-slate-400 ">
             Worked with Brands Like
           </h1>

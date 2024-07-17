@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Avegra } from "@/app/fonts";
@@ -9,7 +8,7 @@ import { Button } from "@designali/ui/button";
 import { Grads } from "./grads";
 
 export const metadata = {
-  title: "Graaadients - Ali Imam",
+  title: "Graaadients - Designali",
   description:
     "This section includes end-to-end guides for developing Next.js 13 apps.",
 };
