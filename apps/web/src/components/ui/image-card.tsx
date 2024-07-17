@@ -22,23 +22,20 @@ export const CardStack = ({
 
   return (
     <div className="rounded-3xl border border-slate-200 p-2 dark:border-slate-800">
-      <div className="relative flex h-[450px] w-full">
+      <div className="relative flex h-[450px]">
         {cards.map((card) => {
           return (
-            <div
-              key={card.id}
-              className="lg:w-7xl flex h-full w-[300px] flex-col  md:w-[600px]"
-            >
+            <div key={card.id} className="flex h-full w-auto flex-col">
               <Image
                 src={card.src}
                 alt={""}
                 loading="lazy"
-                className="absolute -z-10 h-full w-full rounded-2xl object-cover object-center"
+                className="w-xl -z-10 h-full rounded-2xl object-cover object-center"
                 width={1200}
                 height={800}
               />
               <div className="grid">
-                <div className="p-6">
+                <div className="absolute top-0 p-6">
                   <p className="text-4xl font-bold text-white ">{card.name}</p>
                   <p className="font-normal text-white ">{card.designation}</p>
                 </div>
@@ -65,7 +62,7 @@ export const MiniCardStack = ({
 
   return (
     <div className="rounded-3xl border border-slate-200 p-2 dark:border-slate-800">
-      <div className="relative flex h-[200px]">
+      <div className="relative flex h-[200px] w-full">
         {cards.map((card) => {
           return (
             <div key={card.id} className="flex h-full w-full  flex-col">

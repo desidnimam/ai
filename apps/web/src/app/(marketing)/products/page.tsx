@@ -2,6 +2,7 @@ import { FAQ } from "@/components/home/faq";
 import { Graaadients } from "@/components/products/cards";
 import { getLatestProducts } from "@/lib/actions/product.actions";
 import ProductList from "@/src/components/admin/product/product-list";
+import PageTitle from "@/src/components/mdx/page-title";
 import { cn } from "@designali/ui";
 
 import { Avegra } from "../../fonts";
@@ -10,7 +11,7 @@ export default async function Home() {
   const latestProducts = await getLatestProducts();
   return (
     <div>
-      <div className="mx-auto mt-40 max-w-3xl px-4  md:max-w-7xl ">
+      <div className="mx-auto mt-40 max-w-3xl px-6 md:max-w-7xl">
         <p className="lg:text-md my-2 text-center text-xs font-light uppercase tracking-widest text-slate-600 dark:text-slate-400">
           TAKE A LOOK AT WHAT’S NEW RIGHT NOW.
         </p>
@@ -27,7 +28,13 @@ export default async function Home() {
         </div>
 
         <ProductList title="" data={latestProducts} />
-        <Graaadients />
+        <div className="mt-20">
+          <PageTitle
+            title="Free"
+            description={`The right price for you,  whoever you are`}
+          />
+          <Graaadients />
+        </div>
         <FAQ />
       </div>
     </div>

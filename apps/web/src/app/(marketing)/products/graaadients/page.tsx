@@ -2,7 +2,9 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Avegra } from "@/app/fonts";
+import { auth } from "@designali/auth";
 import { cn } from "@designali/ui";
+import { Button } from "@designali/ui/button";
 
 import { Grads } from "./grads";
 
@@ -12,7 +14,8 @@ export const metadata = {
     "This section includes end-to-end guides for developing Next.js 13 apps.",
 };
 
-export default function AboutAI() {
+export default async function AboutAI() {
+  const session = auth();
   return (
     <div className="my-40">
       <div className="relative -top-28">
@@ -43,14 +46,25 @@ export default function AboutAI() {
         </p>
 
         <div className="mt-10 grid justify-center gap-4">
-          <Link
-            href="https://drive.google.com/file/d/1zAO2dwMuho4zuTSyZQ5WiEa-OZxeiI3e/view?usp=sharing"
-            target="_blank"
-            className=""
-          >
-            Download Full Pack
-            <span className="sr-only">Buy now</span>
-          </Link>
+          {(await session) ? (
+            <Button variant="default" size="lg">
+              <Link
+                href="https://drive.google.com/file/d/1zAO2dwMuho4zuTSyZQ5WiEa-OZxeiI3e/view?usp=sharing"
+                target="_blank"
+                className=""
+              >
+                Download Full Pack
+                <span className="sr-only">Buy now</span>
+              </Link>
+            </Button>
+          ) : (
+            <Button variant="outline" size="lg">
+              <Link href="/login">
+                Login to Download
+                <span className="sr-only">Buy now</span>
+              </Link>
+            </Button>
+          )}
         </div>
         <p className="ml-2 mt-6 text-center font-semibold text-white">
           All gradients are 100% free.
@@ -82,14 +96,25 @@ export default function AboutAI() {
           design projects.
         </p>
         <div className="mt-10 grid justify-center gap-4">
-          <Link
-            href="https://drive.google.com/file/d/1zAO2dwMuho4zuTSyZQ5WiEa-OZxeiI3e/view?usp=sharing"
-            target="_blank"
-            className=""
-          >
-            Download Full Pack
-            <span className="sr-only">Buy now</span>
-          </Link>
+          {(await session) ? (
+            <Button variant="default" size="lg">
+              <Link
+                href="https://drive.google.com/file/d/1zAO2dwMuho4zuTSyZQ5WiEa-OZxeiI3e/view?usp=sharing"
+                target="_blank"
+                className=""
+              >
+                Download Full Pack
+                <span className="sr-only">Buy now</span>
+              </Link>
+            </Button>
+          ) : (
+            <Button variant="outline" size="lg">
+              <Link href="/login">
+                Login to Download
+                <span className="sr-only">Buy now</span>
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>

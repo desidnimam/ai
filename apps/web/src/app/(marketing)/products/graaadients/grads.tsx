@@ -1,7 +1,7 @@
 import { ScrollArea, ScrollBar } from "@designali/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@designali/ui/tabs";
 
-import { Grad1, Grad2, Grad3, Grad4 } from "./types/mesh";
+import { Grad1 } from "./types/mesh";
 import Video from "./types/video";
 
 export function Grads() {
@@ -14,7 +14,7 @@ export function Grads() {
               Mesh Background
             </TabsTrigger>
             <TabsTrigger value="2" className="px-6">
-              Open Mesh Video
+              Video
             </TabsTrigger>
           </div>
           <ScrollBar orientation="horizontal" />
@@ -23,9 +23,6 @@ export function Grads() {
 
       <TabsContent className="grid gap-y-2" value="1">
         <Grad1 />
-        <Grad2 />
-        <Grad3 />
-        <Grad4 />
       </TabsContent>
       <TabsContent value="2">
         <Video />
