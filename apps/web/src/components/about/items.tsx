@@ -5,7 +5,6 @@
 
 import Counter from "@/components/common/countnumber";
 import { api } from "@/trpc/react";
-import { ArrowRightIcon, PencilIcon, StarIcon } from "lucide-react";
 
 import { Icons } from "../icons";
 import { Link } from "../ui/link";
@@ -24,13 +23,13 @@ interface Card {
 }
 
 const Items = () => {
-  const viewsQuery = api.views.getCount.useQuery();
+  const views = api.views.getCount.useQuery();
 
   const data: Card[] = [
     {
       title: "Blog Total Views",
       link: "https://designali.in/blogs",
-      value: viewsQuery.data.views,
+      value: views.data.views,
       icon: "",
       linkText: "Blogs",
       gradient: {
@@ -85,7 +84,7 @@ const Items = () => {
             </div>
             <span className="absolute left-1/2 top-1/2 flex -translate-x-1/2 translate-y-24 items-center gap-1 text-2xl font-bold opacity-0 transition group-hover:-translate-y-1/2 group-hover:opacity-100 group-focus:-translate-y-1/2 group-focus:opacity-100">
               {linkText}
-              <ArrowRightIcon className="size-6" />
+              <Icons.arrowright className="size-6" />
             </span>
           </Link>
         );

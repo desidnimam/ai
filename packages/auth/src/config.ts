@@ -1,20 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { DefaultSession, NextAuthConfig, User } from "next-auth";
+import type {
+  DefaultSession,
+  NextAuthConfig,
+  Session as NextAuthSession,
+  User,
+} from "next-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { accounts, carts, db, sessions, users } from "@designali/db";
 import { sendEmail, WelcomeEmail } from "@designali/emails";
-import { compareSync } from "bcrypt-ts-edge";
 import { eq } from "drizzle-orm";
-import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import Resend from "next-auth/providers/resend";
 
 import { env } from "../env";
 import { SENDER_EMAIL } from "./constants";
+import { ResendProvider } from "./providers";
 
 type UserId = string;
 type IsAdmin = boolean;
@@ -55,6 +58,7 @@ export const authConfig = {
   secret: env.AUTH_SECRET,
   providers: [
     Github,
+    ResendProvider,
     Google({
       allowDangerousEmailAccountLinking: true,
     }),
