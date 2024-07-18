@@ -12,9 +12,9 @@ import { Avegra } from "../../fonts";
 
 export default function HomePage() {
   return (
-    <main className="py-16">
-      <div className="mx-auto mt-40 max-w-3xl px-6 md:max-w-5xl">
-        <div className="relative mx-auto mt-10 flex h-[28rem] max-w-sm flex-col items-start border border-slate-100 p-4 dark:border-slate-900">
+    <main className="">
+      <div className="mx-auto mt-28 max-w-3xl px-6 md:mt-40 md:max-w-5xl">
+        <div className="relative mx-auto mt-10 flex h-[336px] max-w-[250px] flex-col items-start border border-slate-100 p-4 dark:border-slate-900 md:h-[28rem] md:max-w-sm">
           <Icons.plus
             strokeWidth={0.5}
             className="text-aired absolute -left-4 -top-4 h-8 w-8"
@@ -37,13 +37,13 @@ export default function HomePage() {
               alt="Your Image"
               height={1000}
               width={1000}
-              className="h-[404px] object-cover "
+              className="h-[300px] object-cover md:h-[404px] "
             />
-            <div className="relative -mt-24 bg-gradient-to-b from-black/0 to-black text-white">
+            <div className="relative -mt-14 bg-gradient-to-b from-black/0 to-black text-white md:-mt-24">
               <h1
                 className={cn(
                   Avegra.className,
-                  "z-20 items-center text-center text-[70px] ",
+                  "z-20 items-center text-center text-[40px] md:text-[70px]",
                 )}
               >
                 Ali Imam
