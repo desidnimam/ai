@@ -264,7 +264,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Items />
     </section>
   );
 };

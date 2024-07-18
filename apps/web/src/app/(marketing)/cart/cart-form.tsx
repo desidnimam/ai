@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 import { formatCurrency } from "@/lib/dutils";
+import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import {
@@ -27,7 +28,10 @@ export default function CartForm({ cart }: { cart?: Cart }) {
   const [isPending, startTransition] = useTransition();
   return (
     <div className="mx-auto mt-40 max-w-7xl px-6">
-      <h1 className="h2-bold py-4">Shopping Cart</h1>
+      <PageTitle
+        title="Your Cart"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
 
       {!cart || cart.items.length === 0 ? (
         <div>

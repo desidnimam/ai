@@ -1,6 +1,7 @@
 import Image from "next/image";
 import About from "@/components/about/about";
 import { Experience } from "@/components/about/experience";
+import Items from "@/components/about/items";
 import { Connect } from "@/components/common/connect";
 import ImageZoom from "@/components/common/image-zoom";
 import Logos from "@/components/common/logos";
@@ -53,6 +54,18 @@ export default function HomePage() {
         <div className="mx-auto mt-20 max-w-3xl md:max-w-5xl ">
           <About />
           <Experience />
+          <div className="flex flex-col items-center">
+            <h3 className="mt-6 inline-flex items-baseline bg-gradient-to-r from-slate-600 via-slate-400 to-slate-600 bg-clip-text pb-1 text-center font-bold text-transparent dark:bg-gradient-to-r dark:from-slate-600 dark:via-slate-200 dark:to-slate-600 dark:bg-clip-text">
+              <span className="text-2xl md:text-4xl">AI Dashboard</span>
+            </h3>
+            <hr className="bg-aired mx-auto my-4 h-1 w-6 rounded border-0"></hr>
+          </div>
+          <p className="mx-auto max-w-3xl px-6 text-center text-sm leading-5 text-slate-600 dark:text-slate-400">
+            This is my personal dashboard, built with Next.js API routes
+            deployed as serverless functions. I use this dashboard to track
+            various metrics across platforms like YouTube and more.
+          </p>
+
           <h1 className="my-6 mt-12 text-center text-xs font-semibold uppercase tracking-[.3em] text-slate-400 ">
             Worked with Brands Like
           </h1>

@@ -30,9 +30,12 @@ const ICONS3D = [
 
 export function Graaadients() {
   return (
-    <div className="grid justify-center">
+    <div className="grid justify-center gap-4 md:flex">
       <Link href="/products/graaadients">
         <CardStack items={GRADS} />
+      </Link>
+      <Link href="/products/3dicons">
+        <CardStack items={ICONS3D} />
       </Link>
     </div>
   );

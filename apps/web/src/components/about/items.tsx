@@ -10,7 +10,7 @@ import { ArrowRightIcon, PencilIcon, StarIcon } from "lucide-react";
 import { Icons } from "../icons";
 import { Link } from "../ui/link";
 
-type Card = {
+interface Card {
   icon: React.ReactNode;
   title: string;
   link: string;
@@ -21,7 +21,7 @@ type Card = {
     endColor: string;
   };
   suffix?: string;
-};
+}
 
 const Items = () => {
   const viewsQuery = api.views.getCount.useQuery();
@@ -30,7 +30,7 @@ const Items = () => {
     {
       title: "Blog Total Views",
       link: "https://designali.in/blogs",
-      value: viewsQuery.data?.views,
+      value: viewsQuery.data.views,
       icon: "",
       linkText: "Blogs",
       gradient: {

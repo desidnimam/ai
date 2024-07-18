@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { NextAuthConfig, User } from "next-auth";
+import type { DefaultSession, NextAuthConfig, User } from "next-auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
@@ -20,7 +20,7 @@ type UserId = string;
 type IsAdmin = boolean;
 
 declare module "next-auth" {
-  interface Session {
+  interface Session extends Omit<DefaultSession, "user"> {
     user: User & {
       id: UserId;
       isAdmin: IsAdmin;

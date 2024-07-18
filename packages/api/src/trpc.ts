@@ -39,13 +39,14 @@ export const createTRPCContext = async (opts: {
   session: Session | null;
 }) => {
   const authToken = opts.headers.get("Authorization") ?? null;
-  const session = await isomorphicGetSession(opts.headers);
+  const session = await auth();
 
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
 
   return {
-    session,
     db,
+    source,
+    session,
     token: authToken,
   };
 };
