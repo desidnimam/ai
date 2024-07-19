@@ -27,6 +27,7 @@ export async function getOrderById(orderId: string) {
   });
 }
 
+
 export async function getMyOrders({
   limit = PAGE_SIZE,
   page,
@@ -39,6 +40,10 @@ export async function getMyOrders({
 
   const data = await db.query.orders.findMany({
     where: eq(orders.userId, session.user.id),
+    with: {
+      orderItems: true,
+      user: { columns: { name: true } },
+    },
     orderBy: [desc(products.createdAt)],
     limit,
     offset: (page - 1) * limit,

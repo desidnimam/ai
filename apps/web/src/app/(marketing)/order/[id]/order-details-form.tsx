@@ -3,8 +3,7 @@
 import type { Order } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { formatCurrency, formatDateTime } from "@/lib/dutils";
-import { Badge } from "@designali/ui/badge";
+import { formatCurrency } from "@/lib/dutils";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import {
@@ -23,8 +22,6 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
     taxPrice,
     shippingPrice,
     totalPrice,
-    isPaid,
-    paidAt,
   } = order;
 
   return (

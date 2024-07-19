@@ -14,6 +14,7 @@ import {
 } from "@designali/ui/alert-dialog";
 import { Button, buttonVariants } from "@designali/ui/button";
 import { useToast } from "@designali/ui/use-toast";
+import { Icons } from "../icons";
 
 export default function DeleteDialog({
   id,
@@ -29,8 +30,8 @@ export default function DeleteDialog({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="outline">
-          Delete
+        <Button size="icon" variant="outline">
+          <Icons.trash strokeWidth={1} className="w-4 h-4 text-ali"/>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

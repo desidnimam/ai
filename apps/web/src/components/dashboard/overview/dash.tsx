@@ -161,11 +161,23 @@ export default async function Dashboard({
                       </TableCell>
 
                       <TableCell className="flex gap-2">
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/order/${order.id}`}>
-                            <span className="px-2">Details</span>
-                          </Link>
-                        </Button>
+                        <Link
+                          href={`/order/${order.id}`}
+                          className="hidden md:block"
+                        >
+                          <Button variant="outline" size="sm">
+                            Details
+                          </Button>
+                        </Link>
+
+                        <Link
+                          href={`/order/${order.id}`}
+                          className="block md:hidden"
+                        >
+                          <Button  variant="icon" size="sm">
+                            <Icons.movediag className="h-4 w-4 " />
+                          </Button>
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -190,30 +202,32 @@ export default async function Dashboard({
                   width="300"
                 />
                 <div className="grid grid-cols-3 gap-2">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square w-full rounded-md object-cover"
-                      height="84"
-                      src="/placeholder.svg"
-                      width="84"
-                    />
-                    <Image
-                      alt="Product image"
-                      className="aspect-square w-full rounded-md object-cover"
-                      height="84"
-                      src="/placeholder.svg"
-                      width="84"
-                    />
-                    <Image
-                      alt="Product image"
-                      className="aspect-square w-full rounded-md object-cover"
-                      height="84"
-                      src="/placeholder.svg"
-                      width="84"
-                    />
+                  <Image
+                    alt="Product image"
+                    className="aspect-square w-full rounded-md object-cover"
+                    height="84"
+                    src="/placeholder.svg"
+                    width="84"
+                  />
+                  <Image
+                    alt="Product image"
+                    className="aspect-square w-full rounded-md object-cover"
+                    height="84"
+                    src="/placeholder.svg"
+                    width="84"
+                  />
+                  <Image
+                    alt="Product image"
+                    className="aspect-square w-full rounded-md object-cover"
+                    height="84"
+                    src="/placeholder.svg"
+                    width="84"
+                  />
                 </div>
-                <Link href={"/dashboard/products"} className="w-full flex">
-                  <Button variant="outline" size="lg" className="w-full flex">See all my Products</Button>
+                <Link href={"/dashboard/products"} className="flex w-full">
+                  <Button variant="outline" size="lg" className="flex w-full">
+                    See all my Products
+                  </Button>
                 </Link>
               </div>
             </CardContent>

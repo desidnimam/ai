@@ -39,8 +39,8 @@ export const productDefaultValues = {
   brand: "",
   description: "",
   price: "0",
-  stock: 0,
-  rating: "0",
+  stock: 5,
+  rating: "5",
   numReviews: 0,
   isFeatured: false,
   banner: null,
@@ -49,5 +49,5 @@ export const productDefaultValues = {
 export const reviewFormDefaultValues = {
   title: "",
   comment: "",
-  rating: 0,
+  rating: 5,
 };

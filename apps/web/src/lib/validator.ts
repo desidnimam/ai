@@ -3,7 +3,6 @@ import { orderItems, orders, products, reviews } from "@designali/db";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import * as z from "zod";
 
-import { PAYMENT_METHODS } from "./constants";
 import { formatNumberWithDecimal } from "./dutils";
 
 // USER

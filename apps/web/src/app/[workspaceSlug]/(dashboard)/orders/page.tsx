@@ -20,6 +20,8 @@ import {
 export const metadata: Metadata = {
   title: `My Orders - ${APP_NAME}`,
 };
+
+
 export default async function OrdersPage({
   searchParams,
 }: {
