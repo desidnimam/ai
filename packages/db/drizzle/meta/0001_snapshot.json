@@ -1,6 +1,6 @@
 {
-  "id": "4d1fb219-9d7e-494b-8895-a8fef96deabf",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "a75f6943-2867-4e22-b30f-51c800839a30",
+  "prevId": "4d1fb219-9d7e-494b-8895-a8fef96deabf",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -695,6 +695,18 @@
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
+        },
+        "stripe_customer_id": {
+          "name": "stripe_customer_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subscribed": {
+          "name": "subscribed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {

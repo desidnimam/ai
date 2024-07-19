@@ -8,8 +8,10 @@ import { createProduct, updateProduct } from "@/lib/actions/product.actions";
 import { productDefaultValues } from "@/lib/constants";
 import { UploadButton } from "@/lib/uploadthing";
 import { insertProductSchema, updateProductSchema } from "@/lib/validator";
-import { Button } from "@designali/ui/button";
+import { cn } from "@designali/ui";
+import { Button, buttonVariants } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
+import { Checkbox } from "@designali/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -79,6 +81,8 @@ export default function ProductForm({
     }
   }
   const images = form.watch("images");
+  const isFeatured = form.watch("isFeatured");
+  const banner = form.watch("banner");
   return (
     <Form {...form}>
       <form
@@ -269,7 +273,63 @@ export default function ProductForm({
             )}
           />
         </div>
-
+        <div>
+          <p className="py-3 text-center text-xs text-slate-600 dark:text-slate-400">
+            Featured Product
+          </p>
+          <Card>
+            <CardContent className="space-y-2">
+              <FormField
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="mt-6 flex items-center justify-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Is Featured?</FormLabel>
+                  </FormItem>
+                )}
+              />
+              {isFeatured && banner && (
+                <Image
+                  src={banner}
+                  alt="banner image"
+                  className="w-full rounded-sm object-cover object-center"
+                  width={1920}
+                  height={680}
+                />
+              )}
+              {isFeatured && !banner && (
+                <div className="flex justify-center">
+                  <UploadButton
+                    appearance={{
+                      button:
+                        "ut-ready:bg-green-500 px-6 ut-uploading:cursor-not-allowed rounded-full bg-ali bg-none after:bg-blue",
+                      container:
+                        "w-max justify-center flex-row mt-6 rounded-full border-ali bg-slate-200 dark:bg-slate-800",
+                      allowedContent:
+                        "flex h-10 flex-col items-center justify-center px-4",
+                    }}
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res: any) => {
+                      form.setValue("images", [...images, res[0].url]);
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast({
+                        variant: "destructive",
+                        description: `ERROR! ${error.message}`,
+                      });
+                    }}
+                  />
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
         <div>
           <FormField
             control={form.control}

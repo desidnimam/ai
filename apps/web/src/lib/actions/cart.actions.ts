@@ -1,8 +1,8 @@
 "use server";
 
-import type { CartItem } from "@/types";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { CartItem } from "@/types";
 import { auth } from "@designali/auth";
 import { carts, db, products } from "@designali/db";
 import { eq } from "drizzle-orm";
@@ -27,10 +27,10 @@ const calcPrice = (items: CartItem[]) => {
 
 export const addItemToCart = async (data: CartItem) => {
   try {
-    const sessionCartId = cookies().get("sessionCartId").value;
+    const sessionCartId = cookies().get("sessionCartId")?.value;
     if (!sessionCartId) throw new Error("Cart Session not found");
     const session = await auth();
-    const userId = session.user.id;
+    const userId = session?.user.id as string | undefined;
     const cart = await getMyCart();
     const item = cartItemSchema.parse(data);
     const product = await db.query.products.findFirst({
@@ -55,7 +55,7 @@ export const addItemToCart = async (data: CartItem) => {
       if (existItem) {
         if (product.stock < existItem.qty + 1)
           throw new Error("Not enough stock");
-        cart.items.find((x) => x.productId === item.productId).qty =
+        cart.items.find((x) => x.productId === item.productId)!.qty =
           existItem.qty + 1;
       } else {
         if (product.stock < 1) throw new Error("Not enough stock");
@@ -83,10 +83,10 @@ export const addItemToCart = async (data: CartItem) => {
 };
 
 export async function getMyCart() {
-  const sessionCartId = cookies().get("sessionCartId").value;
+  const sessionCartId = cookies().get("sessionCartId")?.value;
   if (!sessionCartId) return undefined;
   const session = await auth();
-  const userId = session.user.id;
+  const userId = session?.user.id;
   const cart = await db.query.carts.findFirst({
     where: userId
       ? eq(carts.userId, userId)
@@ -97,7 +97,7 @@ export async function getMyCart() {
 
 export const removeItemFromCart = async (productId: string) => {
   try {
-    const sessionCartId = cookies().get("sessionCartId").value;
+    const sessionCartId = cookies().get("sessionCartId")?.value;
     if (!sessionCartId) throw new Error("Cart Session not found");
 
     const product = await db.query.products.findFirst({
@@ -114,7 +114,7 @@ export const removeItemFromCart = async (productId: string) => {
     if (exist.qty === 1) {
       cart.items = cart.items.filter((x) => x.productId !== exist.productId);
     } else {
-      cart.items.find((x) => x.productId === productId).qty = exist.qty - 1;
+      cart.items.find((x) => x.productId === productId)!.qty = exist.qty - 1;
     }
     await db
       .update(carts)

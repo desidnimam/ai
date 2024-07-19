@@ -24,6 +24,7 @@ import {
   ArrowUpRight,
   CreditCard,
   DollarSign,
+  Upload,
   Users,
 } from "lucide-react";
 
@@ -54,7 +55,7 @@ export default async function Dashboard({
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold">
                 {formatNumber(summary.ordersCount[0].count)}
               </div>
               <p className="text-xs text-muted-foreground">

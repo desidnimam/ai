@@ -120,7 +120,10 @@ export const createOrder = async () => {
 
     const order = insertOrderSchema.parse({
       userId: user.id,
+      shippingAddress: user.address,
+      paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
       taxPrice: cart.taxPrice,
       totalPrice: cart.totalPrice,
     });
@@ -292,6 +295,16 @@ export const updateOrderToPaid = async ({
   }
   await sendEmail;
 };
+
+export async function updateOrderToPaidByCOD(orderId: string) {
+  try {
+    await updateOrderToPaid({ orderId });
+    revalidatePath(`/order/${orderId}`);
+    return { success: true, message: "Order paid successfully" };
+  } catch (err) {
+    return { success: false, message: formatError(err) };
+  }
+}
 
 export async function deliverOrder(orderId: string) {
   try {

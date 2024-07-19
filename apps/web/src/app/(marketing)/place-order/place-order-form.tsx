@@ -8,7 +8,7 @@ import { useFormState, useFormStatus } from "react-dom";
 export default function PlaceOrderForm() {
   const [data, action] = useFormState(createOrder, {
     success: false,
-    message: "Wait",
+    message: "Done",
   });
 
   const PlaceOrderButton = () => {

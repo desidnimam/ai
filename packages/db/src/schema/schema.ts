@@ -13,7 +13,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { primaryKey } from "drizzle-orm/pg-core/primary-keys";
 
-import type { CartItem, PaymentResult } from "../types";
+import type { CartItem, PaymentResult, ShippingAddress } from "../types";
 
 // USERS
 export const users = pgTable(
@@ -26,6 +26,7 @@ export const users = pgTable(
     password: text("password"),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),
+    address: json("address").$type<ShippingAddress>(),
     paymentMethod: text("paymentMethod"),
     createdAt: timestamp("createdAt").defaultNow(),
     stripeCustomerId: text("stripe_customer_id"),
@@ -178,8 +179,14 @@ export const orders = pgTable("order", {
   userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  shippingAddress: json("shippingAddress").$type<ShippingAddress>().notNull(),
+  paymentMethod: text("paymentMethod").notNull(),
   paymentResult: json("paymentResult").$type<PaymentResult>(),
   itemsPrice: numeric("itemsPrice", { precision: 12, scale: 2 }).notNull(),
+  shippingPrice: numeric("shippingPrice", {
+    precision: 12,
+    scale: 2,
+  }).notNull(),
   taxPrice: numeric("taxPrice", { precision: 12, scale: 2 }).notNull(),
   totalPrice: numeric("totalPrice", { precision: 12, scale: 2 }).notNull(),
   isPaid: boolean("isPaid").notNull().default(false),
