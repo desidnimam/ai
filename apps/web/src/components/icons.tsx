@@ -30,7 +30,9 @@ import {
   ShoppingBag,
   Sun,
   SwatchBook,
+  CircleCheck,
   X,
+  List,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
@@ -43,6 +45,8 @@ export const Icons = {
   enter: CornerDownLeft,
   image: Image,
   repeat: Repeat,
+  list: List,
+  checkcircle: CircleCheck,
   box: Box,
   dot: Dot,
   checkcheck: CheckCheck,

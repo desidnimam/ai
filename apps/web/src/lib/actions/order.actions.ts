@@ -34,7 +34,6 @@ export async function getMyOrders({
   limit?: number;
   page: number;
 }) {
-  const ordersCount = await db.select({ count: count() }).from(orders);
   const session = await auth();
   if (!session) throw new Error("User is not authenticated");
 
@@ -49,9 +48,17 @@ export async function getMyOrders({
     .from(orders)
     .where(eq(orders.userId, session.user.id));
 
+  const ordersPrice = await db
+    .select({ sum: sum(orders.totalPrice) })
+    .from(orders)
+    .where(eq(orders.userId, session.user.id));
+
+    const productsCount = await db.select({ count: count() }).from(products)
   return {
     data,
-    ordersCount,
+    productsCount,
+    ordersPrice,
+    dataCount,
     totalPages: Math.ceil(dataCount[0].count / limit),
   };
 }

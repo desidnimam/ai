@@ -1,11 +1,8 @@
-import { notFound } from "next/navigation";
+
 import Dashboard from "@/components/dashboard/overview/dash";
 import UserId from "@/components/dashboard/user-id";
-import { getOrderById } from "@/src/lib/actions/order.actions";
 
-import OrderDetailsForm from "./order-details-form";
-
-export default async function OrderDetailsPage() {
+export default function OrderDetailsPage() {
   return (
     <main className="mt-40 ">
       <div className="grid justify-center text-center">

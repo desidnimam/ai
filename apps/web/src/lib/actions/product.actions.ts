@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { db, products } from "@designali/db";
+import { db, orders, products } from "@designali/db";
 import { desc } from "drizzle-orm";
 import { and, count, eq, ilike, sql } from "drizzle-orm/sql";
 import { z } from "zod";
@@ -9,6 +9,7 @@ import { z } from "zod";
 import { PAGE_SIZE } from "../constants";
 import { formatError } from "../dutils";
 import { insertProductSchema, updateProductSchema } from "../validator";
+import { auth } from "@designali/auth";
 
 // CREATE
 export async function createProduct(data: z.infer<typeof insertProductSchema>) {
@@ -53,6 +54,14 @@ export async function getProductById(productId: string) {
 }
 
 export async function getLatestProducts() {
+  const data = await db.query.products.findMany({
+    orderBy: [desc(products.createdAt)],
+    limit: 4,
+  });
+  return data;
+}
+
+export async function getUserProducts() {
   const data = await db.query.products.findMany({
     orderBy: [desc(products.createdAt)],
     limit: 4,
