@@ -9,7 +9,7 @@ import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 import { formatCurrency } from "@/lib/dutils";
 import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
-import { Card, CardContent } from "@designali/ui/card";
+import { Card, CardContent, CardFooter } from "@designali/ui/card";
 import {
   Table,
   TableBody,
@@ -34,11 +34,14 @@ export default function CartForm({ cart }: { cart?: Cart }) {
       />
 
       {!cart || cart.items.length === 0 ? (
-        <div>
-          Cart is empty. <Link href="/">Go shopping</Link>
+        <div className="text-center grid gap-5 pb-40">
+          <p>Your Cart is empty.</p>
+          <Link href="/products">
+            <Button variant="outline" size="lg">Go shopping</Button>
+          </Link>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-3 md:gap-5">
+        <div className="grid gap-6 ">
           <div className="overflow-x-auto md:col-span-3">
             <Table>
               <TableHeader>
@@ -129,35 +132,44 @@ export default function CartForm({ cart }: { cart?: Cart }) {
               </TableBody>
             </Table>
           </div>
+          <div className="mt-10  flex justify-center">
+            <Card className="w-full">
+              <CardContent className="gap-4 p-4">
+                <div className="flex justify-between pb-3 text-xl">
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                      Subtotal{" "}
+                    </p>
+                    <p>({cart.items.reduce((a, c) => a + c.qty, 0)}):</p>
+                  </div>
+                  <p className="text-semibold">
+                    {formatCurrency(cart.itemsPrice)}
+                  </p>
+                </div>
+                
+              </CardContent>
+              <CardFooter>
+              <Button
+                variant="default"
+                size="lg"
+                  onClick={() =>
+                    startTransition(() => router.push("/place-order"))
+                  }
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  {isPending ? (
+                    <Loader className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <ArrowRight className="h-4 w-4" />
+                  )}
+                  Proceed to Checkout
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       )}
-      <div className="mt-10">
-        <Card>
-          <CardContent className="gap-4 p-4">
-            <div className="flex justify-between pb-3 text-xl">
-              <div className="flex items-center gap-2">
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Subtotal{" "}
-                </p>
-                <p>({cart.items.reduce((a, c) => a + c.qty, 0)}):</p>
-              </div>
-              <p className="text-semibold">{formatCurrency(cart.itemsPrice)}</p>
-            </div>
-            <Button
-              onClick={() => startTransition(() => router.push("/place-order"))}
-              className="w-full"
-              disabled={isPending}
-            >
-              {isPending ? (
-                <Loader className="h-4 w-4 animate-spin" />
-              ) : (
-                <ArrowRight className="h-4 w-4" />
-              )}
-              Proceed to Checkout
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }

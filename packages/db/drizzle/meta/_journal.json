@@ -29,6 +29,20 @@
       "when": 1721120250828,
       "tag": "0003_lucky_meggan",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1721411355490,
+      "tag": "0004_deep_wind_dancer",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1721411808823,
+      "tag": "0005_misty_hex",
+      "breakpoints": true
     }
   ]
 }

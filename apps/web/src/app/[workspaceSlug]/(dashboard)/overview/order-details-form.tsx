@@ -36,7 +36,6 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
     taxPrice,
     shippingPrice,
     totalPrice,
-    paymentMethod,
     isPaid,
     paidAt,
     isDelivered,
@@ -124,7 +123,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Payment Method</h2>
-              <p>{paymentMethod}</p>
+             
               {isPaid ? (
                 <Badge variant="secondary">
                   Paid at {formatDateTime(paidAt).dateTime}

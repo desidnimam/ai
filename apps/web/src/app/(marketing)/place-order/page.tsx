@@ -68,7 +68,7 @@ export default async function PlaceOrderPage() {
                         <span className="px-2">{item.qty}</span>
                       </TableCell>
                       <TableCell className="text-right">
-                        ${item.price}
+                      ₹{item.price}
                       </TableCell>
                     </TableRow>
                   ))}

@@ -116,12 +116,10 @@ export const createOrder = async () => {
     if (!session) throw new Error("User is not authenticated");
     const cart = await getMyCart();
     const user = await getUserById(session.user.id);
-    if (!cart || cart.items.length === 0) redirect("/cart");
+    if (!cart || cart.items.length === 0) redirect("/products");
 
     const order = insertOrderSchema.parse({
       userId: user.id,
-      shippingAddress: user.address,
-      paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
       shippingPrice: cart.shippingPrice,
       taxPrice: cart.taxPrice,

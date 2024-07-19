@@ -4,7 +4,6 @@ import type { z } from "zod";
 import type {
   cartItemSchema,
   paymentResultSchema,
-  shippingAddressSchema,
 } from "../lib/validator";
 import type { carts, orderItems, orders, products, reviews } from "../schema";
 
@@ -18,7 +17,6 @@ export type Review = InferSelectModel<typeof reviews> & {
 export type Cart = InferSelectModel<typeof carts>;
 export type CartItem = z.infer<typeof cartItemSchema>;
 
-export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
 export type PaymentResult = z.infer<typeof paymentResultSchema>;
 
 // ORDERS

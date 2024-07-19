@@ -1,18 +1,10 @@
 "use client";
 
 import type { Order } from "@/types";
-import { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  approvePayPalOrder,
-  createPayPalOrder,
-  deliverOrder,
-  updateOrderToPaidByCOD,
-} from "@/lib/actions/order.actions";
-import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
+import { formatCurrency, formatDateTime } from "@/lib/dutils";
 import { Badge } from "@designali/ui/badge";
-import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import {
   Table,
@@ -22,37 +14,19 @@ import {
   TableHeader,
   TableRow,
 } from "@designali/ui/table";
-import { useToast } from "@designali/ui/use-toast";
-import { usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
 export default function OrderDetailsForm({ order }: { order: Order }) {
   const {
-    shippingAddress,
     orderItems,
     itemsPrice,
     taxPrice,
     shippingPrice,
     totalPrice,
-    paymentMethod,
     isPaid,
     paidAt,
-    isDelivered,
-    deliveredAt,
   } = order;
 
-  const { toast } = useToast();
-
-  function PrintLoadingState() {
-    const [{ isPending, isRejected }] = usePayPalScriptReducer();
-    let status = "";
-    if (isPending) {
-      status = "Loading PayPal...";
-    } else if (isRejected) {
-      status = "Error in loading PayPal.";
-    }
-    return status;
-  }
-
+ 
   return (
     <div className="">
       <h1 className="py-4 text-xl"> Order ID - {order.id}</h1>
@@ -61,7 +35,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Payment Method</h2>
-              <p>{paymentMethod}</p>
+              
               {isPaid ? (
                 <Badge variant="secondary">
                   Paid at {formatDateTime(paidAt).dateTime}
@@ -71,24 +45,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
               )}
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Shipping Address</h2>
-              <p>{shippingAddress.fullName}</p>
-              <p>
-                {shippingAddress.streetAddress}, {shippingAddress.city},{" "}
-                {shippingAddress.postalCode}, {shippingAddress.country}{" "}
-              </p>
-
-              {isDelivered ? (
-                <Badge variant="secondary">
-                  Delivered at {formatDateTime(deliveredAt).dateTime}
-                </Badge>
-              ) : (
-                <Badge variant="destructive">Not delivered</Badge>
-              )}
-            </CardContent>
-          </Card>
+          
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Order Items</h2>
@@ -122,7 +79,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
                         <span className="px-2">{item.qty}</span>
                       </TableCell>
                       <TableCell className="text-right">
-                        ${item.price}
+                        ₹{item.price}
                       </TableCell>
                     </TableRow>
                   ))}
