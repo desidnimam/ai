@@ -56,13 +56,7 @@ export const authConfig = {
     maxAge: 30 * 24 * 60 * 60,
   },
   secret: env.AUTH_SECRET,
-  providers: [
-    Github,
-    ResendProvider,
-    Google({
-      allowDangerousEmailAccountLinking: true,
-    }),
-  ],
+  providers: [Github, ResendProvider, Google],
   callbacks: {
     jwt: async ({ token, user, trigger, session }: any) => {
       const email = token?.email ?? "";
