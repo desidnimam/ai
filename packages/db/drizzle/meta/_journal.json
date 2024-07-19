@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1720240372489,
-      "tag": "0000_boring_marvel_boy",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1720712737913,
-      "tag": "0001_tan_fabian_cortez",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1720930145317,
-      "tag": "0002_jazzy_silver_samurai",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1721120250828,
-      "tag": "0003_lucky_meggan",
+      "when": 1721405078645,
+      "tag": "0000_unique_beast",
       "breakpoints": true
     }
   ]

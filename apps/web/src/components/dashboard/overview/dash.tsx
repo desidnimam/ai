@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getMyOrders } from "@/lib/actions/order.actions";
-import { formatCurrency, formatDateTime } from "@/src/lib/dutils";
+import { formatCurrency, formatDateTime, formatNumber } from "@/src/lib/dutils";
 import { Button } from "@designali/ui/button";
 import {
   Card,
@@ -24,7 +24,6 @@ import {
   ArrowUpRight,
   CreditCard,
   DollarSign,
-  Upload,
   Users,
 } from "lucide-react";
 
@@ -55,7 +54,9 @@ export default async function Dashboard({
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">12</div>
+              <div className="text-2xl font-bold">
+                {formatNumber(summary.ordersCount[0].count)}
+              </div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>

@@ -2,10 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyCart } from "@/lib/actions/cart.actions";
-import { getUserById } from "@/lib/actions/user.actions";
 import { APP_NAME } from "@/lib/constants";
 import { formatCurrency } from "@/lib/dutils";
-import { auth } from "@designali/auth";
+import PageTitle from "@/src/components/mdx/page-title";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import {
@@ -25,43 +24,17 @@ export const metadata = {
 
 export default async function PlaceOrderPage() {
   const cart = await getMyCart();
-  const session = await auth();
-  const user = await getUserById(session.user.id);
   if (!cart || cart.items.length === 0) redirect("/cart");
-  if (!user.paymentMethod) redirect("/payment");
 
   return (
     <div className="mx-auto mt-40 max-w-7xl px-6">
-      <h1 className="py-4 text-2xl">Place Order</h1>
+      <PageTitle
+        title="Place Orders"
+        description={`Manage your account settings and set e-mail preferences.`}
+      />
 
       <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Shipping Address</h2>
-              <p>{user.address.fullName}</p>
-              <p>
-                {user.address.streetAddress}, {user.address.city},{" "}
-                {user.address.postalCode}, {user.address.country}{" "}
-              </p>
-              <div>
-                <Link href="/shipping">
-                  <Button variant="outline">Edit</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Payment Method</h2>
-              <p>{user.paymentMethod}</p>
-              <div>
-                <Link href="/payment">
-                  <Button variant="outline">Edit</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Order Items</h2>
@@ -84,9 +57,10 @@ export default async function PlaceOrderPage() {
                           <Image
                             src={item.image}
                             alt={item.name}
-                            width={50}
-                            height={50}
-                          ></Image>
+                            width={250}
+                            height={250}
+                            className="rounded-md"
+                          />
                           <span className="px-2">{item.name}</span>
                         </Link>
                       </TableCell>

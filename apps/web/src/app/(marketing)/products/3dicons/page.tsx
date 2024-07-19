@@ -3,7 +3,15 @@ import Link from "next/link";
 import { Avegra } from "@/app/fonts";
 import { auth } from "@designali/auth";
 import { cn } from "@designali/ui";
-import { Button, buttonVariants } from "@designali/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@designali/ui/breadcrumb";
+import { Button } from "@designali/ui/button";
 
 import { Icooons } from "./3dicons";
 
@@ -34,8 +42,28 @@ export default async function AboutAI() {
         <p className="md:text-md mx-auto my-2 max-w-md text-center text-sm font-light">
           +100 3D icons for your amazing design projects.
         </p>
-
-        <div className="mt-10 grid justify-center gap-4">
+        <div className="mt-10 flex justify-center text-white">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink>
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink>
+                  <Link href="/products">Products</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>3D Icons</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <div className=" grid justify-center gap-4">
           {(await session) ? (
             <div className="mt-10 flex justify-center gap-3">
               <Button variant="default" size="lg">

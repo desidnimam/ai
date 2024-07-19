@@ -148,7 +148,7 @@ export default function ReviewList({
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                  <div className="flex flex-col gap-5  ">
+                  <div className="flex flex-col gap-5">
                     <FormField
                       control={form.control}
                       name="title"
@@ -259,15 +259,17 @@ export default function ReviewList({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex space-x-4 text-sm text-muted-foreground">
+              <div className="grid gap-y-3 text-sm text-muted-foreground md:flex md:justify-between">
                 <Rating value={review.rating} />
-                <div className="flex items-center">
-                  <User className="mr-1 h-3 w-3" />
-                  {review.user ? review.user.name : "Deleted User"}
-                </div>
-                <div className="flex items-center">
-                  <Calendar className="mr-1 h-3 w-3" />
-                  {formatDateTime(review.createdAt).dateOnly}
+                <div className="flex justify-between gap-2">
+                  <div className="flex items-center">
+                    <User className="mr-1 h-3 w-3" />
+                    {review.user ? review.user.name : "Deleted User"}
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="mr-1 h-3 w-3" />
+                    {formatDateTime(review.createdAt).dateOnly}
+                  </div>
                 </div>
               </div>
             </CardContent>

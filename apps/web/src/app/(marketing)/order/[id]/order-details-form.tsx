@@ -1,17 +1,9 @@
 "use client";
 
 import type { Order } from "@/types";
-import { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  approvePayPalOrder,
-  createPayPalOrder,
-  deliverOrder,
-  updateOrderToPaidByCOD,
-} from "@/lib/actions/order.actions";
-import { formatCurrency, formatDateTime, formatId } from "@/lib/dutils";
-import { Badge } from "@designali/ui/badge";
+import { formatCurrency } from "@/lib/dutils";
 import { Button } from "@designali/ui/button";
 import { Card, CardContent } from "@designali/ui/card";
 import {
@@ -22,73 +14,15 @@ import {
   TableHeader,
   TableRow,
 } from "@designali/ui/table";
-import { useToast } from "@designali/ui/use-toast";
-import { usePayPalScriptReducer } from "@paypal/react-paypal-js";
 
 export default function OrderDetailsForm({ order }: { order: Order }) {
-  const {
-    shippingAddress,
-    orderItems,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-    paymentMethod,
-    isPaid,
-    paidAt,
-    isDelivered,
-    deliveredAt,
-  } = order;
-
-  const { toast } = useToast();
-
-  function PrintLoadingState() {
-    const [{ isPending, isRejected }] = usePayPalScriptReducer();
-    let status = "";
-    if (isPending) {
-      status = "Loading PayPal...";
-    } else if (isRejected) {
-      status = "Error in loading PayPal.";
-    }
-    return status;
-  }
+  const { orderItems, itemsPrice, taxPrice, shippingPrice, totalPrice } = order;
 
   return (
-    <div className="">
+    <div className="justify-center gap-3">
       <h1 className="py-4 text-xl"> Order ID - {order.id}</h1>
       <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4 overflow-x-auto md:col-span-2">
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Payment Method</h2>
-              <p>{paymentMethod}</p>
-              {isPaid ? (
-                <Badge variant="secondary">
-                  Paid at {formatDateTime(paidAt).dateTime}
-                </Badge>
-              ) : (
-                <Badge variant="destructive">Not paid</Badge>
-              )}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="gap-4 p-4">
-              <h2 className="pb-4 text-xl">Shipping Address</h2>
-              <p>{shippingAddress.fullName}</p>
-              <p>
-                {shippingAddress.streetAddress}, {shippingAddress.city},{" "}
-                {shippingAddress.postalCode}, {shippingAddress.country}{" "}
-              </p>
-
-              {isDelivered ? (
-                <Badge variant="secondary">
-                  Delivered at {formatDateTime(deliveredAt).dateTime}
-                </Badge>
-              ) : (
-                <Badge variant="destructive">Not delivered</Badge>
-              )}
-            </CardContent>
-          </Card>
           <Card>
             <CardContent className="gap-4 p-4">
               <h2 className="pb-4 text-xl">Order Items</h2>
@@ -105,7 +39,7 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
                     <TableRow key={item.slug}>
                       <TableCell>
                         <Link
-                          href={`/product/${item.slug}`}
+                          href={`/products/${item.slug}`}
                           className="flex items-center"
                         >
                           <Image
@@ -154,6 +88,12 @@ export default function OrderDetailsForm({ order }: { order: Order }) {
             </CardContent>
           </Card>
         </div>
+
+        <Link href={"/dashboard/orders"}>
+          <Button variant="default" size="lg">
+            View My Order
+          </Button>
+        </Link>
       </div>
     </div>
   );

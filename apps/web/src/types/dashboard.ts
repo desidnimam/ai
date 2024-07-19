@@ -1,11 +1,13 @@
-import {
-  cartItemSchema,
-  paymentResultSchema,
-  shippingAddressSchema,
-} from "@/lib/validator";
-import { carts, orderItems, orders, products, reviews } from "@designali/db";
-import { InferSelectModel } from "drizzle-orm";
-import { z } from "zod";
+import type { cartItemSchema, paymentResultSchema } from "@/lib/validator";
+import type {
+  carts,
+  orderItems,
+  orders,
+  products,
+  reviews,
+} from "@designali/db";
+import type { InferSelectModel } from "drizzle-orm";
+import type { z } from "zod";
 
 // PRODUCTS
 export type Product = InferSelectModel<typeof products>;
@@ -17,7 +19,6 @@ export type Review = InferSelectModel<typeof reviews> & {
 export type Cart = InferSelectModel<typeof carts>;
 export type CartItem = z.infer<typeof cartItemSchema>;
 
-export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
 export type PaymentResult = z.infer<typeof paymentResultSchema>;
 
 // ORDERS

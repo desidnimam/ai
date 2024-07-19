@@ -13,6 +13,14 @@ import { APP_NAME } from "@/lib/constants";
 import { round2 } from "@/lib/dutils";
 import ProductList from "@/src/components/admin/product/product-list";
 import { auth } from "@designali/auth";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@designali/ui/breadcrumb";
 import { Button } from "@designali/ui/button";
 
 import ReviewList from "./review-list";
@@ -44,8 +52,27 @@ const ProductDetails = async ({
   const session = await auth();
   const latestProducts = await getLatestProducts();
   return (
-    <div className="mx-auto mt-20 max-w-7xl px-4">
-      <h1 className="py-10 text-center text-5xl font-semibold">
+    <div className="mx-auto mt-20 max-w-7xl px-4 md:mt-28">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink>
+              <Link href="/">Home</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink>
+              <Link href="/products">Products</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{product.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h1 className="py-4 text-3xl font-semibold md:py-10 md:text-5xl">
         {product.name}
       </h1>
       <section>

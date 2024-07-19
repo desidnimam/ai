@@ -1,5 +1,5 @@
 {
-  "id": "4d1fb219-9d7e-494b-8895-a8fef96deabf",
+  "id": "917c753a-ea35-4205-be49-bcec59c70b0d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -287,18 +287,6 @@
           "primaryKey": false,
           "notNull": true
         },
-        "shippingAddress": {
-          "name": "shippingAddress",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "paymentMethod": {
-          "name": "paymentMethod",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "paymentResult": {
           "name": "paymentResult",
           "type": "json",
@@ -307,12 +295,6 @@
         },
         "itemsPrice": {
           "name": "itemsPrice",
-          "type": "numeric(12, 2)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "shippingPrice": {
-          "name": "shippingPrice",
           "type": "numeric(12, 2)",
           "primaryKey": false,
           "notNull": true
@@ -677,12 +659,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "address": {
-          "name": "address",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
         "paymentMethod": {
           "name": "paymentMethod",
           "type": "text",
@@ -695,6 +671,18 @@
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
+        },
+        "stripe_customer_id": {
+          "name": "stripe_customer_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subscribed": {
+          "name": "subscribed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -752,6 +740,73 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "public.post": {
+      "name": "post",
+      "schema": "",
+      "columns": {
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.likes_session": {
+      "name": "likes_session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },

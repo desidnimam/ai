@@ -39,11 +39,8 @@ CREATE TABLE IF NOT EXISTS "orderItems" (
 CREATE TABLE IF NOT EXISTS "order" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"userId" uuid NOT NULL,
-	"shippingAddress" json NOT NULL,
-	"paymentMethod" text NOT NULL,
 	"paymentResult" json,
 	"itemsPrice" numeric(12, 2) NOT NULL,
-	"shippingPrice" numeric(12, 2) NOT NULL,
 	"taxPrice" numeric(12, 2) NOT NULL,
 	"totalPrice" numeric(12, 2) NOT NULL,
 	"isPaid" boolean DEFAULT false NOT NULL,
@@ -95,9 +92,10 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"password" text,
 	"emailVerified" timestamp,
 	"image" text,
-	"address" json,
 	"paymentMethod" text,
-	"createdAt" timestamp DEFAULT now()
+	"createdAt" timestamp DEFAULT now(),
+	"stripe_customer_id" text,
+	"subscribed" boolean
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -105,6 +103,19 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	"token" text NOT NULL,
 	"expires" timestamp NOT NULL,
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "post" (
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"slug" text PRIMARY KEY NOT NULL,
+	"likes" integer DEFAULT 0 NOT NULL,
+	"views" integer DEFAULT 0 NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "likes_session" (
+	"id" text PRIMARY KEY NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"likes" integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN

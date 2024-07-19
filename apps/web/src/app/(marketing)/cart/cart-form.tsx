@@ -144,7 +144,7 @@ export default function CartForm({ cart }: { cart?: Cart }) {
               <p className="text-semibold">{formatCurrency(cart.itemsPrice)}</p>
             </div>
             <Button
-              onClick={() => startTransition(() => router.push("/payment"))}
+              onClick={() => startTransition(() => router.push("/place-order"))}
               className="w-full"
               disabled={isPending}
             >

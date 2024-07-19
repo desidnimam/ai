@@ -34,6 +34,7 @@ export async function getMyOrders({
   limit?: number;
   page: number;
 }) {
+  const ordersCount = await db.select({ count: count() }).from(orders);
   const session = await auth();
   if (!session) throw new Error("User is not authenticated");
 
@@ -50,6 +51,7 @@ export async function getMyOrders({
 
   return {
     data,
+    ordersCount,
     totalPages: Math.ceil(dataCount[0].count / limit),
   };
 }
@@ -115,15 +117,10 @@ export const createOrder = async () => {
     const cart = await getMyCart();
     const user = await getUserById(session.user.id);
     if (!cart || cart.items.length === 0) redirect("/cart");
-    if (!user.address) redirect("/shipping");
-    if (!user.paymentMethod) redirect("/payment");
 
     const order = insertOrderSchema.parse({
       userId: user.id,
-      shippingAddress: user.address,
-      paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
-      shippingPrice: cart.shippingPrice,
       taxPrice: cart.taxPrice,
       totalPrice: cart.totalPrice,
     });
@@ -295,16 +292,6 @@ export const updateOrderToPaid = async ({
   }
   await sendEmail;
 };
-
-export async function updateOrderToPaidByCOD(orderId: string) {
-  try {
-    await updateOrderToPaid({ orderId });
-    revalidatePath(`/order/${orderId}`);
-    return { success: true, message: "Order paid successfully" };
-  } catch (err) {
-    return { success: false, message: formatError(err) };
-  }
-}
 
 export async function deliverOrder(orderId: string) {
   try {

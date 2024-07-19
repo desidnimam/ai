@@ -3,6 +3,14 @@ import Link from "next/link";
 import { Avegra } from "@/app/fonts";
 import { auth } from "@designali/auth";
 import { cn } from "@designali/ui";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@designali/ui/breadcrumb";
 import { Button } from "@designali/ui/button";
 
 import { Grads } from "./grads";
@@ -43,7 +51,29 @@ export default async function AboutAI() {
           +1000 abstract gradient elements and backgrounds for your amazing
           design projects.
         </p>
-
+        <div className="mt-10 flex justify-center ">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink className="text-slate-400 hover:text-white">
+                  <Link href="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="text-slate-400" />
+              <BreadcrumbItem>
+                <BreadcrumbLink className="text-slate-400 hover:text-white">
+                  <Link href="/products">Products</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="text-slate-400" />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="text-white">
+                  Graaadients
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
         <div className="mt-10 grid justify-center gap-4">
           {(await session) ? (
             <Button variant="default" size="lg">
