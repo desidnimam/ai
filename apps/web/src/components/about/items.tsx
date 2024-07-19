@@ -23,21 +23,12 @@ interface Card {
 }
 
 const Items = () => {
-  const views = api.views.getCount.useQuery();
+  const youtubeQuery = api.youtube.get.useQuery();
 
-  const data: Card[] = [
-    {
-      title: "Blog Total Views",
-      link: "https://designali.in/blogs",
-      value: views.data.views,
-      icon: "",
-      linkText: "Blogs",
-      gradient: {
-        startColor: "#ff0f7b",
-        endColor: "#f945ff",
-      },
-    },
-  ];
+  const likesQuery = api.likes.getCount.useQuery();
+  const viewsQuery = api.views.getCount.useQuery();
+
+  const data: Card[] = [];
 
   return (
     <div className="mb-4 mt-16 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
