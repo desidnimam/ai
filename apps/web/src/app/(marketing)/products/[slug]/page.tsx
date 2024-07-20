@@ -105,7 +105,7 @@ const ProductDetails = async ({
           </div>
           <div className="grid w-full justify-center gap-2 px-4 md:flex">
             <Link
-              href={`/products/${[product.slug]}`}
+              href={`/portfolio`}
               className="grid w-full gap-2 md:flex "
             >
               <Button
@@ -113,7 +113,7 @@ const ProductDetails = async ({
                 size="lg"
                 className="grid w-full gap-2 md:flex "
               >
-                <span>Buy Now</span>
+                <span>View Demos</span>
               </Button>
             </Link>
             <div className="w-sm flex justify-center">
